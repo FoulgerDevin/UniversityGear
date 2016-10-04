@@ -1,0 +1,83 @@
+\documentclass[letterpaper, 10pt, draftclsnofoot, onecolumn]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{cite}
+\usepackage{listings}
+
+\usepackage[margin=0.75in]{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\lstset{
+language=C,
+basicstyle=\ttfamily,
+commentstyle=\color{blue},
+keywordstyle=\color{green},
+numberstyle=\color{red},
+stringstyle=\color{orange}
+}
+
+\def\name{}
+
+\input{pygments.tex}
+
+\hypersetup {
+        colorlinks = true,
+        urlcolor = black,
+        pdfauthor = {\name},
+        pdfkeywords = {},
+        pdfsubject = {},
+        pdfpagemode = UseNone
+}
+
+\begin{document}
+
+\title{ Insert Title here \\ {\large Class Term Year Here}}
+\author{\name}
+
+\begin{titlepage}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\end{titlepage}
+
+\section{Introduction}
+
+\subsection{Subsection}
+	
+	\lstinputlisting[caption={Handler Request}, label={Handler Request},
+		language=C, firstline=34, lastline=38]{examples.c}
+		
+	\par There should be a citation that follows this and then a biliography!
+	\cite{myself}
+
+\newpage
+\section{Bibliography}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\end{document}
