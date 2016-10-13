@@ -1,0 +1,111 @@
+\documentclass[letterpaper, 10pt, draftclsnofoot, onecolumn]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{cite}
+\usepackage{listings}
+
+\usepackage[margin=0.75in]{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+\newcommand{\namesigdate}[2][5cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[2\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Signature}} \\[2\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Date}}
+  \end{tabular}
+}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\def\name{Devin Foulger, Bryan Liauw, and Hector Trujillo }
+
+\input{pygments.tex}
+
+\hypersetup {
+        colorlinks = true,
+        urlcolor = black,
+        pdfauthor = {\name},
+        pdfkeywords = {},
+        pdfsubject = {},
+        pdfpagemode = UseNone
+}
+
+\pagenumbering{gobble}
+\begin{document}
+
+\title{ Problem Statement}
+\author{\name\vspace{-10ex}}
+\maketitle
+\begin{center}
+	\today\vspace{2ex}
+\end{center}
+\section*{Abstract}
+	In order to stay competitive in the online retailer business, eBay recently 
+	created multiple APIs that allow online retailers to start their business 
+	easier. These APIs will be released to the public soon. So, in order to test 
+	the applicability, eBay would like us to test up to three of their APIs by 
+	creating an application that demonstrates the APIs use. The application will 
+	consist of college merchandise and allow users to search for and purchase 
+	merchandise related to any college and will target the new Android operating 
+	system, N OS. The goal for eBay is that their APIs are tested and well documented 
+	for later use by other third party developers and to get more eBay related apps 
+	onto the Google Play store.
+
+\section*{Problem Definition}
+	EBay wants to test and demonstrate the functionality of their newly created APIs. 
+	In order to test the applicability of the APIs, eBay would like us to utilize up to 
+	three of their APIs to create an application. Since these APIs will be used by 
+	third-party developers, eBay would like an example of how each of these is used
+	 as a demonstration. The APIs will help users create targeted eBay experiences.
+	 This is done by allowing developers to access eBay's catalog of items. It is 
+	also imperative that we evaluate the documentation for the APIs and determine 
+	if it is accurate enough for developers to integrate with their own catalog. 
+	Also, they would like to know how well the app is going to work on the new 
+	Android operating system. 
+
+\section*{Proposed Solution}
+	In order to test the APIs, we are going to make an Android application that 
+	functions as an online retailer, similar to eBay. In order to limit the scope, 
+	our application will sell only college related merchandises. The application 
+	will allow users to search for college merchandise in which they will be able 
+	to purchase from the Ebay catalog of items. We will also be documenting our 
+	use with the APIs and any bugs that we may encounter. This document will be 
+	based on the output of the API and we will  compare this to the documentation 
+	provided by eBay. 
+	\par At the Engineering Expo, we will demonstrate our application on an Android
+	 device. The demonstration will consist with the basic functionality of the 
+	application. This includes searching for college merchandise using different 
+	search filters that can be changed as needed. During the demonstration, we will
+	 also identify what functionality is a result of using eBay's public APIs that 
+	we tested. This application will serve as a prototype for vendors on eBay to 
+	develop their own apps to deliver a centralized shopping experience.
+
+\newpage
+\section*{Performance Metrics}
+	There are several ways we can measure the success of our project. One, the 
+	application should be live in the Google Play store. Two, would be to 
+	demonstrate the clear use of eBay's APIs through our application. This is done 
+	by creating an interface that visualizes the public API. The data that is 
+	visualized should also be correct. Finally, eBay will be satisfied by the 
+	documents that we provide to them.
+
+\namesigdate
+
+\end{document}
