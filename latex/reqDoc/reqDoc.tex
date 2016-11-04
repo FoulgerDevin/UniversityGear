@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{tabularx}
+\usepackage{graphicx}
 
 \newcommand{\subparagraph}{}
 \usepackage{titlesec}
@@ -74,7 +75,7 @@ stringstyle=\color{orange}
 
 \begin{document}
 
-\title{Software Rquirements Specification \\{\vspace{-1ex}\huge College Merchandise} \\ {\large \today}}
+\title{\vspace{20em}Software Rquirements Specification \\{\vspace{-1ex}\huge College Merchandise} \\ {\large \today}}
 \author{\vspace{10ex}Devin Foulger \\{\vspace{-1ex}Hector Trujillo} \\{\vspace{-1ex}Bryan Liauw}}
 
 \begin{titlepage}
@@ -138,8 +139,13 @@ College Merchandise     & Items such as school supplies for Higher Ed, fan gear,
 User                   	      & Any one who will be using the Android Application utilizing eBay's APIs.                                                      \\ \hline
 Client                 	      & eBay                                                                                                                          \\ \hline
 BIN                    	      & Buy It Now                                                                                                                    \\ \hline
+N                   	      & Android's new Nougat operating system 
+\\ \hline
+M                   	      & Android's Marshmallow operating system                                                                                                                   \\ \hline
 \end{tabularx}
 \end{table}
+
+\newpage
 
 \subsection{Overview}
 
@@ -181,7 +187,7 @@ merchandises, we will have some visual appeals that reflect what the application
 
 \subsubsection{Hardware Interfaces}
 
-The devices that we use must be compatible with N os. 
+The devices that we use must be compatible with M and N os. 
 
 \subsubsection{Software Interfaces}
 
@@ -241,9 +247,9 @@ Users could also be parents, grandparents or other individuals who are looking
 to help out a relative or friend in searching for any college merchandise that 
 the individual might need. \newline
 
-Since most of the users are going to use this application on the mobile phone, 
-our main focus to cater this user would be to create an interface that is simple
- and straightforward. User should be able to learn and familiarize the interface
+Since are users are going to use this application on  a mobile device, 
+our main focus to the user would be to create an interface that is simple
+ and straightforward. The user should be able to learn and familiarize with the interface
  in a short period of time. Furthermore, the processes should be fast; the 
 window between processes should be short to keep the attention of the users.
 
@@ -257,9 +263,7 @@ with the new operating system. Older APIs created by Google may also be
 
 Large loads on the application might put strain on lower quality machines. 
 Example of large loads would be a lot of activities and threads and overly 
-large image. 
-
-Testing might also be a constraint since a virtual machine will take a huge 
+large image.Testing might also be a constraint since a virtual machine will take a huge 
 amount of computer resources. For a better testing environment, the usage of an 
 actual physical smartphone might be needed.
 
@@ -396,25 +400,25 @@ Dependencies: None.
 Name: Usage of search feature\newline
 Measurement: The search criteria provided should be easy to understand and 
 simple.\newline
-Dependencies: None.
+Dependencies: Performance requirement 1.
 
 \subsubsection{Performance Requirement 3}
 Name: Usage of search results in a listview\newline
 Measurement: The results displayed in a listview should provide the user with 
 easy to understand results. Things like the item name, price, and school should 
 be provided to the user.\newline
-Dependencies: None.
+Dependencies: Performance requirement 1.
 
 \subsubsection{Performance Requirement 4}
 Name: Purchase feature\newline
 Measurement: The purchase feature should mirror what users are already familiar 
-to.\newline
+to, such as a shopping cart with checkout buttons.\newline
 Dependencies: None.
 
 \subsubsection{Performance Requirement 5}
 Name: Usage of purchase feature\newline
-Measurement:\newline 
-Dependencies: 
+Measurement: Users should recieve a receipt that the feature worked.\newline 
+Dependencies: Performance requirement 4.
 
 \subsubsection{Performance Requirement 6}
 Name: Sign in feature\newline
@@ -426,7 +430,7 @@ Dependencies: None.
 \subsubsection{Performance Requirement 7}
 Name: Usage of sign in feature\newline
 Measurement: The user should know that they are signed in. \newline
-Dependencies: None.
+Dependencies: Performance requirement 6.
 
 \subsection{Software System Attributes}
 
@@ -442,27 +446,36 @@ has been specified by the user.
 
 The application will be available only to users who have Android devices. These 
 users must also have devices that are compatible with the new operating system, 
-N. Other than the two constraints above, any user who has a valid internet 
-connection and access to the Google Play store, should be able to download and 
-use our application.
+N and the current operating system, M. Other than the two constraints above, 
+any user who has a valid internet connection and access to the Google Play 
+store, should be able to download and use our application.
 
 \subsubsection{Security}
 
-Unsure, as I haven't read any documentation concerning security. I will ask Luther about this. 
+Security should not be a problem, as the APIs are using HTTPS protocols for 
+recieving and sending data.
 
 \subsubsection{Maintainabillity}
 
 In order to create an application that is easily maintainable, we must be sure 
 that all the parts are separated in an easy to manage fashion. We would avoid 
-over-coupling objects and classes and use an MVC design pattern. \newline
-
-Furthermore, we will also provide a javadoc in order for future developer to 
-easily see what each part of the application does.
+over-coupling objects and classes and use an MVC design pattern. Our code 
+will also be testable, readable, and commented well.
 
 \subsubsection{Portability}
 
 We acknowledge the fact that our application will not be very portable. This is 
 because we a specifically developing the application for Android systems. This 
 means that our language is also going to be in Java. 
+
+\newpage
+
+\section{Appendices}
+\subsection{Appendix I: Gannt Chart for Application}
+
+\begin{figure}[h]
+\includegraphics[scale =.6]{ganttChart} 
+\centering
+\end{figure}
 
 \end{document}
