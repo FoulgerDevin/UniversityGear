@@ -37,6 +37,14 @@
 \newcommand{\cred}[1]{{\color{red}#1}}
 \newcommand{\cblue}[1]{{\color{blue}#1}}
 
+\newcommand{\namesigdate}[2][6cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Date}}
+  \end{tabular}
+}
+
 
 \usepackage{hyperref}
 \usepackage{geometry}
@@ -386,6 +394,15 @@ Input: Item from listview.\newline
 Output: A page with complete detail of the item.\newline
 Dependencies: Functional requirement 10.
 
+\subsubsection{Functional Requirement 13}
+Name: Shopping Cart\newline
+Description: This is where items would be saved before users want to
+purchase the items. A user should be able to view their shopping cart with
+the items they have selected.\newline
+Input: Items they have selected.\newline
+Output: A page with the items they want to purchase.\newline
+Dependencies: Functional requirement 4.
+
 \subsection{Performance Requirements}
 
 This section will document that the requirements provide a measurement of how 
@@ -472,10 +489,20 @@ means that our language is also going to be in Java.
 
 \section{Appendices}
 \subsection{Appendix I: Gannt Chart for Application}
-
 \begin{figure}[h]
 \includegraphics[scale =.6]{ganttChart} 
 \centering
 \end{figure}
+\newpage
+
+\subsection{Appendix II: Signatures}
+
+\vspace{2ex}\noindent 
+\namesigdate{Luther Boorn} \hfill
+\namesigdate{Devin Foulger} \hfill
+
+\vspace{4ex}\noindent
+\namesigdate{Hector Trujillo} \hfill
+\namesigdate{Brian Liauw} \hfill
 
 \end{document}
