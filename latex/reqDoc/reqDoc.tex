@@ -83,7 +83,7 @@ stringstyle=\color{orange}
 
 \begin{document}
 
-\title{\vspace{20em}Software Rquirements Specification \\{\vspace{-1ex}\huge College Merchandise} \\ {\large \today}}
+\title{\vspace{20em}Software Rquirements Specification \\{\vspace{-1ex}\huge UniversityGear} \\ {\large \today}}
 \author{\vspace{10ex}Devin Foulger \\{\vspace{-1ex}Hector Trujillo} \\{\vspace{-1ex}Bryan Liauw}}
 
 \begin{titlepage}
@@ -103,9 +103,9 @@ Requirements Document (SRS).
 \subsection{Purpose}
 
 This SRS document will serve several purposes. First it will define the 
-requirements for the "College Merchandising" application that team 
-"DHB Solutions" will be developing for their CS Capstone project for eBay. The 
-document will detailing the constraints, features, dependencies and performance 
+requirements for the "UniversityGear" application that team "4Credit"
+ will be developing for their CS Capstone project for eBay. The 
+document will be detailing the constraints, features, dependencies and performance 
 of the application in a manner that clearly demonstrates what the client will be
  receiving.The intended audience for this Software Requirements Specification 
 (SRS) will be the team, eBay, and the instructors of the computer science senior
@@ -113,7 +113,7 @@ of the application in a manner that clearly demonstrates what the client will be
 
 \subsection{Scope}
 
-The Android Application "College Merchandising" will allow users to browse and 
+The Android Application, "UniversityGear", will allow users to browse and 
 shop for college merchandise that are for sale through eBay. The application 
 will be published to the Google Play Store and will be optimized for Android's 
 latest operating system 'N'. \newline
@@ -132,7 +132,7 @@ Below are definitions for terms that will allow for proper interpretation of the
 \centering
 \caption{Definitions}
 \label{my-label}
-\begin{tabularx}{\textwidth}{X|X}
+\begin{tabularx}{\textwidth}{l|X}
 \hline
 \textbf{Term}               & \textbf{Definition}                                                                                                           \\ \hline
 API                    	      & Application Programming Interface, allows developers to develop applications that connect to eBay's large inventory of items. \\ \hline
@@ -142,14 +142,14 @@ Filters                	      & Search criteria that will allow the user to more
 Third-Party Developers & Individuals outside of eBay that will be using eBay's public APIs to create their own applications.                           \\ \hline
 Application            	      & An Android application that uses eBay's public APIs.                                                                          \\ \hline
 Interface              	      & The User Interface.                                                                                                           \\ \hline
-Bugs                   	      & Errors in the API code that may be discovered during use.                                                                     \\ \hline
 College Merchandise     & Items such as school supplies for Higher Ed, fan gear, etc...                                                                 \\ \hline
 User                   	      & Any one who will be using the Android Application utilizing eBay's APIs.                                                      \\ \hline
 Client                 	      & eBay                                                                                                                          \\ \hline
 BIN                    	      & Buy It Now                                                                                                                    \\ \hline
 N                   	      & Android's new Nougat operating system 
 \\ \hline
-M                   	      & Android's Marshmallow operating system                                                                                                                   \\ \hline
+M                   	      & Android's Marshmallow operating system                                                                                                                   
+\\ \hline
 \end{tabularx}
 \end{table}
 
@@ -158,7 +158,7 @@ M                   	      & Android's Marshmallow operating system             
 \subsection{Overview}
 
 The remainder of this document will provide an overview of the functionality 
-that the "College Merchandising" application will offer along with the 
+that the "UniversityGear" application will offer along with the 
 interaction that it will have with other systems. The next chapter will identify
  any constraints that may prevent success for this project.
 
@@ -184,8 +184,7 @@ to be able to pull search results from eBay's inventory.
 
 The user interface will mimic what people already know about eBay and other 
 similar shopping experiences. This will include standard things such as a place 
-to sign in, a place to search for items, and a place to view items. Signing in 
-could consist of multiple pages for existing users or for new users. Searching 
+to search for items, and a place to view items. Searching 
 could also vary depending on search settings like a basic search or advanced 
 searching. When viewing items, there could be several kinds of list views. We 
 would also have specific college-related images to help users to find the item 
@@ -203,9 +202,9 @@ We will be using the new Android operating system, N. We will also be making use
  of a wide variety of eBay's new APIs. Some of these are apart of their new Buy 
 APIs. These ones include the Browse and Order APIs. The Browse API will allow us
  to search for items and find different item feeds. The Order API will allow us 
-to have some form of item checkout and order tracking. Will we also make use of 
-their Finding API, which will allow us to search for items. Together, these APIs
- will allow us to connect with eBay's large collection of items.
+to have some form of item checkout and order tracking. Together, these APIs
+ will allow us to connect with eBay's large collection of items. We also plan 
+on using their Guest Checkout API, so that users will be able to purchase items.
 
 \subsubsection{Communication Interfaces}
 
@@ -242,7 +241,7 @@ at once will vary depending on how the user wants the results presented to them
 and by the screen size of the product that they will be using. The application 
 will also allow the user to sort the order in which the items are displayed. The
  sort options will be similar to what eBay provides on their current website. 
-This includes sorting by price and time (ending soon or recently posted).
+This includes sorting by price or condition.
 
 \subsection{User Characteristics}
 
@@ -311,64 +310,24 @@ Output: Update application.\newline
 Dependencies: The user has an Android device that can support N os.
 
 \subsubsection{Functional Requirement 3}
-Name: Sign in\newline
-Description: This should allow the user to sign in to our application using and 
-eBay account.\newline
-Input: User's password and username for their eBay account.\newline
-Output: Confirmation that user signed in.\newline
-Dependencies: Functional requirement 1.
-
-\subsubsection{Functional Requirement 4}
 Name: Determine search criteria\newline
 Description: The user should be able to select what they want to search for. The
  user should be able to select between many options. These include search by BIN
- (Buy It Now), price, school, color, condition, and bidding. They should also be
+ (Buy It Now), price, school, color, and condition. They should also be
  able to use different search criteria in combination.\newline
 Input: A combination of the above stated search criteria.\newline
 Output: None.\newline
 Dependencies: Functional requirement 1.
 
-\subsubsection{Functional Requirement 5}
-Name: Search by BIN\newline
-Description: Allow the user to search by items tagged as BIN (Buy It Now).
-\newline
-Input: Allow the user to select BIN as a search option.\newline
-Output: Search displays that the items displayed are only BIN items.\newline
-Dependencies: Functional requirement 4.
-
-\subsubsection{Functional Requirement 6}
-Name: Search by price\newline
-Description: The user should be able determine a price range in which their 
-item should cost. There should be a minimum and maximum price. \newline
-Input: A minimum price, a maximum price, or both.\newline
-Output: None.\newline
-Dependencies: Functional requirement 4.
-
-\subsubsection{Functional Requirement 7}
-Name: Search by school\newline
-Description: The user should be able to search for a specific school or select 
-from a pre-determined list of schools.\newline
-Input: The specific school the user is searching for.\newline
-Output: None.\newline
-Dependencies: Functional requirement 4.
-
-\subsubsection{Functional Requirement 8}
-Name: Search by condition\newline
-Description: The user should be able to search for items ranging from very used 
-to new.\newline
-Input: The condition of the item the user is searching for.\newline
-Output: None.\newline
-Dependencies: Functional requirement 4.
-
-\subsubsection{Functional Requirement 9}
-Name: Purchase\newline
+\subsubsection{Functional Requirement 4}
+Name: Guest Checkout\newline
 Description: The user should be able to purchase an item that they have searched
  for.\newline
 Input: The item that is going to be purchased.\newline
 Output: Some receipt or confirmation that the item has been ordered.\newline
 Dependencies: Functional requirement 4.
 
-\subsubsection{Functional Requirement 10}
+\subsubsection{Functional Requirement 5}
 Name: Display search results\newline
 Description: Search results should be displayed to the user given the user's 
 search criteria. Search results should also be displayed according to how the 
@@ -378,7 +337,7 @@ Input: None.\newline
 Output: A list of items organized the way the user has specified.\newline
 Dependencies: Functional requirements 4.
 
-\subsubsection{Functional Requirement 11}
+\subsubsection{Functional Requirement 6}
 Name: Display search results (no results found)\newline
 Description: This should display a list that doesn't include any items and will 
 have a simple message stating that no items could be found. \newline
@@ -386,7 +345,7 @@ Input: None.\newline
 Output: A simple message that states nothing could be found.\newline
 Dependencies: Functional requirement 4.
 
-\subsubsection{Functional Requirement 12}
+\subsubsection{Functional Requirement 7}
 Name: Item view for a selected item\newline
 Description: When a user selects an item, it should be displayed in its own view
  with greater detail.\newline
@@ -394,7 +353,21 @@ Input: Item from listview.\newline
 Output: A page with complete detail of the item.\newline
 Dependencies: Functional requirement 10.
 
-\subsubsection{Functional Requirement 13}
+\subsubsection{Functional Requirement 8}
+Name: Save seearch criteria
+Description: The user should be able to fill out and pick specific search terms
+that will be saved for later use. For example, someone who searches for Oregon 
+State University gear with the color orange, will be able to save that information
+for later use.\newline
+Input: User specified search criteria.\newline
+Output: A saved search filter.\newline
+Dependencies: Functiona requirement 
+
+\subsection{Stretch Goals}
+
+This section will define any stretch goals.
+
+\subsubsection{Stretch Goal 1}
 Name: Shopping Cart\newline
 Description: This is where items would be saved before users want to
 purchase the items. A user should be able to view their shopping cart with
@@ -427,27 +400,17 @@ be provided to the user.\newline
 Dependencies: Performance requirement 1.
 
 \subsubsection{Performance Requirement 4}
-Name: Purchase feature\newline
-Measurement: The purchase feature should mirror what users are already familiar 
-to, such as a shopping cart with checkout buttons.\newline
-Dependencies: None.
-
-\subsubsection{Performance Requirement 5}
 Name: Usage of purchase feature\newline
-Measurement: Users should recieve a receipt that the feature worked.\newline 
+Measurement: Users should recieve a receipt that the feature worked. Users 
+should also be notified that the payment is being processed, as PayPal can
+be slow at times.\newline 
 Dependencies: Performance requirement 4.
 
-\subsubsection{Performance Requirement 6}
-Name: Sign in feature\newline
-Measurement: The user should be able to find the sign in feature easily. They 
-should also be able to sign in to their eBay accounts in a similar way to the 
-online experience. \newline
+\subsubsection{Performance Requirement 5}
+Name: Connectivity 
+Measurement: If no internet connection is present, the application will inform
+the user that they need a connection to continue using the app.
 Dependencies: None.
-
-\subsubsection{Performance Requirement 7}
-Name: Usage of sign in feature\newline
-Measurement: The user should know that they are signed in. \newline
-Dependencies: Performance requirement 6.
 
 \subsection{Software System Attributes}
 
@@ -457,20 +420,23 @@ attributes.
 \subsubsection{Reliability}
 
 The application should be able to search and purchase items according to what 
-has been specified by the user.
+has been specified by the user. We also make sure that our application will 
+have a high crash free rate. We will also make sure that our application doesn't
+ have any memory or activity leaks.
 
 \subsubsection{Availability}
 
 The application will be available only to users who have Android devices. These 
 users must also have devices that are compatible with the new operating system, 
 N and the current operating system, M. Other than the two constraints above, 
-any user who has a valid internet connection and access to the Google Play 
-store, should be able to download and use our application.
+any user who has a valid internet connection and access to the United 
+States Google Play store, should be able to download and use our application.
 
 \subsubsection{Security}
 
 Security should not be a problem, as the APIs are using HTTPS protocols for 
-recieving and sending data.
+recieving and sending data. On top of that, we will be using the Android 
+Keystore to secure any developer tokens we need to use.
 
 \subsubsection{Maintainabillity}
 
@@ -490,7 +456,7 @@ means that our language is also going to be in Java.
 \section{Appendices}
 \subsection{Appendix I: Gannt Chart for Application}
 \begin{figure}[h]
-\includegraphics[scale =.6]{ganttChart} 
+\includegraphics[scale=.5]{ganttChart} 
 \centering
 \end{figure}
 \newpage
