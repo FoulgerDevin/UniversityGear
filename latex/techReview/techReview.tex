@@ -323,6 +323,164 @@ JSON Parser. This is because all the parsers perform similarly, but with the
 built in parser, I get to avoid the headache of importing a new one. It also has
 the ability to create new JSON objects if that is needed.
 
+\subsection{Task:Correcting User's Search Keyword}
+Sometimes, when a user wants to find an item, he/she will mistype what they want to search. This is a more prevalent issue in mobile apps since the keyboard input is much smaller in smart phones. If we do not address this issue, the return value from the search will not be optimal. In order for our app to understand what the user wants to find despite the misspelled keyword, we need a fuzzy search algorithm. 
+There is 3 fuzzy search algorithms that comes into consideration: Levenshtein Distance, Hamming Distance and Metaphone.
+
+\subsubsection{Option 1: Levenshtein Distance}
+Levenshtein Distance calculates the similarity of two strings and assign a numerical value that determine how different the two strings are. This algorithm, given a string s and a target string t, will return the number of alterations to s so that it will be the same as t. The algorithm will construct a matrix m which has the size m[s.stringlength][t.stringlength]. The matrix will be built on the minimum from this rule:
+
+\begin{lstlisting}
+	1. If s[n] == t[n] where n is != t.stringlength 
+		m[n][n] = 0 
+		else if s[n] != t[n] 
+			m[n][n] = 1
+	
+	2. m[a][b] where a < s.stringlength and b < t.stringlength 
+		=  m[a-1][b]+1 or m[a][b-1]+1 
+	whichever is smaller
+	
+	3. m[a][b] where a < s.stringlength and b < t.stringlength 
+		=  m[a-1][b-1]+1
+\end{lstlisting}
+
+\subsubsection{Option 2: Hamming Distance}
+Hamming Distance is another algorithm that compares the difference between two strings and assign a numerical value on how close one string is from another. However, unlike Levenshtein Distance, the Hamming assigns value similar to a binary. This algorithm will create an array of integer with the size of the length of the string. This array’s value at a given position n is 1, if the character of the first string and the second string at n is the same, or 0 otherwise. The array’s value is totaled up and it will give a value on how different one string is from another.
+
+\subsubsection{Option 3: Metaphone}
+Metaphone, on the other hand, does not assign a numerical value to check the difference. It mainly checks if some character is substituted with its homophone. For example, the algorithm will consider K and C similar and so is “kall” and “call”. 
+
+\subsubsection{Criteria of Evaluation}
+The main criteria that we evaluate is the reliability of the algorithm to find what the user might mean when they accidentally mistyped a word. Secondary criterias include maintainability and speed.
+
+\begin{table}[h]
+	\centering
+	\caption{Comparison Table for the Fuzzy Search Algorithms}
+	\label{Comparison Table for the Fuzzy Search Algorithms}
+	\begin{tabularx}{\textwidth}{|l|l|l|X|}
+		\hline
+		\textbf{}         & \textbf{Reliability}                & \textbf{Maintainability}                & \textbf{Speed} 
+		\\ \hline
+		\textbf{Option 1} & Applicable to most cases & Easy to maintain & Slower
+		\\ \hline
+		\textbf{Option 2} & Applicable to most cases except non-equal string & Easy to maintain & Fast                                                                                       
+		\\ \hline
+		\textbf{Option 3} & Not applicable in most cases & Harder to maintain & Fast                                                               
+		\\ \hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Discussion}
+For our application, Levenshtein Distance is the best option. Metaphone does not take into account if user’s input is not homophone to what the user wants to find. This might be a problem if user is searching for certain types of brand. Also, adding language support in the future means that we need to change some parts of the code to cater to the new language since there will be different pronunciation. We will need to change how our algorithm detect homophone if it happens and it will take unnecessary time. On the other hand, the Hamming Distance is a faster algorithm than Levenshtein since we only need to construct one-dimensional array as compared to Levenshtein’s two. But, Hamming Distance cannot give an accurate number if the length of string is not equal. This can happen in the application if the user accidentally sends in an incomplete keyword or simply do not know the exact keyword he/she is looking for. Despite the trade-off in speed, we believe that Levenshtein’s reliability is more suitable for our application in order for user to have an optimal session.
+
+\subsection{Task: Search Item in Ebay's Database}
+User will be able to find certain items in the application. The user will be able to enter keyword and the app will return items that matches, or approximately matches, user’s query. This search result will be used alongside filters in order to get the exact item that user wants. 
+The 3 ways we can go around this search is: Binary Search, Linear Search, Ebay’s Finding API
+
+\subsubsection{Option 1: Binary Search}
+Binary search involves dividing the array into multiple halves until a match is found. If the item to be searched is larger than the middle value, then the top half will be the half to be searched. Else, the lower half will be searched. This search algorithm’s complexity is log n since the array size is halved every iteration. It is considerably fast, especially when used in a larger database. However, the main drawback is that the list must be sorted for this to work. Without a sorted list, dividing the halves would not help finding the item since the top half and lower half might not be larger or smaller respectively. 
+
+\subsubsection{Option 2: Linear Search}
+Linear Search is one of the most basic search. This involves checking every item in the list and find if it matches the item. This algorithm’s complexity is n since it will look for every item. Considering the complexity, the speed of the algorithm is slow especially in larger files. While smaller database would mean unnoticeable difference in speed, it is very unlikely that our application will utilize small database. The advantage of linear search is that there is no need to manipulate the list of data we are looking in. Since the search will iterate over every single item and match it with the keyword, there is no need to sort like binary search. Therefore, despite the trade-off in speed, linear search makes it up with reliability.
+
+\subsubsection{Option 3: Ebay Finding API}
+Ebay has a released API that search their database. It has a lot of function that helps finding based on the query. Furthermore, it has several functions that helps narrow down user’s selection through filters. Despite not being transparent in how their search works, Ebay does widen the way a query can be searched, such as by product or by keywords. As a bonus.  the Ebay API helps in manipulating the way search results are returned. Since we are going to use EBay’s sell and buy API, this API will integrate well with other APIs.  
+
+\subsubsection{Criteria of Evaluation}
+The main criteria are speed and reliability. Some other consideration would be integrating the result with other functions later.
+
+\begin{table}[h]
+	\centering
+	\caption{Comparison Table for the Search Algorithms}
+	\label{Comparison Table for the Search Algorithm}
+	\begin{tabularx}{\textwidth}{|X|X|X|}
+		\hline
+		\textbf{}         & \textbf{Reliability}                & \textbf{Speed} 
+		\\ \hline
+		\textbf{Option 1} & Low & Fast
+		\\ \hline
+		\textbf{Option 2} & High & Slow                                                                                       
+		\\ \hline
+		\textbf{Option 3} & High &Fast(?)                                                               
+		\\ \hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Discussion}
+  We believe that the best approach would be using the Finding API. Since we are using Ebay’s database, we have no guarantee that it would be sorted, therefore making binary search a risk. On the other hand, if it is sorted, using a linear search would make it run slower. We believe that the Finding API would be optimized by Ebay and will find the item fast and accurately. Furthermore, giving a lot of options such as filtering will help us in the future. The integration with other API that we will use is also a convenience that we should take advantage of. 
+  
+\subsection{Task: Saving Search for Future Purposes}
+Our application will store user’s search history internally in their phone. This is so that we can give an accurate recommendation of items based on user’s past search history. The search history would be saved in a .txt format in the application folder. There is two ways we can go around this: we can save the item id and search it in the database in order to understand what the user’s preferred item is or we can save the keywords and determine user’s preference through those keywords. 
+There is 3 ways we can save this txt file: Internal storage, External Storage, or Server
+
+
+\subsubsection{Option 1: Internal}
+Internal storage means that the application would save user’s preference inside their mobile phone. This means that the user has total security from other source. Android makes sure that the file saved internally is, under normal circumstances, only accessible by the application itself. Furthermore, since the files are saved internally, the application’s read and write speed is faster by a certain margin; most likely to be noticeable in lower-end hardware. However, the internal storage of most Android smart phone is rather limited compared to external ones, therefore, saving a huge file might frustrate the user.
+
+\subsubsection{Option 2: External}
+Relying on external Storage using SD card or other similar hardware means we are going to operate under the assumption that the user has such external storage. While it is not an uncommon situation, some user might neglect having an external storage, so it is not quite ideal. However, using external storage means high load of data is possible. We would not worry about utilizing too much user’s data. Although its read and write speed will be slower, but having an external storage means that it is possible to offload some processes to the memory card instead. However, security can be easily compromised if the external storage is detached and lost. The data can easily be retrieved once someone manage to get into the external storage.
+
+\subsubsection{Option 3: Server}
+Using server will require internet connection. Given our application rely heavily on internet, we can safely assume that user will have some kind of connection that allows us to utilize an online database. By saving it into the server we do not need to worry about the data load, since it is going to be handled elsewhere. The trade-off would be the speed to process things, which is highly dependent on the internet connection the user has. This can range from being very fast to very slow depending on where the user is geographically.  
+
+\subsubsection{Criteria of Evaluation}
+The speed on which the file can be taken would be very important, because we might need it for different purposes. If the speed is too slow, user might get the feeling that the application is not responding fast enough, which is something we must avoid. Secondary criteria would be security and storage space.
+
+\begin{table}[h]
+	\centering
+	\caption{Comparison Table for the Storage Medium}
+	\label{Comparison Table for the Storage Medium}
+	\begin{tabularx}{\textwidth}{|X|X|X|X|}
+		\hline
+		\textbf{}         & \textbf{Security}                & \textbf{Speed} &\textbf{Space}
+		\\ \hline
+		\textbf{Option 1} & Very Secure & Depends on the phone & Limited
+		\\ \hline
+		\textbf{Option 2} & Not secure & Depends on the phone but slower than internal Storage & Depends on the hardware but generally larger than internal storage                                                                                         
+		\\ \hline
+		\textbf{Option 3} & Mostly very secure &Depends on the phone and internet connection & Very huge but comes with a cost.                                                               
+		\\ \hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Discussion}
+Our application will use the internal storage with the option to allow user to use external storage. We believe that the speed on which the information is retrieved is very important. The data we are going to put in is not going to be very large; if the data gets too large, we will have to narrow it down by removing past searches to indicate the user’s changed preferences. Using a server database online would add a different layer of complication and unnecessary because the data would be small in size. Furthermore, we won’t have any other operation on the data which makes it unnecessary for it to be saved on a server. We respect the users and their security, which is why we would try to use the most secure method possible. However, if the user does not have enough space internally, we would give an option to trade that security and speed for more space.
+
+\subsection{Optional Task: Machine Learning to Study User's Preference}
+Once we have user’s history of searches, our application should make use of that by constructing user’s preferences based on the information it stores. Additionally, we can also use data that might be provided from the Ebay server to add more data in order to get higher accuracy. This preference will be used for multiple purposes, which can range from showing items on the home screen of the application, to suggesting the user what to buy at the buying page. We construct this preference using machine learning.
+The 3 approach we can use to determine user’s preference is Bayesian Estimate, Apriori Algorithm, FP-Growth
+
+\subsubsection{Option 1: Bayesian}
+Bayesian algorithm involves comparing whether one thing is going to happen following a certain event or if another event is likelier. This is calculated by learning the pattern to what is considered as true or false. In terms of this application, true would be user’s preference. The algorithm counts the combination of prior events and its results and construct a possibility based on a given event. Given high possibility, we can assume that the user will want that item. This operation, however, might be time-consuming because there is a lot of mathematical calculations as well as receiving data.
+
+\subsubsection{Option 2: Apriori}
+Apriori algorithm calculates the most probable item or combination of items. The algorithm involves counting the number of occurrences where each item is selected in the data. Then, the number below a given threshold, which is usually half of the number of data, is removed. Then each item is then paired together and we count the number of occurrence where the pair is selected. Again, the number below the threshold is removed. This keeps repeating until we decide to stop and we will get the most probable item that user might want. Considering this, the running time might be long because we need to iterate through the data every time we want a larger size. Since we might also need a temporary storage for the lists, memory consumption might cause lower-end smartphones to lag, something we want to avoid the user from experiencing.
+
+\subsubsection{Option 3:FP-Growth}
+Similar to Apriori algorithm, the algorithm will count the number of occurrences for each item. However, instead of iterating and growing the items, FP-Growth will create a tree based on the data given. Each item will be represented by a node. The node will have a value on it which depends on how many occurrences. The node is going to be connected based on the data; so given data set {1,2,3} and {1,5,6}, the tree will branch out at item 1 and the value of the node at item 1 will be 2. The route with the highest value will be the most probable outcome. This algorithm is significantly faster than Apriori although it will not create as much possibilities. 
+
+\subsubsection{Criteria of Evaluation}
+The speed and the accuracy of the algorithm. Since slow algorithm will look unresponsive, we would very much like to avoid that situation.
+
+\begin{table}[h]
+	\centering
+	\caption{Comparison Table for the Machine Learning Algorithms}
+	\label{Comparison Table for the Machine Learning Algorithms}
+	\begin{tabularx}{\textwidth}{|X|X|X|}
+		\hline
+		\textbf{}         & \textbf{Accuracy}                & \textbf{Speed} 
+		\\ \hline
+		\textbf{Option 1} & Accurate and can give lots of probable items & Slow, since it might need to run through prior data several times
+		\\ \hline
+		\textbf{Option 2} & Accurate and can give a lot of probable items & Slow, exponential depending on how many iteration is needed                                                                                       
+		\\ \hline
+		\textbf{Option 3} & Accurate but limited items & Fast, only requires at most 2 passes                                                              
+		\\ \hline
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Discussion}
+We believe that FP-Growth might be the best choice. We value speed in our application. User will feel that the app has too many loading times or unresponsive if the algorithm takes much time. Considering the file might be larger as user uses more of it, it is not recommended to use exponentially long algorithm.
 \section{Conclusion}
 
 
