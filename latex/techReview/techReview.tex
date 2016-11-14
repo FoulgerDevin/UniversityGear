@@ -92,13 +92,28 @@ stringstyle=\color{orange}
 
 \maketitle
 \thispagestyle{empty}
+\begin{abstract}
+This technology review will outline the tools we will be using to develop our 
+application. We will go into detail about many of the tools and APIs we will be 
+using. We will discuss the cost of the tool and how we will use it in our design. 
+We will also explain why we think a specific tool will be better for the task at
+ hand.
+\end{abstract}
 
 \end{titlepage}
 
 \tableofcontents
 
 \section{Introduction}
-
+Our team, 4Credit (team number 6), will be developing the application UniversityGear. 
+This application will allow users to browse eBay's catalog and purchase items 
+related to college merchandise. Devin will be in charge of creating a way for 
+users to checkout, developing the UI for it, and getting the data for items to
+be displayed in a single item view. Bryan is in charge of correcting the user's 
+search keywords, searching for items in eBay's database, and saving search 
+filters for later use by the user. Hector will be in charge of creating a list to 
+view items in a list, handling when no search results are found, and creating
+a home page.
 
 \section{Technologies}
 \subsection{Technology: Checkout}
@@ -733,7 +748,7 @@ we run the risk of presenting history that is no longer relevant to the user.
 Option 1 is the simplest approach that will accomplish the required task. Both options 2 and 3 would be great options, if there were more time for this project, and if they weren't dependent on other features that will be implemented concurrently.
 \subsubsection{Best Choice}
 Option 1 would be the best choice given the simplicity of the feature and the 
-timeline that we have for the project. A simple message will be clear and get 
+time line that we have for the project. A simple message will be clear and get 
 the point across. Displaying alternate search results would take more time, 
 and we could potentially display results that the user does not care for.
 
@@ -771,19 +786,23 @@ need to have previous search history to allow to customize this page based off
 search history. Search history availability would be based off the ``Saved 
 Search'' feature that will be implemented for this project. Speed cost would 
 be medium as we would need to pull the search history for items viewed and then 
-having to requery eBay for the details on these items. 
+having to re-query eBay for the details on these items. 
 \subsubsection{Evaluation}
 Option 1, is a very simple approach. Having only a search bar without any other 
 distractions will allow the user to begin searching for their items immediately. 
 Option 2 will be a neat feature to have, although it could present issues with 
-our timeline. Option 3, will depend on the saved search features, it could prove 
+our time line. Option 3, will depend on the saved search features, it could prove 
 to be too big of a dependency to implement this in a timely fashion.
 \subsubsection{Best Choice}
 Due to time constraints option 1 is the best solution. The home page will 
 consist of a simple search bar allowing the user to start searching for items 
 immediately. The background of the home page will consist of the UGear logo. 
 The empty space would then be populated with a list view of items returned from the search.
-\section{Conclusion}
 
+\section{Conclusion}
+We have discussed the different tools and APIs that we will be using for our
+project, UniversityGear. We evaluated the costs and differences between each 
+of the tools and how each one will fit into the design of the project. We have also 
+determined which tools and APIs will work the best in our project.
 
 \end{document}
