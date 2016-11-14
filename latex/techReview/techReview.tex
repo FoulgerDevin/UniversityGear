@@ -623,6 +623,166 @@ application. User will feel that the app has too many loading times or unrespons
 if the algorithm takes much time. Considering the file might be larger as user uses
 more of it, it is not recommended to use exponentially long algorithm.
 
+\subsection{Technology: Viewing Multiple Search Results}
+After a user submits a search, the API could potentially return hundreds of results
+that will need to be presented to the user in an organized manner.
+
+\subsubsection{Options}
+\subsubsection*{Option 1: Single item view with swiping}
+We could present one item at a time which would allow us to present more details of
+the item. To view more items, the user would swipe left or right to go through the 
+rest of the items in the search results. This would also eliminate the need for the 
+user to click on the item to view more details as the relevant details would already 
+be presented. The user would have enough information to know if they want to 
+purchase the item. The ``Buy'' button would be on this view to allow quick purchases. 
+\subsubsection*{Option 2: Item list view with pages}
+
+We could also present the items in a list view, that would display X number of 
+results per page. The users would swipe up or down to browse through the different 
+items presented. This view would provide minimal details such as a short item 
+description, and a thumbnail image. There would be a ``Next'' and ``Prev'' buttons 
+that would allow the user to browse through the rest of the results that are not 
+already presented.
+
+\subsubsection*{Option 3: Item list view without pages}
+This would be like the previous, present the items in a list view. The difference 
+would be that instead of browsing through several pages, once the user reaches the 
+end of the search results that are present more results would load, if they're 
+available. Otherwise a message would be displayed at the bottom of the page saying 
+``There are no more search results''.
+
+\subsubsection{Use in design}
+This is an important use as without a proper presentation of the search results, 
+the users could get confused and frustrated to the point that they won't use the 
+application.
+\subsubsection{Cost}
+\subsubsection*{Option 1: Single item view with swiping}
+This option would be implemented using Android Swipe Views that allow the users 
+to motion left and right to browse through the search results. The speed impact 
+using this implementation would be the cost of rendering all the details for each 
+item. 
+\subsubsection*{Option 2: Item list view with pages}
+Implementing this option would be done using the built-in Android ListView 
+activity. Speed would be reliant on the android device and internet connectivity 
+to render the list of items to be displayed. The speed impact would not be as 
+significant as option 1 as only the basic details re rendered for each item.
+\subsubsection*{Option 3: Item list view without pages}
+The cost of implementation for this option would be similar to that of option 2. 
+The only difference is that more search results would render automatically when 
+users scroll down to the end of the already displayed results. 
+
+\subsubsection{Evaluation}
+All three options bring their own advantages to the table. The first option, will 
+provide much more details regarding the items which is great. The drawback to 
+option 1 is that it could potentially take much longer for the user to browse the 
+hundreds of search results that are returned. Option 2 allows the user to set the 
+number of results displayed per page. This allows the user to quickly browse through 
+hundreds of items. Option 3 has some of the advantages of option 2, however users 
+could get confused when they reach the end of the search results. The users would 
+have to swipe down far enough for more options to be presented. If they don't, this 
+could lead them to think that there are no more search results and think that the 
+specific item that they are searching for is not available. 
+\subsubsection{Best Choice}
+The best choice for the app is to use Option 2 where the results are presented in 
+a list view with X number of results presented per page. This result is very 
+similar to other apps that the user would likely have used. It's such a 
+straightforward approach, that even if the user hasn't used a similar 
+application, there should not be any confusing when browsing the results. 
+
+\subsection{Technology: Handling No Search Results}
+\subsubsection{Options}
+
+\subsubsection*{Option 1: Display message}
+When there are no search results available, we could simply display a message 
+that states ``There were no results found based off your search criteria. Try 
+modifying your search criteria and try again.''
+\subsubsection*{Option 2: Display alternate search results}
+When there are no search results based on the provided criteria, we could 
+modify the criteria and present search results for the modified search. When 
+presenting these alternate search results, we would display a message that 
+states what the search criteria is.
+\subsubsection*{Option 3: Display alternate results based off search history}
+If no items are returned for a specific search, the users could be presented 
+with a history of their past searches. This could allow the users to revisit 
+past searches that they may want to possibly continue.
+\subsubsection{Use in design}
+While not the most critical piece of the system, the functionality will be part 
+of the ``ease to use'' aspect of the app. Letting the user know that their 
+search returned no results would be helpful in that the user would not have to 
+guess why there is nothing displayed on the screen. They could wrongfully 
+assume things such as the app has crashed or internet connection is not 
+letting items load correctly.
+\subsubsection{Cost}
+\subsubsection*{Option 1: Display message}
+Cost of implementation would be minimal. A simple message notifying them of no 
+search results would also be very Fast as it would not take much to render the 
+message. 
+\subsubsection*{Option 2: Display alternate search results}
+This option would have a high implementation cost. We would need to determine 
+the best method in which to modify the search criteria in a manner that still 
+represents relevant results. This would likely require some sort of machine 
+learning, and would get better with time. The speed cost of this feature would 
+be significant due to having to modify the search criteria, and then 
+re-querying with the updated search.
+\subsubsection*{Option 3: Display alternate results based off search history}
+With this option, the implementation would be dependent on the search history 
+functionality being implemented. If search history is implemented properly, 
+the cost of implementation would be between medium and high. With this option, 
+we run the risk of presenting history that is no longer relevant to the user. 
+\subsubsection{Evaluation}
+Option 1 is the simplest approach that will accomplish the required task. Both options 2 and 3 would be great options, if there were more time for this project, and if they weren't dependent on other features that will be implemented concurrently.
+\subsubsection{Best Choice}
+Option 1 would be the best choice given the simplicity of the feature and the 
+timeline that we have for the project. A simple message will be clear and get 
+the point across. Displaying alternate search results would take more time, 
+and we could potentially display results that the user does not care for.
+
+\subsection{Technology: Home Page}
+\subsubsection{Options}
+\subsubsection*{Option 1: Simple Search Bar}
+This option is the simplest of them all. The home page will be a single search 
+bar that allows the user to immediately start searching for their items. 
+\subsubsection*{Option 2: Search Bar with trending items}
+This option will have the search bar along with items that are trending on eBay. 
+This trending items will need to be filtered in the backend to only display College related merchandise to keep with the theme of the application. 
+\subsubsection*{Option 3: Search Bar with Browsing History or related items}
+With this option, when the user uses the application for the first time, they 
+will receive the home page with only a search bar. After subsequent uses with 
+search history, the home page will be populated with items that were previously 
+viewed or returned in a user's search.  
+\subsubsection{Use in design}
+This will be an important piece of the application. It's going to be the first 
+screen that the user sees when launching the application. A great first 
+impression is always important thus we will need to make sure that the option 
+that we go with does just that.
+\subsubsection{Cost}
+\subsubsection*{Option 1: Simple Search Bar}
+The implementation costs for this option would be minimal. Implementing the 
+search bar and ``Search'' button would consist of Android's built-in TextView 
+and button within a single Activity. 
+\subsubsection*{Option 2: Search Bar with trending items}
+This feature would have a higher cost of implementation. First and foremost, we 
+would need to determine the definition of ``Trending'' items. This alone could 
+have a high cost of implementation. This option would also have medium speed 
+costs as it would consist of querying for the trending items.
+\subsubsection*{Option 3: Search Bar with Browsing History or related items}
+This option would have the highest of the implementation costs. First we would 
+need to have previous search history to allow to customize this page based off 
+search history. Search history availability would be based off the ``Saved 
+Search'' feature that will be implemented for this project. Speed cost would 
+be medium as we would need to pull the search history for items viewed and then 
+having to requery eBay for the details on these items. 
+\subsubsection{Evaluation}
+Option 1, is a very simple approach. Having only a search bar without any other 
+distractions will allow the user to begin searching for their items immediately. 
+Option 2 will be a neat feature to have, although it could present issues with 
+our timeline. Option 3, will depend on the saved search features, it could prove 
+to be too big of a dependency to implement this in a timely fashion.
+\subsubsection{Best Choice}
+Due to time constraints option 1 is the best solution. The home page will 
+consist of a simple search bar allowing the user to start searching for items 
+immediately. The background of the home page will consist of the UGear logo. 
+The empty space would then be populated with a list view of items returned from the search.
 \section{Conclusion}
 
 
