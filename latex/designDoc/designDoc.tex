@@ -1,0 +1,105 @@
+\documentclass[journal,compsoc, 10pt, draftclsnofoot, onecolumn]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+\newcommand{\subparagraph}{}
+\usepackage{titlesec}
+
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{cite}
+\usepackage{listings}
+
+\usepackage[margin=0.75in]{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\newcommand{\namesigdate}[2][6cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Date}}
+  \end{tabular}
+}
+
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\lstset{
+language=C,
+basicstyle=\ttfamily,
+commentstyle=\color{blue},
+keywordstyle=\color{green},
+numberstyle=\color{red},
+stringstyle=\color{orange}
+}
+
+\def\nameD{Devin Foulger}
+\def\nameH{Hector Trujillo}
+\def\nameB{Bryan Liauw}
+
+\input{pygments.tex}
+
+\hypersetup {
+        colorlinks = true,
+        urlcolor = black,
+        linkcolor = black,
+        pdfauthor = {\nameD\nameH\nameB},
+        pdfkeywords = {},
+        pdfsubject = {},
+        pdfpagemode = UseNone
+}
+
+\titleformat{\section}
+	{\normalfont\fontsize{15}{10}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+	{\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+	{\normalfont\fontsize{12}{15}\bfseries}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\title{\vspace{20em}Design Document \\{\vspace{-1ex}\huge UniversityGear} \\
+{\large \today}}
+\author{\vspace{10ex}Devin Foulger \\{\vspace{-1ex}Hector Trujillo}
+\\{\vspace{-1ex}Bryan Liauw}}
+
+\begin{titlepage}
+
+\maketitle
+\thispagestyle{empty}
+
+\end{titlepage}
+
+\tableofcontents
+
+\section{Introduction}
+
+\section{Conclusion}
+
+
+\end{document}
