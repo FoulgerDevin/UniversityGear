@@ -22,6 +22,7 @@
 
 \usepackage{cite}
 \usepackage{listings}
+\usepackage{placeins}
 
 \usepackage[margin=0.75in]{geometry}
 \geometry{textheight=8.5in, textwidth=6in}
@@ -97,9 +98,186 @@ stringstyle=\color{orange}
 
 \tableofcontents
 
+
 \section{Introduction}
+\subsection{Scope}
+The application that is going to be developed will be for Android devices, 
+specifically for N and M OS. It will allow users to purchase college merchandise
+ via eBay's large collection of items. The user will be able to search for items
+ from different colleges or by specific search criteria. The project will begin 
+development in December, 2016 and end in May, 2017.
 
-\section{Conclusion}
+\subsection{Purpose}
+The purpose of this design document is to outline how the application will be 
+structured to satisfy the requirements we have set. It will go into depth about 
+the design details of our software.
 
+\subsection{Intended Audience}
+The intended audience is for the team "4Credit" and their client. It is also for
+ the professors of the senior capstone class at Oregon State University.
+
+\subsection{References}
+NONE YET.
+
+\section{Definitions}
+
+\begin{table}[!h]
+\centering
+\caption{Definitions}
+\label{my-label}
+\begin{tabularx}{\textwidth}{l|X}
+\hline
+\textbf{Term}               & \textbf{Definition}                                                                                                           \\ \hline
+API                    	      & Application Programming Interface, allows developers to develop applications that connect to eBay's large inventory of items. \\ \hline                                                           \\ \hline
+Vendors               	      & Individuals or companies that sell or will sell items on eBay                                                                 \\ \hline
+Filters                	      & Search criteria that will allow the user to more easily find the item that they are looking for.                              \\ \hline
+Third-Party Developers & Individuals outside of eBay that will be using eBay's public APIs to create their own applications.                           \\ \hline
+Application            	      & An Android application that uses eBay's public APIs.                                                                          \\ \hline
+College Merchandise     & Items such as school supplies for Higher Ed, fan gear, etc...                                                                 \\ \hline
+User                   	      & Any one who will be using the Android Application utilizing eBay's APIs.                                                      \\ \hline
+Client                 	      & eBay                                                                                                                          \\ \hline
+BIN                    	      & Buy It Now                                                                                                                    \\ \hline
+N                   	      & Android's new Nougat operating system 
+\\ \hline
+M                   	      & Android's Marshmallow operating system                                                                                                                   
+\\ \hline
+MVC                   	      & A design pattern called Model View Controller
+\\ \hline
+\end{tabularx}
+\end{table}
+\FloatBarrier
+
+
+\section{Conceptual model for software design descriptions}
+The basic concepts and context of the design document will be explained in this 
+section of the document.
+
+\subsection{Software design in context}
+An object oriented approach will be taken and we will be using a specific 
+design pattern called MVC. This will allow us to maintain some form of a 
+separation of concerns. In turn, it will make development much smoother. We will
+ also have to keep track of an API layer, as we will be using eBay's new APIs. 
+It is imperative that our application also works on the M and N Android 
+operating systems.
+
+\subsection{Software design descriptions within the life cycle}
+\subsubsection{Influences on design document preparation}
+The software requirements specification (SRS) plays a large role in influencing 
+the design document. This is because the SRS defines all of the functional and 
+interface requirements for the successful completion of the project.
+
+\subsubsection{Design verification and design role in validation}
+Test cases will be developed simultaneously to development phase. This will 
+allow us to validate that our application is successfully working as expected. 
+The last step of validation we will complete if our application successfully 
+met the requirements defined in the SRS.
+
+
+\section{Design description information content}
+This section of the design document will identify how the application will be 
+implemented and designed. 
+
+\subsection{Design document identification}
+
+\subsection{Design stakeholders and their concerns}
+The stakeholders of the project our the developers and their clients. The 
+biggest concern is that the product will meet all of the requirements specified 
+in the SRS. The application must also contain design that is described in this 
+document. 
+
+\subsection{Design views}
+We will be using different processes for representing diagrams. We will be using
+ UML for describing our functions and classes.
+
+\subsection{Design viewpoints}
+The design viewpoints will be described with a combination of UML diagrams and 
+short descriptions. The descriptions could include information regarding the 
+context, composition, logical, or interactive viewpoints. Each viewpoint will 
+also have a specific name.
+
+\subsection{Design elements}
+There are a lot of design attributes we will be discussing in our document. Our 
+design entities will consist of the APIs and classes that we will be using to 
+accomplish our goals. Each entity will have a name, a type, and a purpose. The 
+name attribute is simply the name of the element or entity. The type attributes 
+will consist of what kind of class or API we will be using. The purpose attribute 
+is to give a description as to why an element might exist. Last, an author 
+attribute will be used to identify which designer will be responsible for the 
+element.
+
+\subsection{Design rationale}
+It is important that our application performs well on the N and M Android operating 
+systems. We will make sure that the application is also easily maintainable 
+for future developers. We will also provide documentation of the design process 
+so that other developers will understand the structure of the application.
+
+
+\section{Design viewpoints}
+The main design viewpoints will be explained here. The exact viewpoints are the 
+context, composition, logical, dependency, interface, and algorithm viewpoints.
+
+\subsection{Context viewpoint}
+The context viewpoint will document the functionality between the user and the 
+application. There are two main functionalities the user should be using: 
+searching and purchasing merchandise. This sections serves to define the user 
+interaction with the app. It will also talk about the sub functions that will 
+be used to facilitate the main functions.
+
+\subsubsection*{Design concerns}
+
+\subsubsection*{Design elements}
+
+\subsubsection*{Example languages}
+
+\subsection{Composition viewpoint}
+The application will be divided into three different parts. The first being the 
+search feature, which will allow the user to find a specific item. The second 
+will be the purchasing feature, which will allow the user to purchase any item 
+they have found. Last, the user should be able to view in detail everything 
+about the item they have searched for. All these pieces need to be connected 
+together and coherently function as one piece. 
+
+\subsubsection*{Design concerns}
+
+\subsubsection*{Design elements}
+
+\subsubsection*{Function attribute}
+
+\subsubsection*{Subordinates attribute}
+
+\subsubsection*{Example languages}
+
+\subsection{Logical viewpoint}
+Our application will consist of many classes, but they will either be a model or 
+a controller. These classes will be the Search class, Purchase class, Item class, 
+and the Storage class.
+
+\subsubsection*{Design concerns}
+
+\subsubsection*{Design elements}
+
+\subsubsection*{Example languages}
+
+\subsection{Dependency viewpoint}
+This section will describe the relationship between each of the classes and how 
+they depend on each other. 
+
+\subsubsection*{Design concerns}
+
+\subsubsection*{Design elements}
+
+\subsubsection*{Example languages}
+
+\subsection{Algorithm viewpoint}
+The algorithms viewpoints will describe the different algorithms that we will be
+ using to correct users search mistakes.
+
+\subsubsection*{Design concerns}
+
+\subsubsection*{Design elements}
+
+\subsubsection*{Processing attribute}
+
+\subsubsection*{Examples}
 
 \end{document}
