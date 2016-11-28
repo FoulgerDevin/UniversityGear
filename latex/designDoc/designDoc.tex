@@ -214,20 +214,23 @@ so that other developers will understand the structure of the application.
 
 \section{Design viewpoints}
 The main design viewpoints will be explained here. The exact viewpoints are the 
-context, composition, logical, dependency, interface, and algorithm viewpoints.
+context, composition, logical, dependency, interfaction, and algorithm viewpoints.
 
 \subsection{Context viewpoint}
 The context viewpoint will document the functionality between the user and the 
 application. There are two main functionalities the user should be using: 
 searching and purchasing merchandise. This sections serves to define the user 
 interaction with the app. It will also talk about the sub functions that will 
-be used to facilitate the main functions.
+be used to facilitate the main functions. \newline
 
-\subsubsection*{Design concerns}
-
-\subsubsection*{Design elements}
-
-\subsubsection*{Example languages}
+The user of the application will also have to perform other smaller actions in 
+order to get the full use. For example, they will have to download the application 
+from the Google Play store. From there, they would be required to search for 
+something in order to purchase it. They will be searching for specific schools, 
+prices, condition of item, and other search criteria. They will then be presented 
+with a list of items in which they will be able to select and view that item in 
+greater detail. They will also be able to purchase the item and then they will 
+need to enter in their name and shipping information.
 
 \subsection{Composition viewpoint}
 The application will be divided into three different parts. The first being the 
@@ -237,40 +240,99 @@ they have found. Last, the user should be able to view in detail everything
 about the item they have searched for. All these pieces need to be connected 
 together and coherently function as one piece. 
 
-\subsubsection*{Design concerns}
-
-\subsubsection*{Design elements}
+\begin{figure}[h]
+\centering
+\caption{UML Diagram for the for main classes}
+\includegraphics[scale=.65]{projectUML}
+\end{figure}
+\FloatBarrier
 
 \subsubsection*{Function attribute}
-
-\subsubsection*{Subordinates attribute}
-
-\subsubsection*{Example languages}
+The search class will allow users to search for their items. This class will need 
+several variables, which will be passed into a function that calls an API. The 
+output will be a list of items that are related to the search criteria provided 
+by the user. The storage class will allow the user to save their search filers 
+for later use so they don't have to keep entering the same data each time. This 
+requires the same informatuion priovded to the search. From there, the class will 
+either save, load, or delete this data. The item class will be used to hold and 
+send the specific item data to the purchase class. The purchase class will allow 
+the user to purchase the item that they have selected. It will also send a 
+confirmation if the user's purchase has been completed.
 
 \subsection{Logical viewpoint}
 Our application will consist of many classes, but they will either be a model or 
 a controller. These classes will be the Search class, Purchase class, Item class, 
 and the Storage class.
 
-\subsubsection*{Design concerns}
+\subsubsection*{The search class}
+This class will allow users to search for items that they would like to view or 
+purchsae. It will share a relationship with the item and storage classes. It 
+will have a method for searching that needs the search terms that have been 
+provided by the user. 
 
-\subsubsection*{Design elements}
+\begin{figure}[h]
+\centering
+\caption{UML for the search class}
+\includegraphics[scale=.9]{searchUML}
+\end{figure}
+\FloatBarrier
 
-\subsubsection*{Example languages}
+\subsubsection*{The storage class}
+This class will be used to save the users search criteria. This is so the user 
+will not have to enter in the same information again, considering that they 
+will most likely search for the same schools over and over again. It will have 
+the ability to save, load, and delete filters. It will also need the information 
+provded by the user such as the school and searchTerms.
+
+\begin{figure}[h]
+\centering
+\caption{UML for the storage class}
+\includegraphics[scale=.9]{storageUML}
+\end{figure}
+\FloatBarrier
+
+\subsubsection*{The item class}
+The item class will hold all the information on a signle item. It will be 
+displayed to the user in either a list view or a single item view. The information 
+will also be sent the purchase class so that the user may be able to purchase 
+the item.
+
+\begin{figure}[h]
+\centering
+\caption{UML for the item class}
+\includegraphics[scale=.9]{itemUML}
+\end{figure}
+\FloatBarrier
+
+\subsubsection*{The purchase class}
+The purchase class will allow the user to purchase the item that they have 
+selected. It will need the item key when purchasing an item. It will also notify
+the user in some way that they know the purchase has been completed.
+
+\begin{figure}[h]
+\centering
+\caption{UML for the purchase class}
+\includegraphics[scale=.9]{purchaseUML}
+\end{figure}
+\FloatBarrier
 
 \subsection{Dependency viewpoint}
 This section will describe the relationship between each of the classes and how 
 they depend on each other. 
 
-\subsubsection*{Design concerns}
-
-\subsubsection*{Design elements}
-
-\subsubsection*{Example languages}
+\subsection{Interaction viewpoint}
 
 \subsection{Algorithm viewpoint}
 The algorithms viewpoints will describe the different algorithms that we will be
- using to correct users search mistakes.
+ using to correct users search mistakes. The Levenshtein Distance algorithm that 
+we are going to use is going to be attached to the search bar that is in most 
+pages of the UI. The algorithm will run every time the users finish typing and 
+submitting their search. The algorithm will run regardless whether the keyword 
+needs to be corrected or not. The fix will happen if the user has written 
+something that is not quite correct; that is, the distance between the intended 
+string and the string that user has written does not have a 0 value. Once this 
+case happens, we will find the keyword with the minimum distance from the string 
+user has written and replace user's keyword with that.
 
 \subsubsection*{Design concerns}
 
