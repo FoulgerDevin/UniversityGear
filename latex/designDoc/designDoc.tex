@@ -27,7 +27,7 @@
 \usepackage[margin=0.75in]{geometry}
 \geometry{textheight=8.5in, textwidth=6in}
 
-\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\sfdefault}{\sfdefault}
 
 \newlength\tindent
 \setlength{\tindent}{\parindent}
@@ -458,13 +458,30 @@ case happens, we will find the keyword with the minimum distance from the string
 user has written and replace user's keyword with that.
 
 \subsubsection*{Design concerns}
-There is a huge concern in terms of resources needed. Since the algorithm is going to compare keywords from the user to keywords in the database, this means that the algorithm will run once for every words in the database. Furthermore, the algorithm itself has a complexity of O n-squared, since the number of loop is the string size of one string times the string size of the other. This means that the total complexity would be O n-cubed. One way to getting around this is to find a threshold. Once this threshold is reached, the word is considered similar enough. This can reduce a lot of processing time.
-\subsubsection*{Design elements}
+There is a huge concern in terms of resources needed. Since the algorithm is 
+going to compare keywords from the user to keywords in the database, this 
+means that the algorithm will run once for every words in the database. 
+Furthermore, the algorithm itself has a complexity of O n-squared, since the 
+number of loops is the string size of one string times the string size of the 
+other. This means that the total complexity would be O n-cubed. One way to get 
+around this is to find a threshold. Once this threshold is reached, the word 
+is considered similar enough. This can reduce a lot of processing time.
 
 \subsubsection*{Processing attribute}
-This algorithm will be part of the Search function inside the Search class. Because of this, it will affect only the variable within the class. Since we are correcting user’s input string, we will use the algorithm to manipulate the variable color, school and SearchTerms. Fixing price and used variable is unnecessary because it does not need to be fixed. The only thing we could do to price is find approximate integer to the user’s input, while the used variable should not be modified.
-The algorithm will find the most similar string based on the difference in the character in each position. This is done by constructing a two-by-two matrix and then filling it with integer based on a certain rule. This rule will measure the differences between the characters in each string and assign an integer to determine how different it is.  
-As previously mentioned, the loop happens every time user enters a keyword. Once the keyword is entered, the algorithm will run until it reaches a string distance that is below or equal to the threshold.
+This algorithm will be part of the search method inside the search class. 
+Because of this, it will affect only the variables within the class. 
+Since we are correcting the users input string, we will use the algorithm to 
+manipulate the variable color, school and searchTerms. Fixing price and used 
+variable is unnecessary because it does not need to be fixed. The only thing 
+we could do to price is find approximate integer to the user’s input, while 
+the used variable should not be modified. The algorithm will find the most 
+similar string based on the difference in the character in each position. 
+This is done by constructing a two-by-two matrix and then filling it with an 
+integer based on a certain rule. This rule will measure the differences 
+between the characters in each string and assign an integer to determine how 
+different it is. As previously mentioned, the loop happens every time user 
+enters a keyword. Once the keyword is entered, the algorithm will run until 
+it reaches a string distance that is below or equal to the threshold.
 
 \subsubsection*{Examples}
 \begin{lstlisting}
