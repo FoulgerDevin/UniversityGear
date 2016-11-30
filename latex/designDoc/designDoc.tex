@@ -27,7 +27,7 @@
 \usepackage[margin=0.75in]{geometry}
 \geometry{textheight=8.5in, textwidth=6in}
 
-\renewcommand{\sfdefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault}
 
 \newlength\tindent
 \setlength{\tindent}{\parindent}
@@ -40,8 +40,8 @@
 \newcommand{\namesigdate}[2][6cm]{%
   \begin{tabular}{@{}p{#1}@{}}
     #2 \\[0.5\normalbaselineskip] \hrule \\[0.pt]
-    {\small \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
-    {\small \textit{Date}}
+    {\small \vspace{-3em} \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \vspace{-3em}\textit{Date}}
   \end{tabular}
 }
 
@@ -53,7 +53,6 @@
 language=C,
 basicstyle=\ttfamily,
 commentstyle=\color{blue},
-keywordstyle=\color{green},
 numberstyle=\color{red},
 stringstyle=\color{orange}
 }
@@ -471,11 +470,11 @@ is considered similar enough. This can reduce a lot of processing time.
 This algorithm will be part of the search method inside the search class. 
 Because of this, it will affect only the variables within the class. 
 Since we are correcting the users input string, we will use the algorithm to 
-manipulate the variable color, school and searchTerms. Fixing price and used 
-variable is unnecessary because it does not need to be fixed. The only thing 
-we could do to price is find approximate integer to the user’s input, while 
+manipulate the variable color, school and searchTerms. The fixing price and used 
+variable is unnecessary, because it does not need to be fixed. The only thing 
+we could do to price is find the approximate integer to the user's input, while 
 the used variable should not be modified. The algorithm will find the most 
-similar string based on the difference in the character in each position. 
+similar string based on the differences in the character in each position. 
 This is done by constructing a two-by-two matrix and then filling it with an 
 integer based on a certain rule. This rule will measure the differences 
 between the characters in each string and assign an integer to determine how 
@@ -483,19 +482,24 @@ different it is. As previously mentioned, the loop happens every time user
 enters a keyword. Once the keyword is entered, the algorithm will run until 
 it reaches a string distance that is below or equal to the threshold.
 
+\newpage
 \subsubsection*{Examples}
 \begin{lstlisting}
 LevenshteinDis(string1, string2){
-Matrix[string1.length][string2.length]
-For(a = 0 to string1.length){
-For(b = 0 to string2.length){
-if a==b{
-if string1 at a = string2 at b
-Matrix[a][b] = 1
-Else Matrix [a][b] = 0
+	Matrix[string1.length][string2.length]
+	for(a = 0 to string1.length){
+		for(b = 0 to string2.length){
+			if a==b{
+				if string1 at a = string2 at b
+				   Matrix[a][b] = 1
+				else 
+				   Matrix [a][b] = 0
+			}
+			else 
+			   min(Matrix[a-1][b]+1, Matrix[a][b-1]+1, Matrix[a-1][b-1]+1)
+		}
+	}
 }
-Else min(Matrix[a-1][b]+1, Matrix[a][b-1]+1, Matrix[a-1][b-1]+1)
-}
-}
-}
+\end{lstlisting}
+
 \end{document}
