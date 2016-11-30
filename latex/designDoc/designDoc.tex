@@ -29,7 +29,6 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 
-
 \newlength\tindent
 \setlength{\tindent}{\parindent}
 \setlength{\parindent}{0pt}
@@ -40,7 +39,7 @@
 
 \newcommand{\namesigdate}[2][6cm]{%
   \begin{tabular}{@{}p{#1}@{}}
-    #2 \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    #2 \\[0.5\normalbaselineskip] \hrule \\[0.pt]
     {\small \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
     {\small \textit{Date}}
   \end{tabular}
@@ -94,6 +93,21 @@ stringstyle=\color{orange}
 \maketitle
 \thispagestyle{empty}
 
+\begin{abstract}
+This design document will outline and describe the steps we will take to develop 
+our application "UniversityGear."  It will talk about the purpose of this 
+document as well as many of the different viewpoints. It will also define 
+the classes and methods that we will use in our project. 
+\end{abstract}
+
+\vspace{2ex}\noindent 
+\namesigdate{Luther Boorn} \hfill
+\namesigdate{Devin Foulger} \hfill
+
+\vspace{4ex}\noindent
+\namesigdate{Hector Trujillo} \hfill
+\namesigdate{Brian Liauw} \hfill
+
 \end{titlepage}
 
 \tableofcontents
@@ -115,9 +129,6 @@ the design details of our software.
 \subsection{Intended Audience}
 The intended audience is for the team "4Credit" and their client. It is also for
  the professors of the senior capstone class at Oregon State University.
-
-\subsection{References}
-NONE YET.
 
 \section{Definitions}
 
