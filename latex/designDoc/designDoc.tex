@@ -322,6 +322,44 @@ they depend on each other.
 
 \subsection{Interaction viewpoint}
 
+\subsubsection*{Home Page}
+The home page will be a simple design that will include a search bar labeled 
+'searchText' and a button 'searchButton' for the user to enter text and 
+submit their search. When the user presses the search button, the text within 
+the search text field will be passed as a string parameter to the search module.
+The user will not be allowed to press the search button without first inputting 
+text into the search field. To submit a search from the home page, the user will 
+also be allowed to use the search button on the on-screen keyboard. 
+
+\subsubsection*{Multi List View}
+This module will procede the home page, after the user searches for an item. 
+After the search module completes its search, it will return a list of data 
+structure that contains the search results. The pertinent information in the 
+serach results will consist of an image of the item for sale, the item name or 
+title, and the item price. The DisplayResults module will then take these 
+results and present them to the user in a list view. 
+\\\\
+The image that will be displayed in the list view will be a smaller version of 
+the main image. This will be done by the service that will be used by the 
+search module. The image size reduction will be necessary to reduce loading 
+times and thus performance impacts.
+\\\\
+In this same multi list view module, there will be a filter component that will
+ allow the users to filter the search results. The users will be able to filter 
+the results based on predefined criteria. The currently defined search filters 
+include price (Integer), item category (String), or item condition (new or used) 
+(Boolean). These details regarding an item will be part of the data that is 
+returned by the search module but not displayed to the user until they enter 
+the single item view.
+
+\subsubsection*{No Search Results}
+If after the user submits their search, or modifies their search criteria to the
+ point that there are no search results to display, this module will present a 
+message stating that there are no search results and to try a different search, 
+or to modify their search criteria. This module will be based off the size of 
+the list returned by search.
+
+
 \subsection{Algorithm viewpoint}
 The algorithms viewpoints will describe the different algorithms that we will be
  using to correct users search mistakes. The Levenshtein Distance algorithm that 
