@@ -230,7 +230,14 @@ something in order to purchase it. They will be searching for specific schools,
 prices, condition of item, and other search criteria. They will then be presented 
 with a list of items in which they will be able to select and view that item in 
 greater detail. They will also be able to purchase the item and then they will 
-need to enter in their name and shipping information.
+need to enter in their name and shipping information. \newline
+
+When viewing an item in greater detail, the user will be given the opportunity 
+to purchase the item. They will have to provide the application with some user 
+information, such as a credit card number and shipping address. The user will 
+also have to provide other information such as the school they are searching 
+for, what item they are looking, the price of the item, condition of the item, 
+and other filers of that sort.
 
 \subsection{Composition viewpoint}
 The application will be divided into three different parts. The first being the 
@@ -251,13 +258,25 @@ together and coherently function as one piece.
 The search class will allow users to search for their items. This class will need 
 several variables, which will be passed into a function that calls an API. The 
 output will be a list of items that are related to the search criteria provided 
-by the user. The storage class will allow the user to save their search filers 
+by the user. The author of the search class will be Bryan Liauw. 
+The storage class will allow the user to save their search filers 
 for later use so they don't have to keep entering the same data each time. This 
-requires the same informatuion priovded to the search. From there, the class will 
-either save, load, or delete this data. The item class will be used to hold and 
-send the specific item data to the purchase class. The purchase class will allow 
+requires the same information provided to the search. From there, the class will 
+either save, load, or delete this data. Bryan will also be the author of the storage 
+class. The item class will be used to hold and 
+send the specific item data to the purchase class. Devin Foulger will be the 
+author of the item class. The purchase class will allow 
 the user to purchase the item that they have selected. It will also send a 
-confirmation if the user's purchase has been completed.
+confirmation if the user's purchase has been completed. Devin will also be the 
+author of the item class.
+
+\subsubsection*{Subordinates}
+The search class will be the default class that will control the application. 
+This is because the storage and item classes will depend on the search class 
+as you need to search for something in order to save the information and create 
+items. The purchase class will depend upon the item class. This is because if 
+are no items, then there will be nothing to purchase. In order to purchase 
+something, an item must exist. 
 
 \subsection{Logical viewpoint}
 Our application will consist of many classes, but they will either be a model or 
@@ -266,9 +285,16 @@ and the Storage class.
 
 \subsubsection*{The search class}
 This class will allow users to search for items that they would like to view or 
-purchsae. It will share a relationship with the item and storage classes. It 
+purchase. It will share a relationship with the item and storage classes. It 
 will have a method for searching that needs the search terms that have been 
-provided by the user. 
+provided by the user. The important thing to notice, is the variables provided 
+by the user. These variables are the "price", which is a integer. The second is 
+the condition of the item, which is called "used" and it is a boolean variable. 
+The third variable is the color of the item and is named "color", which it is a 
+string value. "searchTerms" is another variable of type string, and is used to 
+hold the search values the user provides. The last variable is the "school" and 
+is a string. The search method for this class also heavily relies on an API 
+called "Browse" which is provided by eBay.
 
 \begin{figure}[h]
 \centering
@@ -282,7 +308,8 @@ This class will be used to save the users search criteria. This is so the user
 will not have to enter in the same information again, considering that they 
 will most likely search for the same schools over and over again. It will have 
 the ability to save, load, and delete filters. It will also need the information 
-provded by the user such as the school and searchTerms.
+provided by the user such as the school and searchTerms. Those variables will be 
+provided by the search class. 
 
 \begin{figure}[h]
 \centering
@@ -292,10 +319,22 @@ provded by the user such as the school and searchTerms.
 \FloatBarrier
 
 \subsubsection*{The item class}
-The item class will hold all the information on a signle item. It will be 
+The item class will hold all the information on a single item. The items will be 
 displayed to the user in either a list view or a single item view. The information 
-will also be sent the purchase class so that the user may be able to purchase 
-the item.
+will also be sent to the purchase class so that the user may be able to purchase 
+the item. This class heavily relies on what is returned by the search class and 
+the Browse API. Every item will have a unique "key", that is an integer value. This 
+variable exists so that every item that is in eBay's database has a unique 
+identifier. The item will also contain a "used" variable that will be a boolean 
+to determine if the item is used. The "price" will be an integer variable that 
+determines how expensive the item is. It will also have a "name" and a 
+"description" variables,  both will be strings. The "sendToPurchase" method will 
+allow users to purchase the item that they have chosen. This means that the key 
+will be needed for this transaction to take place. The key will identify which 
+item is being purchased. The item class will also need to use the Android JSON 
+parser. This is because the returned value from the search from eBay's Order 
+API is a JSON file. The JSON parser will need to be able to parse the file for the
+correct information.
 
 \begin{figure}[h]
 \centering
@@ -307,7 +346,14 @@ the item.
 \subsubsection*{The purchase class}
 The purchase class will allow the user to purchase the item that they have 
 selected. It will need the item key when purchasing an item. It will also notify
-the user in some way that they know the purchase has been completed.
+the user in some way that they know the purchase has been completed. The first 
+variable that is needed is the "itemKey", which is a unique key that identifies 
+which item is being purchased. The next variable, is the "userName", which will 
+hold the users first and last name. The third variable is a string called 
+"emailAddress" that will hold the user provided email address. The last variable, 
+"shipInfo" will hold the users shipping address. The "purchase" method will 
+require the use of eBay's "Order" API. The purchase method will also need the 
+email address. 
 
 \begin{figure}[h]
 \centering
@@ -317,8 +363,37 @@ the user in some way that they know the purchase has been completed.
 \FloatBarrier
 
 \subsection{Dependency viewpoint}
-This section will describe the relationship between each of the classes and how 
-they depend on each other. 
+Each class is somewhat dependent on the search class, as it is the basis of 
+where everything starts. Item and storage can only exist after something has 
+been searched for. The purchase class can only exist if an item exists.
+
+\subsubsection*{Search class dependencies}
+The search class does not depend on any other classes in order to function. 
+However, it does depend on eBay's Browse API. This API is what will give us the 
+ability to search for items.
+
+\subsubsection*{Storage class dependencies}
+The storage class depends on the search class. It also depends on what 
+information has been provided by the user. The purpose that the storage class 
+depends on the search class, is because it needs to save specific information 
+such as the school and search terms. The search class also contains the information 
+that has been provided by the user, which the storage class will need. 
+
+\subsubsection*{Item class dependencies}
+The item class depends on the storage class. This is because it will need 
+the information that is returned from the item search. The purpose that this 
+class depends on search is because the item will need the information that is 
+returned from the search method in the search class. It also depends on the 
+Android JSON parser. This is because the returned value from the search method 
+will be in a JSON format. The JSON parser API will need to correctly return the 
+required information for the item class.
+
+\subsubsection*{Purchase class dependencies}
+The purchase class depends on the item class. The class will need the 
+information that is in the item class, like the item key. The purpose that this 
+class depends on the item class is because purchasing needs the item key. The 
+purchase class will also depend on eBay's Oder API. EBay's API will allow the 
+class to make its purchase. The API will also need the item key. 
 
 \subsection{Interaction viewpoint}
 
