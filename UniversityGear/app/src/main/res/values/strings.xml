@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UniversityGear</string>
+    <string name="search_message">Search Item</string>
+    <string name="search_button">Search</string>
 </resources>
