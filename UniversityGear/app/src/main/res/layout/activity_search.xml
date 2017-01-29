@@ -20,48 +20,40 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#A4C639" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="23dp"
-        android:text="search keyword"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#0099FF" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:background="#CCCCCC"
-        android:ems="10"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="#0099FF"
         android:text="submit"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/radiogroup"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="#F0F0F0"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="  Search"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <requestFocus />
+    </EditText>
 
     <RadioGroup
         android:orientation="vertical"
         android:id="@+id/radiogroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+        android:layout_below="@+id/editText1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp">
 
         <RadioButton
             android:layout_width="wrap_content"
