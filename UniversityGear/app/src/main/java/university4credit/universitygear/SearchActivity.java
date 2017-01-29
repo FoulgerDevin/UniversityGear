@@ -14,6 +14,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -122,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private class SearchItemTask extends AsyncTask< String,Void,String> {
+    private class SearchItemTask extends AsyncTask< String,Void,Item> {
         private String temp;
         private Context tempc;
         URL url;
@@ -163,9 +166,9 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Item doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=1";
+            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=10";
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
@@ -203,14 +206,19 @@ public class SearchActivity extends AppCompatActivity {
                 //get the item feed
                 inputstream = conn.getInputStream();
                 tempstr = getStringFromInputStream(inputstream);
-                Log.e("Inputsteam", " " + inputstream);
+
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
+            Item items = new Item(tempstr);
+            Log.e("Inputsteam", " " + inputstream);
+
+            return items;
         }
         @Override
-        protected void onPostExecute(String strings) {
+        protected void onPostExecute(Item strings) {
             //I set the result on the screen for testing purpose.
             mText.setText(tempstr);
 
