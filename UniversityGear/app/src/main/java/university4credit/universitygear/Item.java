@@ -19,12 +19,11 @@ public class Item {
     String itemID;
     String title;
     String price;
-    //String origPrice;
     String condition;
     URL imageURL;
     JSONObject jsonItems = null;
     JSONArray itemSummaries = null;
-    List<Item> itemFeed = new ArrayList<Item>();
+    List<Item> itemFeed = new ArrayList();
 
     /*
      * This constructor is used to create an array of items. It should be passed
@@ -44,16 +43,24 @@ public class Item {
         for (int i = 0; i < itemSummaries.length(); i++) {
             if (itemSummaries != null) {
                 try {
+                    String con = "Unspecified";
+
                     JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
                     JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
-                    JSONObject singleItemImage = new JSONObject(singleItem.getString("image"));
+                    JSONObject singleItemImage;
+                    //if (itemSummaries.getString(i).contains("image")) {
+                        singleItemImage = new JSONObject(singleItem.getString("image"));
+                    //}
+                    if (itemSummaries.getString(i).contains("condition")) {
+                        con = singleItem.getString("condition");
+                    }
                     Item newItem = new Item(singleItem.getString("itemId"),
                             singleItem.getString("title"), singleItemPrice.getString("value"),
-                            singleItem.getString("condition"),
-                            singleItemImage.getString("imageUrl"));
+                            con, singleItemImage.getString("imageUrl"));
                     itemFeed.add(newItem);
-                } catch (JSONException jsonE) {
-                    Log.e("ITEMFEED ARRAY", "Failed to create item feed");
+
+                 } catch (JSONException jsonE) {
+                    Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
                 }
             }
         }
@@ -69,7 +76,9 @@ public class Item {
         price = givenPrice;
         condition = cond;
         try {
-            imageURL = new URL(image);
+            if (imageURL != null) {
+                imageURL = new URL(image);
+            }
         } catch (MalformedURLException e) {
             Log.e("IMAGE URL","MALFORMED IMAGE URL");
         }

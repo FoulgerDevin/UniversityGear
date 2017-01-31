@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
     private class SearchItemTask extends AsyncTask< String,Void,Item> {
         private String temp;
         private Context tempc;
-        public String itemLimit = "10";
+        private String itemLimit = "200";
         URL url;
         HttpURLConnection conn;
         InputStream inputstream;
@@ -182,7 +182,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTutt02pbQEwqMaDesUSABnd96zO6EL2xbCAi2VLVigBu/M3C0DszPr3Jm24yPUSopCg6LGEAXZGEEhJvhIFEMUYiSCmBA0/DARlGgI8RUVI/2B0TvbB9saSx8kNnH/bO655/Wd850791IdRSULupZ3XS/zFednOqiOfJ+PLqVKivwLywvy7/TnUTkKvkzHnI7CzoKrixBI6WlpDURp00Aw0J7SDSRlhVWEYxmSCZCGJAOkIJJsRUrE6lZJTJCS0pZpm4qpE4F4bRXBK4yoymGRlhWeVQGLpUa/z0azihDCEUGEYZWlZSoCIjzeR8iBcQPZwLCrCIaiRZKiSZZupDiJ5iWeCYqcsIEIrIMW0kwDqwQpIppNV8raWjm5Dp8qQAhaNnZCROOxZYnVsXjt0vrGRaEcX9G+OiRsYDto8KrGVGFgHdAdOHwYlNWWEo6iQISIULQ3wmCnUqw/mTGkny21CGFEZiiFlSOCAIB8W0q5zLRSwB4+D0+iqWQyqypBw9Zs91YVxdWQt0DF7lvVYxfx2oD3d58DdC2pQauKWFodW782sXQNEUg0NFhmq6ZC1UNKsywrCHxEIKI2RLiE0NqUNB29BVpqX6xeh32VHhKsxjRUzasbCtSbdjXEicOh5aFyyoOVVhurrVjS9pLK1RP6y8hSG7y+9jbSsTcbXmthCtcikF3eugn9rLjJg9vFi7BCM4oIWZGGEQaIwmBeeLM+Nm5EvfbEGhpCUAYumQLWVmindaBAUsGldVLQ0lSJ42ROAEqSZJmwQnIqr5CRCA9JBgpQYADLUUnuf0YP27Y02bHhAEWGbmRxVhEJxUzDBlPXFJcYqpI9dfoI0Y6qiM22nZZCoba2tmAbGzStlhBDUXSoqW5VQtkMU4AY0NVurUxqWWooEFshTbLdNM6mHTMPBzdaiChrqQ3Ast1qx8XrBNR1/NfP3kEZRodK/wUq8qBOLJCePcIOQFoLegQPKmYqZAI8zJ5oUzbjwEiUQrLj4vgqtIIWBKpp6O7I7VocTOBe65EZIdyNYO8sYhhDInqzPjoHowiqGa2Yy6bljhLmYONR2ABFMR3DHku4PtNRWCQdPanpujeuYwmYYz6aNA2gu7amoIGQ45qyWDodVyfWlHE1FsSHLbnW0Fq9Dw2ZqG4iZY5PChzHhEkZhpOiIPPjgq3CVk2Bm7QJBt1wdH1cuOpahoOEZ33ffwGrPhQbF6pa2DrRSMozMqcyMk1GRE4mOXxlIWWVwtccESqQpykuyTPjwlyja/hgaHQn2jdwuYlsqI4PGr6JTixQ3gnTf8CoYV4mxTDH4ZspC0gQgSzJRXhlpJCHCHJudP+4y4cGv6ejedkf3en7gOr0vY+f5JRIkfRCan5RwdrCgskE0mwYRMBQZbM9qIFkEGktBn4uWjC4FbppoFn5Rb66b7vXb8t5yWceoCoG3vIlBXRpzsOeuuvmjp+eMquMFimaxeyleZ7ZQFXe3C2kZxZO7/yy+eSVi3PuPv39zorDB44ny8uuHaXKBpR8Pn9eYacvb7u/5OzGslOPn2zaVz/twzcz8yf3LPj1yNNTFn93f55wrrK5fvvKa4kjv3+12y1fcvkduvhG5o+Me735s1a+3f9Midb6WEemdNHMM0z6x/27utNHG4M1l6ZOeu6CE//lxLF7Pq24vHfSkb3SledXPuW/YLzytpMB215973O9qdT9Zvr2XS/O2lFRvqVmfWHxu5X7m+cu+WSj9cPpno49qXl65Z87Zy+7d+6Z2SenwrM7SnrWdL30BHdH+Z7ICzceunzg3KX47q+fPPXsowff+HnlimLi6qWHmQf9hw7PKA1vVJq+2Pbxzu55V2q6jp14+eLrK4QFS873PHKo+/zxFYtLXis7eOPwsY92znhr+rSZf/30W28b/wanr4AOYxEAAA==");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXeWwUVRjv9jIVqAYREDVZp3gAmdk59xi7i9uDdE1bFratHNb6ZuZNOzA7s5k303ajpKUEECWgBqkokQYI0ZBoYuQPNah4JB5A4v2HEARMUIMaDdHEgvhme7BdY+lBYhP3n81777t+3/f73ryP7i4uWbipZtMfMzzX5fd10935Hg8zjS4pLlpUWpA/ryiPzhLw9HXP7y7sKfi+HIGknhKXQ5QyDQS9nUndQGJmM0w4liGaAGlINEASItGWxUS0rlZkKVpMWaZtyqZOeGNVYYJjggJU/ArNSkFO4gS8awzZbDDDRDDEygLN+LmQILNqkMbnCDkwZiAbGHaYYGkmQNIMyTENTFDkaJELUDznX0V4m6CFNNPAIhRNRDLhihldKyvW0UMFCEHLxkaISCy6JLE0Gquqrm8o92XZigzmIWED20EjV5WmAr1NQHfg6G5QRlpMOLIMESJ8kQEPI42K0aFgJhB+JtUCzQZVjgUAKAGOZq5JJpeYVhLYo4fh7mgKqWZERWjYmp2+WkJxMqQ1ULYHV/XYRKzK6/4tc4CuqRq0wkR1RXRlY6J6OeFNxOOW2a4pUHGBMhzH+f1CyE9EbIhwBqHVopqO3gotZdDXgMHBROc4qzQNRXPThrz1pl0BceAwNz1sVnqw0FJjqRVVbTeoLDlXaECOCa1yyzpQR8duM9zKwiTOhTezvHoRhkhxhQbXiha8zEmAlWRJEjiWkfgcXri9PiFuRNzyRONxH5RAmkwCay20UzqQISnj1DpJaGmKyPMS7weySnJsUCZ5RZDJUEiAJAv90M8CjqdV/n9GD9u2NMmx4TBFcg8yOMNEQjZTMG7qmpwmckUyl84gITpRmGiz7ZTo83V0dFAdHGVarT6WphnfirrahNwGk4AYltWuLkxqGWrIEGshTbTTKRxNJ2Yedm60EhHOUuLAstMVThqvE1DX8d8Qe0dEGMnd/ReoyIU6tUC6+ggbACmNcglOyWbSZwLczO5WSyZi71iEfJKTxv4VaFEWBIpp6Omx67U6mMAD2mNTQrga1EAvYhi5Ht1eH5eBcTjVjHbMZdNKjxPmSOVx6ABZNh3Dnoi7QdVxaKiOrmq67rbrRBxmqY8nTAPoaVuT0bDLSXVZNJWKKVOry/hKC+LLlmw0tHb3Q0MmKlaQEi+ofp5ng6QEg2rALwmTgq3Adk2GLdoUg244uj4pXHWto0LCvf78fwCr3hedFKoq2D7VSCqwEq+wEkOGArxE8vjJQkoKjZ85AShDgaF5VWAnhblS1/DF0JCeat/AGhPZUJkcNPwSnVqg3Btm6IJRgoJEBoI8j1+mHCBBCHIkjwfRsULO2ch60f3jLe8bOU5H8jI/psdzmO7xvI4ncjpAk8wiekFxQWNhwXQCaTakEDAUyeykNKBSSGs18LRoQWotTKeAZuUXe+rObl3ZlTXI9zXTc4dH+ZICZlrWXE/fduWkiLlhzgwmQDMcwwQ5mgusosuunBYyswtnNTHawpMbLm8MH9ryxqnD+27+ZmfHjfSMYSGPpyivsMeT98hnx+edv/fU6brbL8zt2Hz+hZi6/p0vipSeo4/tf2kB2bO40e5aezD+9OoLP7Uwdf3nT1gvf91z9yFP17qm3jet7/b83lR6upl4sqz5eNmeMyV7+1/ZtezZkxurFt/67c7yjr+2nDi745xxj0V9EF/Yd+ajty6eO1Kwcv6Z1f5E6l0GBLrW3Hn/tGO7t2348/LeA77nyE8/f7C59ODMNrD9B2Xre3M2vn3gqf2Vs7suvfrQpXV3NV183PPMz5cX/LLCe6T0x152wwP9mzcfPPnEa0dVcLRXXV3blng/Xf6oJu7afUv/J70f/kZcqNnGrt9x37zose21VOL6F+94+Ktf2z/+cub0c9XaTbXirH27alD3QBn/Bosu2ZtiEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -193,7 +193,7 @@ public class SearchActivity extends AppCompatActivity {
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
-            int stat = 0;
+            int stat;
             try {
                 //this line is here to test the code. If it returns 200 then it succeeds otherwise theres something wrong with the payload
                 stat = conn.getResponseCode();
@@ -209,16 +209,17 @@ public class SearchActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Item items = new Item(result);
+            Item items = null;
+            if (result != null && result.length() > 0) {
+                items = new Item(result);
+            }
             Log.e("Inputsteam", " " + inputstream);
+            Log.e("Result string", "" + result);
 
-            return items;
+            return null;//items;
         }
         @Override
         protected void onPostExecute(Item strings) {
-            //I set the result on the screen for testing purpose.
-            mText.setText(tempstr);
-
 
         }
 
