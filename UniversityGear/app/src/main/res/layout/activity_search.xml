@@ -42,7 +42,8 @@
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="  Search"
+        android:hint="Search"
+        android:paddingLeft="15dp"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true">
 
