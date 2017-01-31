@@ -83,6 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mEdit   = (EditText)findViewById(R.id.editText1);
+                mEdit.setSelection(2);
                 mText = (TextView)findViewById(R.id.textView1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
@@ -128,9 +129,11 @@ public class SearchActivity extends AppCompatActivity {
     private class SearchItemTask extends AsyncTask< String,Void,Item> {
         private String temp;
         private Context tempc;
+        public String itemLimit = "10";
         URL url;
         HttpURLConnection conn;
         InputStream inputstream;
+        String result = "";
 
         private String getStringFromInputStream(InputStream is) {
 
@@ -161,14 +164,12 @@ public class SearchActivity extends AppCompatActivity {
 
         }
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected void onPreExecute() { super.onPreExecute(); }
 
         @Override
         protected Item doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=10";
+            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
@@ -182,7 +183,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXeWwUVRjv0kPK4R2oBOM6kCCS2Z2ZnZndGdnV7YFsoIfdFoHY1Dczb9qB2ZnNvJm2E1GbKqCCROQMoDYgEalRokFDIsYoCX+QQBP4gyjgQTgSiIkoh1Ea32wPtjWWHiQ2cf/ZvO991+/7ft+b96jWgsLHV81fdX2y765x7a1U6zifj55IFRbkz7k7d9y0/BwqS8HX3jqzNa8t9+JcBFJ6WqyGKG0aCPpbUrqBxIwwSjiWIZoAaUg0QAoi0ZbFZLx8ocgEKDFtmbYpmzrhT5RGCU4IybIUDgkSq0qqCrDU6PVZY0YJKNMKS4VUlVIYAPkQ3kfIgQkD2cCwowRD0WGSoklGqKF4keFEJhIIhUJLCf8iaCHNNLBKgCJimXTFjK2VlevgqQKEoGVjJ0QsEZ+XrIwnSssqauYGs3zFeuqQtIHtoP6rElOB/kVAd+DgYVBGW0w6sgwRIoKx7gj9nYrx3mRGkH6m1BE+DEIsJcmSIIVpjr8jpZxnWilgD56HJ9EUUs2oitCwNdu9XUVxNaRlULZ7VhXYRaLU7/094wBdUzVoRYmy4viS2mRZNeFPVlVZZpOmQMVDSuO0eZ4TeCJmQ4RLCK161XT0BmgpPbG6HfZUekCwEtNQNK9uyF9h2sUQJw4HlofOKg9WqjQqrbhqe0ll60V6y0izS72+djfSsRsNr7UwhWvhzyxv34ReVtziwZ3iBUdLAsPxkTCgw6wA5P688GZ9ZNyIee2JV1UFoQRcMgWs5dBO60CGpIxL66SgpSkiy0osD2SVDDERmWQVTiYFgYMkA3nIMx5fVfZ/Rg/btjTJsWEfRQZuZHBGiaRspmGVqWuySwxUyZw6PYRoQVGi0bbTYjDY3NwcaA4FTKshyFAUHVxcvjApN8IUPnZ7dbXbK5NahhoyxFZIE203jbNpwczDwY0GIhaylCpg2W6x4+J1Euo6/utlb78MYwOl/wIVeVDHFkjPHmEHIK0FPIIHZDMVNAEeZk9Un8nYPxSloOS4OL4CrYAFgWIaujt0uwYHE7jbemhGCHcj0D2LGMaAiN6sD8/BMIJqRhPmsmm5w4TZ33gYNkCWTcewRxKux3QYFqqjq5que+M6koBZ5sNJ0wC6a2sy6gs5qimLp9MJZWxNGVtiQXzYkrWG1uR9aMhk8WJSYjmVZ1kmQkowooZ5iRsVbAU2aTKs18YYdMPR9VHhKm8YDBKe9R3/BayKYHxUqEph01gjKcdIrMJINCmEWYlk8ZWFlBQKX3PCUIYcTbEqx4wKc4mu4YOhxh1r38D5JrKhMjpo+CY6tkB5J0zvAaNEOIkMR1gW30xDgAQCDJGswMlDhTxAkHWj+8ddPtj/PR3LyfzoNt9Bqs13AD/JqTBF0nOo2QW5tXm5kwik2TCAgKFIZktAA2oAaQ0Gfi5aMLAcummgWeMKfOVn1y55Oesl315HFfW95Qtz6YlZD3tq+q2dfPqeqZPpMEUzAsUzHBNZSs24tZtHT8l78MTTuxb99Pq7D095cv0R98eivXmnyq5Rk/uUfL78nLw2X457qquu8/nqd9D++2ccvbqgeuP6C1+/tm5++V8LklfOd7zS2PXNtt/cX9addLfush+59+ctR9evXb37Q2X/8TcWr555aOvBou05XTmfh85tP9vx7YYbtdEbs359dvYfRZsOdu6s239zmbyxnqodf/2rLZdvsodOXiLe/J3vmFJy9cUPrm2/b8a5xz5ZN33ThOdOlH625/RHgtuyt3DHA99/V7CsS7pw5OIPh6eJB4xNZ74UYtcnwLrjK9Y0vDWxqsB34KXz6kMvTyo89uqZjqKKS4k/Hz38/ttrOlayiQlfdG7bd+5YyemSsheuuO3VT+yxPn3q4qyjmzev2CBd/njzpffKKjt2rhQ6F0zlxuu77bMr9hV2t/Fv9RqMFGMRAAA=");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#p^3#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXa2wURRxn+yIVCoHwjoZjJRht9m72cXt3G3rm+kCqfZzclVAUmtnd2XZlb/fYx7ULREqJRBJIND4wYkyFIGIkvoiBD4RIMBgJUeADQoIgSMQQQxRNMRFx9tor1xpLHyQ28b5cZub/+v3m95+dAZ0lpY9tWbqlp4yYWNDdCToLCIKeBEpLisunFBbMK54A8gyI7s6FnUVdhdcWWzClpYVlyEobuoV8HSlNt4TsZAXpmLpgQEu1BB2mkCXYkpCI1dcJjB8IadOwDcnQSF9tdQXJMCCIYFgCoqhEQgyNZ/VczKRRQYZ4yNCywiApEoYKL+N1y3JQrW7ZULexP6BDFKApFiQBLXCcwAJ/MBJZSfqWI9NSDR2b+AEZzZYrZH3NvFqHLhVaFjJtHISM1saWJBpjtdU1DcnFgbxY0T4eEja0HWvgqMqQkW851Bw0dBoray0kHElClkUGor0ZBgYVYrliRlF+luqQSEt0iOdlGUgS4OF9oXKJYaagPXQd3owqU0rWVEC6rdruvRjFbIjPIcnuGzXgELXVPu/vaQdqqqIis4KsqYw1NyVqlpG+RDxuGhlVRrKHlGZZlueDEZ6M2sjCFCKzRTEcrRWZcl+u3oB9TA9KVmXosurxZvkaDLsS4cLRYHrYPHqwUaPeaMYU2ysq347N0RjCdoHcRjp2m+5tLUphLnzZ4b03IaeKuzq4X7qIyIwMI+EIZFkQivDsQF14vT46bUS97YnF4wEkQpdKQXMNstMalBAlYWqdFDJVGYcSOR5KCsUyYYni5KBERSJBRDGIRzwDWQ4o3P9MHrZtqqJjo36JDF7I4qwgE5KRRnFDUyWXHGySPXX6BNFhVZBttp0WAoH29nZ/O+s3zNYAAwAdWFFfl5DaUAqfBTlb9d7GlJqVhoSwl6UKtpvG1XRg5eHkeisZZU05Dk3brXRcPE4gTcN/OfUOqDA6ePZfoFoe1PEF0vO3cACYVv2ewP2SkQoYEDezN9WSrdg3HKOA6Lg4v4xMv4mgbOiaO3y/VgcLuNd7eE4W3g1/by9iGIMyer0+sgAjSKrqGaxlw3RHCHOg8wh8oCQZjm6PJl2f6wg8FEdTVE3z2nU0CfPcR1KmDjXXViWrP+WYuiyWTtfK46vLuCoT4cOWatLVjPehoRKVKyiRCyo8xzFhSkRhJcSLwTHBllFGlVCLOs6g646mjQlXfetQkHCvv/VfwGoIxMaEqhplxptIg4zIyYxIU5EQJ1IcvrJQogzwNSeEJBSkAacEmTFhrtJUfDAk3fH2DVxqWDaSxwYN30THFyjvhMkdMHI4KFKhMMfhmykLKRhBLMVFgtJwIQ+ayLvR/eMuHxj4no5OyP7oLuIw6CIO4Sc5CAGKLgePlhQ2FRVOJi3VRn4L6rJodPhVqPgttVXHz0UT+dcgNw1Vs6CEqL+yrXlj3ku+exWY0/+WLy2kJ+U97MGDd1eK6amzy+gQoFlMHcexYCV4+O5qET2raMbZXU1rL2bqZhzZnll9cN+JM1dOzboByvqNCKJ4QlEXMeHIdx1PEg+tNx/YuVU72nLz2ym3Nhz/+qd14f1XP2xrLnWVk80zUgUb5v31InvAlzx+641HZpZZF7fW9DTuYX/ZeXv70cePLFy0buKOz3ZPO733bWZx3fnZyy59tZZff+1Z4UyP7+c5hHs43F0+7b1V4Lc7m0u4Sc/T+y7/WDb1XYL9/vOrxZ9sC+wqSCajG+NvTj/2xAJ28ub43LN1p169WLqt/BpRcU4JR0+Gp7pfdH30+uoT53/49IU/qczN+c13XrN7Duof/HFgxa+XziVeunHgLNjz8qVnjs29ieouHHL8m4618cQrm97fuLfl4/L98xfdfur6/B1fLpg+c86Sy+E7v19Yf/1WxzvJkt2lp7/p3ca/AecbINVjEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -205,14 +206,11 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 //get the item feed
                 inputstream = conn.getInputStream();
-                tempstr = getStringFromInputStream(inputstream);
-
-
-
+                result = getStringFromInputStream(inputstream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Item items = new Item(tempstr);
+            Item items = new Item(result);
             Log.e("Inputsteam", " " + inputstream);
 
             return items;

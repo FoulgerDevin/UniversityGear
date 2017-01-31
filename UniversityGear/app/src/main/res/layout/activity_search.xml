@@ -10,42 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="university4credit.universitygear.SearchActivity">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#A4C639" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#0099FF"
-        android:text="submit"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/radiogroup"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:background="#F0F0F0"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="  Search"
-        android:layout_below="@+id/textView1"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
-
-        <requestFocus />
-    </EditText>
-
     <RadioGroup
         android:orientation="vertical"
         android:id="@+id/radiogroup"
@@ -68,7 +32,41 @@
             android:layout_height="wrap_content"
             android:text="Used"
             android:id="@+id/radioButton2"
-            android:layout_below="@+id/radioButton1"
-            android:layout_alignParentStart="true" />
+            />
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="  Search"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#0099FF"
+        android:text="submit"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/radiogroup"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MOVE ME"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#A4C639"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/radiogroup" />
 </RelativeLayout>
