@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 public class DisplaySearchResultsActivity extends AppCompatActivity {
     private static final String TAG = "RecyclerViewExample";
+    private String searchResults;
 
     private List<FeedItem> feedsList;
     private RecyclerView mRecyclerView;
@@ -37,14 +38,8 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_search_results);
 
-/*        Intent intent = getIntent();
-        String message = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
-
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_search_results);
-        layout.addView(textView);*/
+        Intent intent = getIntent();
+        searchResults = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -112,20 +107,26 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
 
     private void parseResult(String result) {
         try {
-            JSONObject response = new JSONObject(result);
-            JSONArray posts = response.optJSONArray("posts");
+            JSONObject response = new JSONObject(searchResults);
+            JSONArray posts = response.optJSONArray("itemSummaries");
             feedsList = new ArrayList<>();
 
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
+                JSONObject price = post.getJSONObject("price");
+                JSONObject image = post.getJSONObject("image");
+
                 FeedItem item = new FeedItem();
-                item.setTitle(post.optString("title") + " Hector"); //Setting Image Title
-                item.setThumbnail(post.optString("thumbnail")); // Setting Item Image
-                item.setPrice("$" + i + "0.99");
+                item.setTitle(post.optString("title")); //Setting Image Title
+                item.setThumbnail(image.optString("imageURL")); // Setting Item Image
+                //Will Generalize the conditions to be either new or used.
+                item.setPrice(price.optString("value") + " " + price.optString("currency") + "\n" + post.optString("condition"));
+
                 feedsList.add(item);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 }

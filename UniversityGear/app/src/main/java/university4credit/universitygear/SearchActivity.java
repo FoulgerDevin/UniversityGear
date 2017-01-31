@@ -1,23 +1,35 @@
 package university4credit.universitygear;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 public class SearchActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "university4credit.universitygear.MESSAGE";
     Button mButton;
     EditText mEdit;
     TextView mText;
@@ -167,7 +179,7 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#f^0#p^1#I^3#r^0#t^H4sIAAAAAAAAAOVXb2wURRTv9dorDVSNEEuIyrEStcDuze5e9+423CV3BcJByxWuNNDQwNzuXLvt3e5mZ9b2CMRatQSCiQLygUQgYkzUxA9GMRjAogKxRDGQGCV8Akn8E/BPolSCqbPXo1yrgQqnIXG/bOa9N29+7/femz+gz1M9b2DpwNUaV1X5/j7QV+5y8VNBtady/n3u8lmVZaDIwLW/b25fRb/724UYZjOmvAph09Ax8vZmMzqW88IwY1u6bECsYVmHWYRlosjJaFOjLHBANi2DGIqRYbzxRWFGRH5JqBdQQOGDKuIRleo3fLYYVA8Qr6RBIAX5kOJPC1SPsY3iOiZQJ2FGAHyABTwrSC0AyH5J9vs5EKxvY7ytyMKaoVMTDjCRPFw5P9cqwnprqBBjZBHqhInEo0uSiWh80eIVLQt9Rb4iBR6SBBIbjx81GCrytsKMjW69DM5by0lbURDGjC8yusJ4p3L0Bpg7gJ+nOqUilQ+gYEhEQBTV0lC5xLCykNwahyPRVDadN5WRTjSSux2jlI1UF1JIYbSCuogv8jq/lTbMaGkNWWFmcSy6NtrczERiVg7qjRpkV+vaUw5YNhlbw/JBqEJYn1ZZQVUFRUBiYaFRbwWaJ6zUYOiq5pCGvSsMEkMUNZrIjVjEDTVK6AkrmiYOomI74QaHImhzkjqaRZt06k5eUZYS4c0Pb5+BsdmEWFrKJmjMw0RFnqIwA01TU5mJynwtFsqnF4eZTkJM2efr6enhekTOsDp8AgC8b01TY1LpRFnIUFun10fttdtPYLV8KAptY2ovk5xJsfTSWqUA9A4mIkiSJAQKvI+HFZko/YugKGbf+I4oVYeoCPFQTKFAyq/wqhAoRYdECkXqc3CgFMyxWWh1I2JmoIJYhdaZnUWWpspifVoQg2nEqlIozfpD6TSbqlcllk8jBBBKpZRQ8P/UKJMt9YaMRpUttNRKUu8lq/WlBiZInWyt/21oScUwUbOR0ZTcfxKb0+uTjk+01GZokVzMztFxEmUy9HdX4Sr5TK4v0cZVskT+w565s9g1SO6tqHl/sF4M8RLw311c9EJzT8WlGFnO2YY5C5rEsDgKzcwgzFkIG7ZFL2BcwjmUW4xupNMtjlhGJoOsVv6uWMBOI99bPFQ8c9hxgakPaGqjlFBufAak0Tui9XnQ3skY+VJ2juuwESYUiIqsf+GA941/bkTK8h/f7zoC+l2H6IsFBADLzwd1HvfqCvc0BmsE0dzqasro5TSY5rDWodPbtIW4bpQzoWaVe1xNF7evfbroobO/Hcwce+pUu/mpRe8e8PBNTSV/f20NHwC8IAHgl/z+NvDYTW0F/1DFjMbknNPDX9RwddfnbBgm24a2XT5dDWrGjFyuyrKKfleZlT17dktd67XYxxu/unRi1pmt3yeuRwd3/dh14NWa4cG9v7wnsEd+qDUqH13+0xS845NDQ1UHL/z6xN7j298dCv38QvvziZdnzFx2+jfP1S8DUuVcor/eMzJy4ZHv9vg2hbvh+/sOL4tx5z49cPCPD3/fPXto90l34qUFtrD5jaEt5xa8dnFP+5REZ9dWZujyzJa3ZenS401RH04vOV8+snJbtafMPHlq3QffaDD+dfbUtCubau23zh99oKpBq513fMfq4MY3Z5+ZM9B+7PI7nitzr3Ufq3JdOyQ1oVWtcVF+ZfCjOvnBz1nm+mc7D3dtfnIf8EyvmL7BfaLt6K7lL67sN9cNP1u9ZWBw5LnRNP4JaptfnYIOAAA=");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXf4gUVRy/vV9m52mRVJTkMv6iu2b3zezM7O7oLuz9CLfzfujemR7U8Wbmzd3o7Mw2783drZCdR5xEZhFFRKFX4R8ahphaRj8wyEJO0IIgRPC0QFKoUFMosjd7P9y76LwfQgftP8t77/vr8/1+vt95D/SUzq3oW913vdw3p7C/B/QU+nxcGZhbWlI5v6jwoZICkCfg6+9Z2lPcW3RxFYZpMyOvQzhjWxj5u9OmheXcZoxxHUu2ITawbME0wjJR5VSifo3MB4CccWxiq7bJ+JM1MUYVIYSID4swrPNIUuiuNWKz2Y4x0ZAkhqICz4VCkNN0nZ5j7KKkhQm0SIzhARdmAceGuGYgyoIkc2KAB3wr41+PHGzYFhUJACaeC1fO6Tp5sU4cKsQYOYQaYeLJxOOpxkSypraheVUwz1Z8OA8pAomLx66qbQ3510PTRRO7wTlpOeWqKsKYCcaHPIw1KidGgplG+LlURxCHwmpEQqrGaVCP3JFUPm47aUgmjsPbMTRWz4nKyCIGyd4uozQbyiakkuFVAzWRrPF7f2tdaBq6gZwYU1uV2NiSql3H+FNNTY7daWhI85BSsoTCkhQWmThBmKYQOW3EcTcZptkx7GvI4HCmxzmrti3N8PKG/Q02qUI0cDQ+PaG89FChRqvRSejECypfLjycRi4CWr26DhXSJR2WV1qUprnw55a3L8IIK27x4I7xIiJBneeiihrRFY2TxvLC6/XpcSPulSfR1BRECsyyaehsRiRjQhWxKk2tm0aOocmCoAgSVHU2xEdUVtBElY1GRcTSWYAkHoYEoAv/M3oQ4hiKS9AoRcYf5HDGmJRqZ1CTbRpqlhkvkps6w4ToxjGmg5CMHAx2dXUFukIB22kP8gBwwQ31a1JqB0pDZlTWuL0wa+SooSKqhQ2ZZDM0mm7KPOrcamfiIUdrgg7JVrlZuk4h06R/I+wdE2F8/O6/QMUe1NkF0tPH1ADMGAGP4AHVTgdtSJvZ22rLReyfjFBQcbPUv4acgIOgZltmdvJ67S4l8JD25JQwrUZgqBcpjHEevV6fmoEpODWsTspl28lOEeZY5SnoQFW1XYtMx92w6hQ0dNfU6fzw2nU6DvPUpxKmBc0sMVQ86nJGXZbIZJLa7OoyodpBdNiyLZbR6X1o2FTVBhZpCuQFpCAWKIjXFZ6bEWwNdRoqajNmGXTLNc0Z4apvnwgS7fW3/wtYDcHEjFDVoM7ZRlJNk8JRQVHYiBKmdxhRCbNQiQgsikpRjdIUqAqYEeZq06CDoTk7276Bq21MkDYzaPQmOrtAeRNmZMBwkYhOhwwP6c0U8WxEVAVWEQVxspDHbeTd6P5xlw+OfU/HC3I/rtf3Gej1HaVPchAGLFcJHi0taikumsdgg6AAhpam2N0BA+oBbLRb9LnooMBmlM1Awyks9dVf2LHxubyXfP9T4MHRt/zcIq4s72EPFt06KeEWPFDOhQEX4oAoSJzYCpbcOi3m7i9eWLSi0FW/XXSIW/Tl8vMFCweIcCMGykeFfL6SguJeX4G4u8I9fv3uj6XSvfvfS+yehw5vWXZC/O1m0ddVha09fefeuHRk91ZRMlIlLx0ubtlVvQ/DOSfe3L/z5LOLz/vmH3/tq/VfHL+68vIPXS+UnD9z6r7r29+t216xL218dLD+5GC47sAx/rHEyWee/KD8yNXGC31Xvq9zl97z8v5r3TcqF3Tv6JCeLlt3oOf03s3GtiVnW19hjlx8cetPhdV//pUGW5YPdK0UzlaueOKYCQrKy8j2YzcH614FAxWXHr53LzY+uetg3R8HO3+p+PCbd35s2XnuNDvw/oXXB3/vX3vlzPzEnmunNlR3lR04eqjt+Xm1yd7WwLZBp+3y4UcaPv318+/23XxL2rVsT8GqnxcPlfFvN8rbfmMRAAA=");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -198,9 +210,11 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String strings) {
             //I set the result on the screen for testing purpose.
-            mText.setText(tempstr);
-
-
+            //mText.setText(tempstr);
+            //Starting activity with search results passed in
+            Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, tempstr);
+            startActivity(intent);
         }
 
     }
