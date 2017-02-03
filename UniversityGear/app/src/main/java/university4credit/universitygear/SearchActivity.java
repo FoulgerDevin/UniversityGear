@@ -1,5 +1,6 @@
 package university4credit.universitygear;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String temp;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
-    public List<Item> itemFeed;
+    public List<Item> itemFeed = null;
     // Is the button now checked?
 
 
@@ -182,7 +183,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9kWaWjQGEB/UZVBR6szeeezs7qRd3T6AFVoKW5BWmjqPO8vA7Mxm7ky7EwVqoyQKMRATIAEjGoLB1w9Eo/GBiUQjlCAYSFV+QMQgRKIRFQRNvLN9sK2x9EFiE3d/TO6d8/rO+c6dc0Fnccmc9fPXXyrzTcrf2Qk6830+uhSUFBdVTC7Iv6MoD+QI+HZ23tNZ2FXwQyUSU3paWAJR2jQQ9GdSuoGE7GYV4ViGYIpIQ4IhpiASbFlIxOoXCgwFhLRl2qZs6oQ/XltFMBFAq1wEcAwflsIKh3eNfptNZhXBA46PhFnA87wSAmH8GiEHxg1ki4aN1QEdIgFDAroJ0AJgBUBTDMe2EP5l0EKaaWARChDRbLRCVtfKCXX4SEWEoGVjI0Q0HpubWBSL19Y1NFUGcmxF+9KQsEXbQYNXNaYC/ctE3YHDu0FZaSHhyDJEiAhEez0MNirE+oMZQ/jZTNNMKCRDBoIIA2UVMjcklXNNKyXaw8fh7WgKqWZFBWjYmu1eL6M4G9IqKNt9qwZsIl7r9x6LHVHXVA1aVURddax5aaJuCeFPNDZaZrumQCWLlGVZng9GeCJqQ4RTCK021XT0JLSUPl+9BvsyPcRZjWkompc35G8w7WqIA4eD0wOEYE56sNAiY5EVU20vqFw5tj+NTLjFq2tvIR17peGVFqZwLvzZ5fWL0M+Kazy4UbyQaRCRaVnkuTAI0Zw6hBder4+JG1GvPLHGxgCURJdMidZqaKd1UYakjFPrpKClKQLHSRwvyirJMmGZ5JSgTEYiQUgykIc8I7IcULn/GT1s29Ikx4YDFBn6IouzikjIZho2mromu8RQkeyp00eIDKoiVtp2WggEOjo6qA6WMq1kgAGADiyvX5iQV8KUSAzIatcXJrUsNWSItZAm2G4aR5PBzMPOjSQRZS2lUbRst9px8ToBdR0/+tk7KMLo0N1/gYo8qBMLpKePsAExrVEewSnZTAVMETezt9WWjdg/EqGA5LjYvwItyoKiYhq6O3K9pIMJ3Ks9MiWEq0H19iKGMdSj1+ujMjAKp5rRjrlsWu4oYQ5WHoWOKMumY9hjcdenOgoN1dFVTde9dh2Lwxz10YRpiLprazIacDmuLoul03FlYnUZV2NBfNiSSw2t3fvQkInq5aTEBVWe45gwKcGwGuKl4LhgK7Bdk2GbNsGgG46ujwtXfXJYSLjXt/8HsBoCsXGhqoXtE42kQUbiFEaiyUiIk0gOjyykpAA85oSgDIM04NQgMy7MNbqGD4Ymd6J9A+ebyIbK+KDhSXRigfJOmP4DRgkHJTIU5jg8mbIiKUYgS3KRoDxSyEM2cia6f8zygcHX6Whe9kd3+T4CXb738Y0chABJV4AHiguWFhbcRCDNhhQSDUUyM5QmqhTSkga+LlqQWg3dtKhZ+cW++u82Nq/LucjvbAXTB67yJQV0ac69Htx17U0RffNtZXQI4GEV/1lAt4BZ194W0tMKp6xZJZUe+vlQh9M2D537cvOOR9YeLQVlA0I+X1FeYZcvL3h219bYse7TF+LJXdUHt1lMyWOvP7X8zCvRLfvfPfDLy2cXPHrkoSvzwcxt5e3TeuQLrcbWvNKnmal7fpJ3rY31lLfO3f5ZZsare3uorz/Yw58+3Hyq7PRbH3avir44nZ996b0pz7uLNwkvBJgVdRWbz525++Jzu387b1E1yckzmrds2Htn6/n9lw8e/qKCO/T7vg2zW2rfuNxiTiWl3YG3j4ZPzAtVb5r1zurWy5kTU7gN2pvrJh157ZaN5ufdZGXHiWPmg5FvxQyjVYae2I9+TJ3ct+Dqs+XFL7lNhcHIgXL+mY9XEDNvvXLq+z/v5R6OzAn2fPLk1U9P/nVx8f3da/648NU3tcdvf/z4rzvu6y3j3wp+9b9iEQAA");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXW2wUVRju9GqpBTEEVEQ3Axi0zu6Z++5IV3dbLqv0ItsixWg9M3O2HZidWefMtN1IbFNMDdFoSEgIIFoTogEVfYREjNEH8MHEJ0qIwUijCBIfTLBIInhme2G7xtILiU3cl8055799///9Z84P+sorHxvYODBSTVUUD/aBvmKKYqtAZXlZzcKS4gfKikCeADXYt6qvtL/kl7UYps2MshnhjG1hFOhJmxZWcpu1tOdYig2xgRULphFWXE1Jxho2KVwQKBnHdm3NNulAor6WlgVZimhhHshQZ+WIRHatcZstdi0tyFwEykCSBJnXVQ2Rc4w9lLCwCy23luYAKzOAYwDfAniFFxVWDoYFbhsd2IIcbNgWEQkCOpoLV8npOnmxTh0qxBg5LjFCRxOx9cmmWKJ+XWPL2lCerehYHpIudD08eVVn6yiwBZoemtoNzkkrSU/TEMZ0KDrqYbJRJTYezCzCz6VaiMiAC6eAHlaRporcHUnlettJQ3fqOPwdQ2dSOVEFWa7hZm+XUZINdTvS3LFVIzGRqA/4f8960DRSBnJq6XXxWFtrct1mOpBsbnbsLkNHuo+U5XlekkTCpqiLMEkhctpTtmd2IEcf8zVqcCzTBc7qbEs3/LzhQKPtxhEJHBWmh8tLDxFqspqcWMr1g8qXE8fTyEnb/LqOFtJzOy2/tChNchHILW9fhHFW3OLBneJFRJOAJPA8B1MiSAkFtPB7fVbUiPrViTU3h5AKs0waOjuQmzGhhhiNZNZLI8fQFUFQBQlqKYbnwhoj6KLGRCIiYjgkIYmDvEAC+p+xw3UdQ/VcNMGQwoMczlo6qdkZ1GybhpalC0Vyl84YH3pwLd3puhklFOru7g5280Hb6QhxALChrQ2bklonSkN6Qta4vTBj5Kjh38VEXnGzGRJNDyEecW510FHe0Zuh42bjXpask8g0yd84eSdFGC3c/Reo2Ic6v0D6+pgYgBkj6BM8qNnpkA1JL/tb7bmIA9MRCqlelvjXkRN0ENRty8xOX6/DIwQe1Z6eEibVCI72IoFR6NHv9RkZmIFTw+oiXLad7AxhTlaegQ7UNNuz3Nm4G1OdgUbKM1OGafrtOhuHeeozCdOCZtY1NDzhck5dFstkEvr86jKhzkHksmVaLaPL/9AwyfhWRhXElCQIXJhRUTglS6o4J9g66jI01G7MM+iWZ5pzwtXQMSUk0usH/wNYjaHYnFDVo675RlKRUwWdU1kmIgsqI5AnC6PqgDxzZKQhkQVCSuTmhLnONMjF0JKdb9/AjTZ2kT43aOQhOr9A+TfM+AWjh0WVkcOCQF6mPGRgBPGMEBG16UIu2Mh70f3jKR+aPE5Hi3I/tp86CfqpE2QiBzJg2BrwaHlJa2nJ3TQ2XBTE0NJVuydowFQQGx0WmRYdFNyBshloOMXlVMPwm229eYP84AvgvolRvrKErcqb68GDt07K2EXLqlkyLQIe8LzIytvAylunpezS0iXZmv2ha8uWDI/cOF20c+93bebnNgWqJ4QoqqyotJ8q2rfrwqn4IxdHeq8edbZ8PxRwi3rOLjhdNbRrgNpQWr3/+UtnO19cuH0AUz99srV1w4qDJy8s7d1dVClabw+t+bhaPPzD8VjzqVPX3nu/9+rjNxoiHyx6+tCZxHMH/jxmblfolb9ebDj/88PnFte1V/R2/xhvO3bjvERRf20+O1ASSATvGhoqP1M2+FXULv/UHrj39yPXj67mh1fXNzH9N68cfqnywP5LVS8/UfPu8vSeVy6807mifvkbZ5aEL3/DD+25eV379rflnz0ZeerI/a+vrDhhhuxzi69Wnx9+bXX8UMY+0nbzrX1Xvgb3dH70zO4Fey/Hs4HKL/GIeRzV/bH+1WU73UyxseaLD1c9VDFaxr8BhVb80WIRAAA=");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -212,18 +213,19 @@ public class SearchActivity extends AppCompatActivity {
             Item items = null;
             if (result != null && result.length() > 0) {
                 items = new Item(result);
+                itemFeed = items.itemFeed;
             }
             Log.e("Inputsteam", " " + inputstream);
             Log.e("Result string", "" + result);
-            itemFeed = items.itemFeed;
+
             //Starting activity with search results passed in
             return items.itemFeed;
         }
         @Override
-        protected void onPostExecute(List<Item> strings) {
+        protected void onPostExecute(List strings) {
+            Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, result);
+            startActivity(intent);
         }
-
     }
-
-
 }
