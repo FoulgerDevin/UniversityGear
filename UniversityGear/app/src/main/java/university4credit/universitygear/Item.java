@@ -44,19 +44,21 @@ public class Item {
             if (itemSummaries != null) {
                 try {
                     String con = "Unspecified";
+                    String imageUrl = null;
 
                     JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
                     JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
                     JSONObject singleItemImage;
-                    //if (itemSummaries.getString(i).contains("image")) {
+                    if (itemSummaries.getString(i).contains("image")) {
                         singleItemImage = new JSONObject(singleItem.getString("image"));
-                    //}
+                        imageUrl = singleItemImage.getString("imageUrl");
+                    }
                     if (itemSummaries.getString(i).contains("condition")) {
                         con = singleItem.getString("condition");
                     }
                     Item newItem = new Item(singleItem.getString("itemId"),
                             singleItem.getString("title"), singleItemPrice.getString("value"),
-                            con, singleItemImage.getString("imageUrl"));
+                            con, imageUrl);
                     itemFeed.add(newItem);
 
                  } catch (JSONException jsonE) {

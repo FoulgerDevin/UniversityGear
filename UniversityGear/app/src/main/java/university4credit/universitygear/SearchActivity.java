@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
-import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     Button mButton;
@@ -41,6 +35,7 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String temp;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
+    public List<Item> itemFeed;
     // Is the button now checked?
 
 
@@ -107,6 +102,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 join.toLowerCase();
                 new SearchItemTask().execute(join);
+
                 FileOutputStream stream = null;
                 try {
                     stream = openFileOutput("history.txt", Context.MODE_APPEND);
@@ -125,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private class SearchItemTask extends AsyncTask< String,Void,Item> {
+    private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
         private String temp;
         private Context tempc;
         private String itemLimit = "200";
@@ -166,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPreExecute() { super.onPreExecute(); }
 
         @Override
-        protected Item doInBackground(String... params) {
+        protected List<Item> doInBackground(String... params) {
             //this is the url that i passed in
             String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=" + itemLimit;
             try {
@@ -182,7 +178,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXeWwUVRjv9jIVqAYREDVZp3gAmdk59xi7i9uDdE1bFratHNb6ZuZNOzA7s5k303ajpKUEECWgBqkokQYI0ZBoYuQPNah4JB5A4v2HEARMUIMaDdHEgvhme7BdY+lBYhP3n81777t+3/f73ryP7i4uWbipZtMfMzzX5fd10935Hg8zjS4pLlpUWpA/ryiPzhLw9HXP7y7sKfi+HIGknhKXQ5QyDQS9nUndQGJmM0w4liGaAGlINEASItGWxUS0rlZkKVpMWaZtyqZOeGNVYYJjggJU/ArNSkFO4gS8awzZbDDDRDDEygLN+LmQILNqkMbnCDkwZiAbGHaYYGkmQNIMyTENTFDkaJELUDznX0V4m6CFNNPAIhRNRDLhihldKyvW0UMFCEHLxkaISCy6JLE0Gquqrm8o92XZigzmIWED20EjV5WmAr1NQHfg6G5QRlpMOLIMESJ8kQEPI42K0aFgJhB+JtUCzQZVjgUAKAGOZq5JJpeYVhLYo4fh7mgKqWZERWjYmp2+WkJxMqQ1ULYHV/XYRKzK6/4tc4CuqRq0wkR1RXRlY6J6OeFNxOOW2a4pUHGBMhzH+f1CyE9EbIhwBqHVopqO3gotZdDXgMHBROc4qzQNRXPThrz1pl0BceAwNz1sVnqw0FJjqRVVbTeoLDlXaECOCa1yyzpQR8duM9zKwiTOhTezvHoRhkhxhQbXiha8zEmAlWRJEjiWkfgcXri9PiFuRNzyRONxH5RAmkwCay20UzqQISnj1DpJaGmKyPMS7weySnJsUCZ5RZDJUEiAJAv90M8CjqdV/n9GD9u2NMmx4TBFcg8yOMNEQjZTMG7qmpwmckUyl84gITpRmGiz7ZTo83V0dFAdHGVarT6WphnfirrahNwGk4AYltWuLkxqGWrIEGshTbTTKRxNJ2Yedm60EhHOUuLAstMVThqvE1DX8d8Qe0dEGMnd/ReoyIU6tUC6+ggbACmNcglOyWbSZwLczO5WSyZi71iEfJKTxv4VaFEWBIpp6Omx67U6mMAD2mNTQrga1EAvYhi5Ht1eH5eBcTjVjHbMZdNKjxPmSOVx6ABZNh3Dnoi7QdVxaKiOrmq67rbrRBxmqY8nTAPoaVuT0bDLSXVZNJWKKVOry/hKC+LLlmw0tHb3Q0MmKlaQEi+ofp5ng6QEg2rALwmTgq3Adk2GLdoUg244uj4pXHWto0LCvf78fwCr3hedFKoq2D7VSCqwEq+wEkOGArxE8vjJQkoKjZ85AShDgaF5VWAnhblS1/DF0JCeat/AGhPZUJkcNPwSnVqg3Btm6IJRgoJEBoI8j1+mHCBBCHIkjwfRsULO2ch60f3jLe8bOU5H8jI/psdzmO7xvI4ncjpAk8wiekFxQWNhwXQCaTakEDAUyeykNKBSSGs18LRoQWotTKeAZuUXe+rObl3ZlTXI9zXTc4dH+ZICZlrWXE/fduWkiLlhzgwmQDMcwwQ5mgusosuunBYyswtnNTHawpMbLm8MH9ryxqnD+27+ZmfHjfSMYSGPpyivsMeT98hnx+edv/fU6brbL8zt2Hz+hZi6/p0vipSeo4/tf2kB2bO40e5aezD+9OoLP7Uwdf3nT1gvf91z9yFP17qm3jet7/b83lR6upl4sqz5eNmeMyV7+1/ZtezZkxurFt/67c7yjr+2nDi745xxj0V9EF/Yd+ajty6eO1Kwcv6Z1f5E6l0GBLrW3Hn/tGO7t2348/LeA77nyE8/f7C59ODMNrD9B2Xre3M2vn3gqf2Vs7suvfrQpXV3NV183PPMz5cX/LLCe6T0x152wwP9mzcfPPnEa0dVcLRXXV3blng/Xf6oJu7afUv/J70f/kZcqNnGrt9x37zose21VOL6F+94+Ktf2z/+cub0c9XaTbXirH27alD3QBn/Bosu2ZtiEQAA");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9kWaWjQGEB/UZVBR6szeeezs7qRd3T6AFVoKW5BWmjqPO8vA7Mxm7ky7EwVqoyQKMRATIAEjGoLB1w9Eo/GBiUQjlCAYSFV+QMQgRKIRFQRNvLN9sK2x9EFiE3d/TO6d8/rO+c6dc0Fnccmc9fPXXyrzTcrf2Qk6830+uhSUFBdVTC7Iv6MoD+QI+HZ23tNZ2FXwQyUSU3paWAJR2jQQ9GdSuoGE7GYV4ViGYIpIQ4IhpiASbFlIxOoXCgwFhLRl2qZs6oQ/XltFMBFAq1wEcAwflsIKh3eNfptNZhXBA46PhFnA87wSAmH8GiEHxg1ki4aN1QEdIgFDAroJ0AJgBUBTDMe2EP5l0EKaaWARChDRbLRCVtfKCXX4SEWEoGVjI0Q0HpubWBSL19Y1NFUGcmxF+9KQsEXbQYNXNaYC/ctE3YHDu0FZaSHhyDJEiAhEez0MNirE+oMZQ/jZTNNMKCRDBoIIA2UVMjcklXNNKyXaw8fh7WgKqWZFBWjYmu1eL6M4G9IqKNt9qwZsIl7r9x6LHVHXVA1aVURddax5aaJuCeFPNDZaZrumQCWLlGVZng9GeCJqQ4RTCK021XT0JLSUPl+9BvsyPcRZjWkompc35G8w7WqIA4eD0wOEYE56sNAiY5EVU20vqFw5tj+NTLjFq2tvIR17peGVFqZwLvzZ5fWL0M+Kazy4UbyQaRCRaVnkuTAI0Zw6hBder4+JG1GvPLHGxgCURJdMidZqaKd1UYakjFPrpKClKQLHSRwvyirJMmGZ5JSgTEYiQUgykIc8I7IcULn/GT1s29Ikx4YDFBn6IouzikjIZho2mromu8RQkeyp00eIDKoiVtp2WggEOjo6qA6WMq1kgAGADiyvX5iQV8KUSAzIatcXJrUsNWSItZAm2G4aR5PBzMPOjSQRZS2lUbRst9px8ToBdR0/+tk7KMLo0N1/gYo8qBMLpKePsAExrVEewSnZTAVMETezt9WWjdg/EqGA5LjYvwItyoKiYhq6O3K9pIMJ3Ks9MiWEq0H19iKGMdSj1+ujMjAKp5rRjrlsWu4oYQ5WHoWOKMumY9hjcdenOgoN1dFVTde9dh2Lwxz10YRpiLprazIacDmuLoul03FlYnUZV2NBfNiSSw2t3fvQkInq5aTEBVWe45gwKcGwGuKl4LhgK7Bdk2GbNsGgG46ujwtXfXJYSLjXt/8HsBoCsXGhqoXtE42kQUbiFEaiyUiIk0gOjyykpAA85oSgDIM04NQgMy7MNbqGD4Ymd6J9A+ebyIbK+KDhSXRigfJOmP4DRgkHJTIU5jg8mbIiKUYgS3KRoDxSyEM2cia6f8zygcHX6Whe9kd3+T4CXb738Y0chABJV4AHiguWFhbcRCDNhhQSDUUyM5QmqhTSkga+LlqQWg3dtKhZ+cW++u82Nq/LucjvbAXTB67yJQV0ac69Htx17U0RffNtZXQI4GEV/1lAt4BZ194W0tMKp6xZJZUe+vlQh9M2D537cvOOR9YeLQVlA0I+X1FeYZcvL3h219bYse7TF+LJXdUHt1lMyWOvP7X8zCvRLfvfPfDLy2cXPHrkoSvzwcxt5e3TeuQLrcbWvNKnmal7fpJ3rY31lLfO3f5ZZsare3uorz/Yw58+3Hyq7PRbH3avir44nZ996b0pz7uLNwkvBJgVdRWbz525++Jzu387b1E1yckzmrds2Htn6/n9lw8e/qKCO/T7vg2zW2rfuNxiTiWl3YG3j4ZPzAtVb5r1zurWy5kTU7gN2pvrJh157ZaN5ufdZGXHiWPmg5FvxQyjVYae2I9+TJ3ct+Dqs+XFL7lNhcHIgXL+mY9XEDNvvXLq+z/v5R6OzAn2fPLk1U9P/nVx8f3da/648NU3tcdvf/z4rzvu6y3j3wp+9b9iEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -215,11 +211,12 @@ public class SearchActivity extends AppCompatActivity {
             }
             Log.e("Inputsteam", " " + inputstream);
             Log.e("Result string", "" + result);
+            itemFeed = items.itemFeed;
 
-            return null;//items;
+            return items.itemFeed;
         }
         @Override
-        protected void onPostExecute(Item strings) {
+        protected void onPostExecute(List<Item> strings) {
 
         }
 
