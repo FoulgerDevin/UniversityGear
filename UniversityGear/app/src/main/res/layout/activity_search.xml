@@ -10,58 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="university4credit.universitygear.SearchActivity">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#A4C639" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="23dp"
-        android:text="search keyword"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#0099FF" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:background="#CCCCCC"
-        android:ems="10"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:background="#0099FF"
-        android:text="submit"
-        android:textColor="#FFFFFF" />
-
     <RadioGroup
         android:orientation="vertical"
         android:id="@+id/radiogroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+        android:layout_below="@+id/editText1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="36dp">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -76,7 +32,32 @@
             android:layout_height="wrap_content"
             android:text="Used"
             android:id="@+id/radioButton2"
-            android:layout_below="@+id/radioButton1"
-            android:layout_alignParentStart="true" />
+            />
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Search"
+        android:paddingLeft="15dp"
+        android:layout_centerHorizontal="true">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#0099FF"
+        android:text="submit"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/radiogroup"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

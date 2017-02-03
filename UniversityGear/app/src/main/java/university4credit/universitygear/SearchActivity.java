@@ -1,21 +1,31 @@
 package university4credit.universitygear;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import java.io.BufferedReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     Button mButton;
@@ -29,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String temp;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
+    public List<Item> itemFeed;
     // Is the button now checked?
 
 
@@ -70,8 +81,7 @@ public class SearchActivity extends AppCompatActivity {
 
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                mEdit   = (EditText)findViewById(R.id.editText1);
-                mText = (TextView)findViewById(R.id.textView1);
+                mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
                     mindistance = 3;
@@ -93,7 +103,8 @@ public class SearchActivity extends AppCompatActivity {
                     join += " "; join+=ParsedWords[x];
                 }
                 join.toLowerCase();
-                new asynctask().execute(join);
+                new SearchItemTask().execute(join);
+
                 FileOutputStream stream = null;
                 try {
                     stream = openFileOutput("history.txt", Context.MODE_APPEND);
@@ -111,12 +122,15 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
-    private class asynctask extends AsyncTask< String,Void,String> {
+
+    private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
         private String temp;
         private Context tempc;
+        private String itemLimit = "200";
         URL url;
         HttpURLConnection conn;
         InputStream inputstream;
+        String result = "";
 
         private String getStringFromInputStream(InputStream is) {
 
@@ -147,14 +161,12 @@ public class SearchActivity extends AppCompatActivity {
 
         }
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected void onPreExecute() { super.onPreExecute(); }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected List<Item> doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=1";
+            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
@@ -167,7 +179,8 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#f^0#p^1#I^3#r^0#t^H4sIAAAAAAAAAOVXb2wURRTv9dorDVSNEEuIyrEStcDuze5e9+423CV3BcJByxWuNNDQwNzuXLvt3e5mZ9b2CMRatQSCiQLygUQgYkzUxA9GMRjAogKxRDGQGCV8Akn8E/BPolSCqbPXo1yrgQqnIXG/bOa9N29+7/femz+gz1M9b2DpwNUaV1X5/j7QV+5y8VNBtady/n3u8lmVZaDIwLW/b25fRb/724UYZjOmvAph09Ax8vZmMzqW88IwY1u6bECsYVmHWYRlosjJaFOjLHBANi2DGIqRYbzxRWFGRH5JqBdQQOGDKuIRleo3fLYYVA8Qr6RBIAX5kOJPC1SPsY3iOiZQJ2FGAHyABTwrSC0AyH5J9vs5EKxvY7ytyMKaoVMTDjCRPFw5P9cqwnprqBBjZBHqhInEo0uSiWh80eIVLQt9Rb4iBR6SBBIbjx81GCrytsKMjW69DM5by0lbURDGjC8yusJ4p3L0Bpg7gJ+nOqUilQ+gYEhEQBTV0lC5xLCykNwahyPRVDadN5WRTjSSux2jlI1UF1JIYbSCuogv8jq/lTbMaGkNWWFmcSy6NtrczERiVg7qjRpkV+vaUw5YNhlbw/JBqEJYn1ZZQVUFRUBiYaFRbwWaJ6zUYOiq5pCGvSsMEkMUNZrIjVjEDTVK6AkrmiYOomI74QaHImhzkjqaRZt06k5eUZYS4c0Pb5+BsdmEWFrKJmjMw0RFnqIwA01TU5mJynwtFsqnF4eZTkJM2efr6enhekTOsDp8AgC8b01TY1LpRFnIUFun10fttdtPYLV8KAptY2ovk5xJsfTSWqUA9A4mIkiSJAQKvI+HFZko/YugKGbf+I4oVYeoCPFQTKFAyq/wqhAoRYdECkXqc3CgFMyxWWh1I2JmoIJYhdaZnUWWpspifVoQg2nEqlIozfpD6TSbqlcllk8jBBBKpZRQ8P/UKJMt9YaMRpUttNRKUu8lq/WlBiZInWyt/21oScUwUbOR0ZTcfxKb0+uTjk+01GZokVzMztFxEmUy9HdX4Sr5TK4v0cZVskT+w565s9g1SO6tqHl/sF4M8RLw311c9EJzT8WlGFnO2YY5C5rEsDgKzcwgzFkIG7ZFL2BcwjmUW4xupNMtjlhGJoOsVv6uWMBOI99bPFQ8c9hxgakPaGqjlFBufAak0Tui9XnQ3skY+VJ2juuwESYUiIqsf+GA941/bkTK8h/f7zoC+l2H6IsFBADLzwd1HvfqCvc0BmsE0dzqasro5TSY5rDWodPbtIW4bpQzoWaVe1xNF7evfbroobO/Hcwce+pUu/mpRe8e8PBNTSV/f20NHwC8IAHgl/z+NvDYTW0F/1DFjMbknNPDX9RwddfnbBgm24a2XT5dDWrGjFyuyrKKfleZlT17dktd67XYxxu/unRi1pmt3yeuRwd3/dh14NWa4cG9v7wnsEd+qDUqH13+0xS845NDQ1UHL/z6xN7j298dCv38QvvziZdnzFx2+jfP1S8DUuVcor/eMzJy4ZHv9vg2hbvh+/sOL4tx5z49cPCPD3/fPXto90l34qUFtrD5jaEt5xa8dnFP+5REZ9dWZujyzJa3ZenS401RH04vOV8+snJbtafMPHlq3QffaDD+dfbUtCubau23zh99oKpBq513fMfq4MY3Z5+ZM9B+7PI7nitzr3Ufq3JdOyQ1oVWtcVF+ZfCjOvnBz1nm+mc7D3dtfnIf8EyvmL7BfaLt6K7lL67sN9cNP1u9ZWBw5LnRNP4JaptfnYIOAAA=");
+            //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9kWaWjQGEB/UZVBR6szeeezs7qRd3T6AFVoKW5BWmjqPO8vA7Mxm7ky7EwVqoyQKMRATIAEjGoLB1w9Eo/GBiUQjlCAYSFV+QMQgRKIRFQRNvLN9sK2x9EFiE3d/TO6d8/rO+c6dc0Fnccmc9fPXXyrzTcrf2Qk6830+uhSUFBdVTC7Iv6MoD+QI+HZ23tNZ2FXwQyUSU3paWAJR2jQQ9GdSuoGE7GYV4ViGYIpIQ4IhpiASbFlIxOoXCgwFhLRl2qZs6oQ/XltFMBFAq1wEcAwflsIKh3eNfptNZhXBA46PhFnA87wSAmH8GiEHxg1ki4aN1QEdIgFDAroJ0AJgBUBTDMe2EP5l0EKaaWARChDRbLRCVtfKCXX4SEWEoGVjI0Q0HpubWBSL19Y1NFUGcmxF+9KQsEXbQYNXNaYC/ctE3YHDu0FZaSHhyDJEiAhEez0MNirE+oMZQ/jZTNNMKCRDBoIIA2UVMjcklXNNKyXaw8fh7WgKqWZFBWjYmu1eL6M4G9IqKNt9qwZsIl7r9x6LHVHXVA1aVURddax5aaJuCeFPNDZaZrumQCWLlGVZng9GeCJqQ4RTCK021XT0JLSUPl+9BvsyPcRZjWkompc35G8w7WqIA4eD0wOEYE56sNAiY5EVU20vqFw5tj+NTLjFq2tvIR17peGVFqZwLvzZ5fWL0M+Kazy4UbyQaRCRaVnkuTAI0Zw6hBder4+JG1GvPLHGxgCURJdMidZqaKd1UYakjFPrpKClKQLHSRwvyirJMmGZ5JSgTEYiQUgykIc8I7IcULn/GT1s29Ikx4YDFBn6IouzikjIZho2mromu8RQkeyp00eIDKoiVtp2WggEOjo6qA6WMq1kgAGADiyvX5iQV8KUSAzIatcXJrUsNWSItZAm2G4aR5PBzMPOjSQRZS2lUbRst9px8ToBdR0/+tk7KMLo0N1/gYo8qBMLpKePsAExrVEewSnZTAVMETezt9WWjdg/EqGA5LjYvwItyoKiYhq6O3K9pIMJ3Ks9MiWEq0H19iKGMdSj1+ujMjAKp5rRjrlsWu4oYQ5WHoWOKMumY9hjcdenOgoN1dFVTde9dh2Lwxz10YRpiLprazIacDmuLoul03FlYnUZV2NBfNiSSw2t3fvQkInq5aTEBVWe45gwKcGwGuKl4LhgK7Bdk2GbNsGgG46ujwtXfXJYSLjXt/8HsBoCsXGhqoXtE42kQUbiFEaiyUiIk0gOjyykpAA85oSgDIM04NQgMy7MNbqGD4Ymd6J9A+ebyIbK+KDhSXRigfJOmP4DRgkHJTIU5jg8mbIiKUYgS3KRoDxSyEM2cia6f8zygcHX6Whe9kd3+T4CXb738Y0chABJV4AHiguWFhbcRCDNhhQSDUUyM5QmqhTSkga+LlqQWg3dtKhZ+cW++u82Nq/LucjvbAXTB67yJQV0ac69Htx17U0RffNtZXQI4GEV/1lAt4BZ194W0tMKp6xZJZUe+vlQh9M2D537cvOOR9YeLQVlA0I+X1FeYZcvL3h219bYse7TF+LJXdUHt1lMyWOvP7X8zCvRLfvfPfDLy2cXPHrkoSvzwcxt5e3TeuQLrcbWvNKnmal7fpJ3rY31lLfO3f5ZZsare3uorz/Yw58+3Hyq7PRbH3avir44nZ996b0pz7uLNwkvBJgVdRWbz525++Jzu387b1E1yckzmrds2Htn6/n9lw8e/qKCO/T7vg2zW2rfuNxiTiWl3YG3j4ZPzAtVb5r1zurWy5kTU7gN2pvrJh157ZaN5ufdZGXHiWPmg5FvxQyjVYae2I9+TJ3ct+Dqs+XFL7lNhcHIgXL+mY9XEDNvvXLq+z/v5R6OzAn2fPLk1U9P/nVx8f3da/648NU3tcdvf/z4rzvu6y3j3wp+9b9iEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -178,10 +191,11 @@ public class SearchActivity extends AppCompatActivity {
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
-            int stat = 0;
+            int stat;
             try {
                 //this line is here to test the code. If it returns 200 then it succeeds otherwise theres something wrong with the payload
                 stat = conn.getResponseCode();
+                Log.e("Connection code", " " + stat);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -189,17 +203,22 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 //get the item feed
                 inputstream = conn.getInputStream();
-                tempstr = getStringFromInputStream(inputstream);
+                result = getStringFromInputStream(inputstream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return tempstr;
+            Item items = null;
+            if (result != null && result.length() > 0) {
+                items = new Item(result);
+            }
+            Log.e("Inputsteam", " " + inputstream);
+            Log.e("Result string", "" + result);
+            itemFeed = items.itemFeed;
+
+            return items.itemFeed;
         }
         @Override
-        protected void onPostExecute(String strings) {
-            //I set the result on the screen for testing purpose.
-            mText.setText(tempstr);
-
+        protected void onPostExecute(List<Item> strings) {
 
         }
 
@@ -207,3 +226,4 @@ public class SearchActivity extends AppCompatActivity {
 
 
 }
+
