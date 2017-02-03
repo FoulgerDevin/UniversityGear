@@ -13,8 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import java.io.BufferedReader;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import java.net.URL;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "university4credit.universitygear.MESSAGE";
     Button mButton;
     EditText mEdit;
     TextView mText;
@@ -214,16 +216,14 @@ public class SearchActivity extends AppCompatActivity {
             Log.e("Inputsteam", " " + inputstream);
             Log.e("Result string", "" + result);
             itemFeed = items.itemFeed;
-
+            //Starting activity with search results passed in
             return items.itemFeed;
         }
         @Override
         protected void onPostExecute(List<Item> strings) {
-
         }
 
     }
 
 
 }
-
