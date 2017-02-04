@@ -1,7 +1,9 @@
 package university4credit.universitygear;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
@@ -40,7 +42,6 @@ public class SearchActivity extends AppCompatActivity {
     String tempstring;
     String tempstr;
     String join;
-    String temp;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
     // Is the button now checked?
@@ -71,17 +72,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = checkedRadioButton.getText().toString();
-            }
-        });
-
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mEdit = (EditText)findViewById(R.id.editText1);
@@ -183,7 +173,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXW2wUVRju9GqpBTEEVEQ3Axi0zu6Z++5IV3dbLqv0ItsixWg9M3O2HZidWefMtN1IbFNMDdFoSEgIIFoTogEVfYREjNEH8MHEJ0qIwUijCBIfTLBIInhme2G7xtILiU3cl8055799///9Z84P+sorHxvYODBSTVUUD/aBvmKKYqtAZXlZzcKS4gfKikCeADXYt6qvtL/kl7UYps2MshnhjG1hFOhJmxZWcpu1tOdYig2xgRULphFWXE1Jxho2KVwQKBnHdm3NNulAor6WlgVZimhhHshQZ+WIRHatcZstdi0tyFwEykCSBJnXVQ2Rc4w9lLCwCy23luYAKzOAYwDfAniFFxVWDoYFbhsd2IIcbNgWEQkCOpoLV8npOnmxTh0qxBg5LjFCRxOx9cmmWKJ+XWPL2lCerehYHpIudD08eVVn6yiwBZoemtoNzkkrSU/TEMZ0KDrqYbJRJTYezCzCz6VaiMiAC6eAHlaRporcHUnlettJQ3fqOPwdQ2dSOVEFWa7hZm+XUZINdTvS3LFVIzGRqA/4f8960DRSBnJq6XXxWFtrct1mOpBsbnbsLkNHuo+U5XlekkTCpqiLMEkhctpTtmd2IEcf8zVqcCzTBc7qbEs3/LzhQKPtxhEJHBWmh8tLDxFqspqcWMr1g8qXE8fTyEnb/LqOFtJzOy2/tChNchHILW9fhHFW3OLBneJFRJOAJPA8B1MiSAkFtPB7fVbUiPrViTU3h5AKs0waOjuQmzGhhhiNZNZLI8fQFUFQBQlqKYbnwhoj6KLGRCIiYjgkIYmDvEAC+p+xw3UdQ/VcNMGQwoMczlo6qdkZ1GybhpalC0Vyl84YH3pwLd3puhklFOru7g5280Hb6QhxALChrQ2bklonSkN6Qta4vTBj5Kjh38VEXnGzGRJNDyEecW510FHe0Zuh42bjXpask8g0yd84eSdFGC3c/Reo2Ic6v0D6+pgYgBkj6BM8qNnpkA1JL/tb7bmIA9MRCqlelvjXkRN0ENRty8xOX6/DIwQe1Z6eEibVCI72IoFR6NHv9RkZmIFTw+oiXLad7AxhTlaegQ7UNNuz3Nm4G1OdgUbKM1OGafrtOhuHeeozCdOCZtY1NDzhck5dFstkEvr86jKhzkHksmVaLaPL/9AwyfhWRhXElCQIXJhRUTglS6o4J9g66jI01G7MM+iWZ5pzwtXQMSUk0usH/wNYjaHYnFDVo675RlKRUwWdU1kmIgsqI5AnC6PqgDxzZKQhkQVCSuTmhLnONMjF0JKdb9/AjTZ2kT43aOQhOr9A+TfM+AWjh0WVkcOCQF6mPGRgBPGMEBG16UIu2Mh70f3jKR+aPE5Hi3I/tp86CfqpE2QiBzJg2BrwaHlJa2nJ3TQ2XBTE0NJVuydowFQQGx0WmRYdFNyBshloOMXlVMPwm229eYP84AvgvolRvrKErcqb68GDt07K2EXLqlkyLQIe8LzIytvAylunpezS0iXZmv2ha8uWDI/cOF20c+93bebnNgWqJ4QoqqyotJ8q2rfrwqn4IxdHeq8edbZ8PxRwi3rOLjhdNbRrgNpQWr3/+UtnO19cuH0AUz99srV1w4qDJy8s7d1dVClabw+t+bhaPPzD8VjzqVPX3nu/9+rjNxoiHyx6+tCZxHMH/jxmblfolb9ebDj/88PnFte1V/R2/xhvO3bjvERRf20+O1ASSATvGhoqP1M2+FXULv/UHrj39yPXj67mh1fXNzH9N68cfqnywP5LVS8/UfPu8vSeVy6807mifvkbZ5aEL3/DD+25eV379rflnz0ZeerI/a+vrDhhhuxzi69Wnx9+bXX8UMY+0nbzrX1Xvgb3dH70zO4Fey/Hs4HKL/GIeRzV/bH+1WU73UyxseaLD1c9VDFaxr8BhVb80WIRAAA=");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9mmpgCgUgqjrQA0Is3N3Xrs7tBu3D9IqLZVtkUdJuTNzpx06O7PO3Gm7P4xNTUjU2hBFYkxFYgjRQBCJCIRgQoygIVER5YeIMQoJEKKB+IiPoHe2D7Y1lj5IbOL+2dx7z+s75ztn7gVd+YUPb6ne8ut0X0H2zi7Qle3zBYtAYX7e0hk52fPzskCGgG9n16Ku3O6cS6UOTBhJaTVykpbpIH9nwjAdKb1ZRrm2KVnQ0R3JhAnkSFiR4rHalRIbAFLStrClWAblr6kso3hWC4U4UQsDkdU4kSe75qDNBquMgoLIKkDlOSDKSAXeueO4qMZ0MDRxGcWCYIgGLA34BsBKAisBLsALwnrKvwbZjm6ZRCQAqGg6XCmta2fEOnqo0HGQjYkRKloTWxFfFauprKprKGUybEUH8hDHELvO8FWFpSL/Gmi4aHQ3TlpairuKghyHYqL9HoYblWKDwUwg/HSqIeA0ThAioiYICgTabUnlCstOQDx6HN6OrtJaWlRCJtZx6lYZJdmQNyMFD6zqiImaSr/397gLDV3TkV1GVZXH1jXGq1ZT/nh9vW216ypSPaRBjuNCohgSqChGDkkhspux7W7WDaN1wFe/wYFMj3BWYZmq7uXN8ddZuByRwNHI9PAZ6SFCq8xVdkzDXlCZcvxgGrnQeq+u/YV0cavplRYlSC786eWtizDIips8uF284HkV8SoPIS9yMKLKw3nh9frEuBH1yhOrr2eQDFN0AtptCCcNqCBaIal1E8jWVYnnZV6EikZzbFiheVVQ6EhEQDSLRCSykOOBxv/P6IGxrcsuRkMUGXmQxllGxRUrieotQ1dS1EiR9NQZIESnU0a1YpyUGKajoyPQwQUsu4VhAQgya2tXxpVWlIDUkKx+a2FaT1NDQUTL0SWcSpJoOgnziHOzhYpytloPbZwqd1NkHUeGQf4G2TsswujI3X+B6nhQpxZIT98hBmBSD3gEDyhWgrEgaWZvqzkdsX8sQozspoh/FdkBG0HVMo3U2PVaXELgfu2xKTmkGoH+XiQwRnj0en18BsbhVDfbCZctOzVOmMOVx6EDFcVyTTwRdwOq49DQXEMj88Nr14k4zFAfT5gmNFJYV5whl5PqslgyWaNOrS7jK2xEhi3daOrt3oeGjpevpZEqQ5ZHMqKBjFhNZoOTgq2idl1BzfoUg266hjEpXLUto0Eivd73X8CqY2KTQlWJ2qcaSVVVDEV4WabDcojcYQQ5REM5zNMoIkZUQlOgyGBSmCsMnQyGhtRU+wZWWw5G6uSgkZvo1ALlTZjBARMMhzUyZFhIbqaIpcOCwtOywAtjhTxiI+NG94+7PDP8PR3NSv+C3b5joNt3hDzJQQjQwaVgSX5OY27OnZSjYxRwoKnKVmdAh1rA0VtM8ly0UaANpZJQt7PzfbXf96x7OuMlv3MjmDf0li/MCRZlPOzBgpsnecGZc6cHQ4AFPGAFFnDrwcKbp7nB4tzZXb+lmJJ7C64evdr+7plDz9GrwVsHwfQhIZ8vLyu325dloctP3ld46LXzPy2/uGH3S7PfW1z92fKi/Ve22qeSkXXijb4Dd13/iKbVZOxgzpxi+50Fuy+UvPCDce3krsRXbfDRFw+//Ym+49w9l5c9e3fTK00tG/Rvc6xzZ1Mf7+OKe2Kbe37f09Z0ve0h9MiRkudbfnn/+KXikl19s56KLNq7uGneiS8j+MeZG32vSqUb/kLHGa1V3fvn5e/mMdO23XFy7ukLfZ+/sWba1otLvv5jznH+xs8P8Eu3Hznx5rEPl8SeaM4veP3YF9fA/mV7Zh9daxeFZ/RemNV8+FRv1fbzXKKUb7vSs4J5EG5pvRGfHzzT+8yBgtOb7m/s+6Cx+tqmHWc//Wbbvo0vLyx97Hxlfxn/BlwEOvJjEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -224,8 +214,24 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List strings) {
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, result);
-            startActivity(intent);
+            if(result.isEmpty()) {
+                //Display Message if no results are found
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setTitle("No Items Found");
+                builder.setMessage("Your keyword/s did not return any items.");
+                builder.setNegativeButton("Try Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                
+            } else {
+                intent.putExtra(EXTRA_MESSAGE, result);
+                startActivity(intent);
+            }
         }
     }
 }

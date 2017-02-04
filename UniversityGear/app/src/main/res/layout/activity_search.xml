@@ -10,31 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="university4credit.universitygear.SearchActivity">
 
-    <RadioGroup
-        android:orientation="vertical"
-        android:id="@+id/radiogroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New"
-            android:id="@+id/radioButton1"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Used"
-            android:id="@+id/radioButton2"
-            />
-    </RadioGroup>
-
     <EditText
         android:id="@+id/editText1"
         android:layout_width="fill_parent"
@@ -42,7 +17,7 @@
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Search"
+        android:hint="@string/search_message"
         android:paddingLeft="15dp"
         android:layout_centerHorizontal="true">
 
@@ -53,11 +28,12 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#0099FF"
-        android:text="submit"
+        android:layout_marginTop="27dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_button"
+        android:text="@string/search_button"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/radiogroup"
+        android:layout_below="@+id/editText1"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
