@@ -76,14 +76,10 @@ public class Item {
     Item(String id, String itemTitle, String givenPrice, String cond, String image){
         itemID = id;
         title = itemTitle;
-        price = givenPrice;
+        price = "$" + givenPrice;
         condition = cond;
-        //try {
-            if (imageURL != null) {
-                imageURL = image;//new URL(image);
-            }
-        //} catch (MalformedURLException e) {
-        //    Log.e("IMAGE URL","MALFORMED IMAGE URL");
-        //}
+        if (image != null) {
+            imageURL = image;//new URL(image);
+        }
     }
 }
