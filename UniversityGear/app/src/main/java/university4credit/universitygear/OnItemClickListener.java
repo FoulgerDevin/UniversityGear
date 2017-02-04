@@ -5,5 +5,5 @@ package university4credit.universitygear;
  */
 
 public interface OnItemClickListener {
-    void onItemClick(FeedItem item);
+    void onItemClick(Item item);
 }

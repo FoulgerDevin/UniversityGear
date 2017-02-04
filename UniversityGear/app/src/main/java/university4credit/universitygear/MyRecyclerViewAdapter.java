@@ -13,11 +13,11 @@ import java.util.List;
 
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
-    private List<FeedItem> feedItemList;
+    private List<Item> feedItemList;
     private Context mContext;
     private OnItemClickListener onItemClickListener;
 
-    public MyRecyclerViewAdapter(Context context, List<FeedItem> feedItemList) {
+    public MyRecyclerViewAdapter(Context context, List<Item> feedItemList) {
         this.feedItemList = feedItemList;
         this.mContext = context;
     }
@@ -31,19 +31,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
-        final FeedItem feedItem = feedItemList.get(i);
+        final Item feedItem = feedItemList.get(i);
 
         //Download image using picasso library
-        if (!TextUtils.isEmpty(feedItem.getThumbnail())) {
-            Picasso.with(mContext).load(feedItem.getThumbnail())
+        if (!TextUtils.isEmpty(feedItem.imageURL)) {
+            Picasso.with(mContext).load(feedItem.imageURL)
                     .error(R.drawable.placeholder)
                     .placeholder(R.drawable.placeholder)
                     .into(customViewHolder.imageView);
         }
 
         //Setting text view title
-        customViewHolder.textView.setText(Html.fromHtml(feedItem.getTitle()));
-        customViewHolder.priceView.setText(feedItem.getPrice());
+        customViewHolder.textView.setText(Html.fromHtml(feedItem.title));
+        customViewHolder.priceView.setText(feedItem.price);
 
 
         View.OnClickListener listener = new View.OnClickListener() {

@@ -20,7 +20,8 @@ public class Item {
     String title;
     String price;
     String condition;
-    URL imageURL;
+    //URL imageURL;
+    String imageURL;
     JSONObject jsonItems = null;
     JSONArray itemSummaries = null;
     List<Item> itemFeed = new ArrayList();
@@ -77,12 +78,12 @@ public class Item {
         title = itemTitle;
         price = givenPrice;
         condition = cond;
-        try {
+        //try {
             if (imageURL != null) {
-                imageURL = new URL(image);
+                imageURL = image;//new URL(image);
             }
-        } catch (MalformedURLException e) {
-            Log.e("IMAGE URL","MALFORMED IMAGE URL");
-        }
+        //} catch (MalformedURLException e) {
+        //    Log.e("IMAGE URL","MALFORMED IMAGE URL");
+        //}
     }
 }

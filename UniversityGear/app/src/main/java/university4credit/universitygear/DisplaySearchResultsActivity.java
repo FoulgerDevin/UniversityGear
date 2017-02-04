@@ -20,7 +20,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private static final String TAG = "RecyclerViewExample";
     private String searchResults;
 
-    private List<FeedItem> feedsList;
+    private List<Item> feedsList;
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
@@ -50,7 +50,9 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         protected Integer doInBackground(String... params) {
             Integer result = 0;
             try {
-                    parseResult(searchResults);
+                    //parseResult(searchResults);
+                    Item feed = new Item(searchResults);
+                    feedsList = feed.itemFeed;
                     result = 1; // Successful
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
@@ -67,8 +69,8 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 mRecyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
-                    public void onItemClick(FeedItem item) {
-                        Toast.makeText(DisplaySearchResultsActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                    public void onItemClick(Item item) {
+                        Toast.makeText(DisplaySearchResultsActivity.this, item.title, Toast.LENGTH_LONG).show();
                     }
                 });
             } else {
@@ -94,7 +96,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 //Will Generalize the conditions to be either new or used.
                 item.setPrice(price.optString("value") + " " + price.optString("currency") + "\n" + post.optString("condition"));
 
-                feedsList.add(item);
+                //feedsList.add(item);
             }
         } catch (JSONException e) {
             e.printStackTrace();
