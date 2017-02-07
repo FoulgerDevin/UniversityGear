@@ -27,6 +27,10 @@ public class Item {
     String refundMethod;
     //URL imageURL;
     String imageURL;
+    String returnPayer;
+    String returnValue;
+    String returnUnit;
+
     JSONObject jsonItems = null;
     JSONArray itemSummaries = null;
     List<Item> itemFeed = new ArrayList();
@@ -43,6 +47,12 @@ public class Item {
         String rReturns = "Unspecified";
         String rAccepts = "Unspecified";
         String sTitle = "Unspecified";
+        String rPayer = "Unspecified";
+        String rValue = "Unspecified";
+        String rUnit = "Unspecified";
+
+        //This if else statement determines if the object is either a list
+        //of items or a single item. If so, create each one respectively.
         if (!isSingleItem) {
             try {
                 if (item != null) {
@@ -70,7 +80,7 @@ public class Item {
                         }
                         Item newItem = new Item(singleItem.getString("itemId"),
                                 singleItem.getString("title"), singleItemPrice.getString("value"),
-                                con, imageUrl, null, null, null, null);
+                                con, imageUrl, null, null, null, null, null, null, null);
                         itemFeed.add(newItem);
 
                     } catch (JSONException jsonE) {
@@ -78,7 +88,7 @@ public class Item {
                     }
                 }
             }
-        } else {
+        } else { //single item
             if (item != null) {
                 try {
                     JSONObject singleItem = new JSONObject(item);
@@ -89,6 +99,12 @@ public class Item {
                         singleItemReturns = new JSONObject(singleItem.getString("returnTerms"));
                         if (item.contains("returnsAccepted")) { rAccepts = singleItemReturns.getString("returnsAccepted"); }
                         if (item.contains("refundMethod")) { rReturns = singleItemReturns.getString("refundMethod");}
+                        if (item.contains("returnShippingCostPayer")) { rPayer = singleItemReturns.getString("returnShippingCostPayer"); }
+                        if (item.contains("returnPeriod")) {
+                            JSONObject rPeriod = new JSONObject(singleItemReturns.getString("returnPeriod"));
+                            rValue = rPeriod.getString("value");
+                            rUnit = rPeriod.getString("unit");
+                        }
                     }
                     if (item.contains("image")) {
                         singleItemImage = new JSONObject(singleItem.getString("image"));
@@ -108,7 +124,8 @@ public class Item {
                     }
                     sItem = new Item(singleItem.getString("itemId"),
                             singleItem.getString("title"), singleItemPrice.getString("value"),
-                            con, imageUrl, sTitle, shortDesc, rAccepts, rReturns);
+                            con, imageUrl, sTitle, shortDesc, rAccepts, rReturns,
+                            rPayer, rValue, rUnit);
                 } catch(JSONException jsonE) {
                     Log.e("SINGLE ITEM", "Failed to create a single item");
                 }
@@ -120,7 +137,9 @@ public class Item {
      * This constructor is used to build individual items and is passed in all
      * the necessary information.
      */
-    Item(String id, String itemTitle, String givenPrice, String cond, String image, String sTitle, String sDescription, String rAccepted, String rMethod){
+    Item(String id, String itemTitle, String givenPrice, String cond, String image,
+         String sTitle, String sDescription, String rAccepted, String rMethod,
+         String rPayer, String rValue, String rUnit){
         itemID = id;
         title = itemTitle;
         price = "$" + givenPrice;
@@ -132,9 +151,20 @@ public class Item {
         shortDescription = sDescription;
         returnsAccepted = rAccepted;
         if (rMethod != null && rMethod.equals("MONEY_BACK")) {
-            refundMethod = "Money back";
+            refundMethod = "Money back guarantee";
         } else {
             refundMethod = rMethod;
+        }
+        if (rPayer.equals("BUYER")) {
+            returnPayer = "Buyer pays return shipping";
+        } else {
+            returnPayer = rPayer;
+        }
+        returnValue = rValue;
+        if (rUnit.equals("CALENDER_DAYS")) {
+            returnUnit = "Accepted within " + rValue + " days";
+        } else {
+            returnUnit = "Accepted within " + rValue + " " + rUnit;
         }
     }
 }

@@ -107,6 +107,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //Log.e("ITEM IMAGE",""+item.sItem.imageURL);
             if (item.sItem.imageURL != null) {
                 Picasso.with(DisplaySingleItemActivity.this).load(item.sItem.imageURL)
+                        .fit()
                         .error(R.drawable.placeholder)
                         .placeholder(R.drawable.placeholder)
                         .into(imageView);
@@ -120,7 +121,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
 
             TextView description = (TextView)findViewById(R.id.description);
             description.setText(Html.fromHtml(Html.fromHtml(item.sItem.shortDescription).toString()));
-            description.setVisibility(description.GONE);
+            //description.setVisibility(description.GONE);
 
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
             condition.setText(item.sItem.condition);
@@ -135,7 +136,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //category.setText(item.);
 
             TextView returns = (TextView)findViewById(R.id.returnPolicyGiven);
-            returns.setText(item.sItem.returnsAccepted + " " + item.sItem.refundMethod);
+            returns.setText(item.sItem.refundMethod);
         }
     }
 }
