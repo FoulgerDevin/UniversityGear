@@ -171,9 +171,10 @@ public class SearchActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9mmpgCgUgqjrQA0Is3N3Xrs7tBu3D9IqLZVtkUdJuTNzpx06O7PO3Gm7P4xNTUjU2hBFYkxFYgjRQBCJCIRgQoygIVER5YeIMQoJEKKB+IiPoHe2D7Y1lj5IbOL+2dx7z+s75ztn7gVd+YUPb6ne8ut0X0H2zi7Qle3zBYtAYX7e0hk52fPzskCGgG9n16Ku3O6cS6UOTBhJaTVykpbpIH9nwjAdKb1ZRrm2KVnQ0R3JhAnkSFiR4rHalRIbAFLStrClWAblr6kso3hWC4U4UQsDkdU4kSe75qDNBquMgoLIKkDlOSDKSAXeueO4qMZ0MDRxGcWCYIgGLA34BsBKAisBLsALwnrKvwbZjm6ZRCQAqGg6XCmta2fEOnqo0HGQjYkRKloTWxFfFauprKprKGUybEUH8hDHELvO8FWFpSL/Gmi4aHQ3TlpairuKghyHYqL9HoYblWKDwUwg/HSqIeA0ThAioiYICgTabUnlCstOQDx6HN6OrtJaWlRCJtZx6lYZJdmQNyMFD6zqiImaSr/397gLDV3TkV1GVZXH1jXGq1ZT/nh9vW216ypSPaRBjuNCohgSqChGDkkhspux7W7WDaN1wFe/wYFMj3BWYZmq7uXN8ddZuByRwNHI9PAZ6SFCq8xVdkzDXlCZcvxgGrnQeq+u/YV0cavplRYlSC786eWtizDIips8uF284HkV8SoPIS9yMKLKw3nh9frEuBH1yhOrr2eQDFN0AtptCCcNqCBaIal1E8jWVYnnZV6EikZzbFiheVVQ6EhEQDSLRCSykOOBxv/P6IGxrcsuRkMUGXmQxllGxRUrieotQ1dS1EiR9NQZIESnU0a1YpyUGKajoyPQwQUsu4VhAQgya2tXxpVWlIDUkKx+a2FaT1NDQUTL0SWcSpJoOgnziHOzhYpytloPbZwqd1NkHUeGQf4G2TsswujI3X+B6nhQpxZIT98hBmBSD3gEDyhWgrEgaWZvqzkdsX8sQozspoh/FdkBG0HVMo3U2PVaXELgfu2xKTmkGoH+XiQwRnj0en18BsbhVDfbCZctOzVOmMOVx6EDFcVyTTwRdwOq49DQXEMj88Nr14k4zFAfT5gmNFJYV5whl5PqslgyWaNOrS7jK2xEhi3daOrt3oeGjpevpZEqQ5ZHMqKBjFhNZoOTgq2idl1BzfoUg266hjEpXLUto0Eivd73X8CqY2KTQlWJ2qcaSVVVDEV4WabDcojcYQQ5REM5zNMoIkZUQlOgyGBSmCsMnQyGhtRU+wZWWw5G6uSgkZvo1ALlTZjBARMMhzUyZFhIbqaIpcOCwtOywAtjhTxiI+NG94+7PDP8PR3NSv+C3b5joNt3hDzJQQjQwaVgSX5OY27OnZSjYxRwoKnKVmdAh1rA0VtM8ly0UaANpZJQt7PzfbXf96x7OuMlv3MjmDf0li/MCRZlPOzBgpsnecGZc6cHQ4AFPGAFFnDrwcKbp7nB4tzZXb+lmJJ7C64evdr+7plDz9GrwVsHwfQhIZ8vLyu325dloctP3ld46LXzPy2/uGH3S7PfW1z92fKi/Ve22qeSkXXijb4Dd13/iKbVZOxgzpxi+50Fuy+UvPCDce3krsRXbfDRFw+//Ym+49w9l5c9e3fTK00tG/Rvc6xzZ1Mf7+OKe2Kbe37f09Z0ve0h9MiRkudbfnn/+KXikl19s56KLNq7uGneiS8j+MeZG32vSqUb/kLHGa1V3fvn5e/mMdO23XFy7ukLfZ+/sWba1otLvv5jznH+xs8P8Eu3Hznx5rEPl8SeaM4veP3YF9fA/mV7Zh9daxeFZ/RemNV8+FRv1fbzXKKUb7vSs4J5EG5pvRGfHzzT+8yBgtOb7m/s+6Cx+tqmHWc//Wbbvo0vLyx97Hxlfxn/BlwEOvJjEQAA");
+            conn.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -201,12 +202,13 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Item items = null;
+            Log.e("RESULT STRING", "" + result);
             if (result != null && result.length() > 0) {
-                items = new Item(result);
+                items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
-            Log.e("Inputsteam", " " + inputstream);
-            Log.e("Result string", "" + result);
+            //Log.e("Inputsteam", " " + inputstream);
+            //Log.e("Result string", "" + result);
 
             //Starting activity with search results passed in
             return items.itemFeed;

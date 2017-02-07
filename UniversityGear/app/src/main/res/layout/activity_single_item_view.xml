@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E9E9E9">
+
+<RelativeLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/display_item"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageAndTitle"
+        android:background="#f8f8f8"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder"
+        android:contentDescription="@string/imageContactDescription"/>
+
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/itemImage"
+        android:layout_toEndOf="@+id/itemPrice" />
+
+    <TextView
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/itemTitle" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descAndButton"
+        android:layout_below="@+id/imageAndTitle"
+        android:background="#f8f8f8"
+        android:padding="10dp">
+
+    <TextView
+        android:id="@+id/itemDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/description"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text=""
+        android:layout_below="@+id/itemDescription"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/buyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buyButton"
+        android:textStyle="bold"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutSection"
+        android:layout_below="@+id/descAndButton"
+        android:layout_marginBottom="10dp"
+        android:background="#f8f8f8"
+        android:padding="10dp">
+    <TextView
+        android:id="@+id/aboutItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/aboutItem"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/condition"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/condition"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/aboutItem" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/quantity"
+        android:layout_below="@+id/condition"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/condition"
+        android:layout_toEndOf="@+id/quantity"
+        android:id="@+id/quantityGiven"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/conditionGiven"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/aboutItem"
+        android:layout_toEndOf="@+id/quantity" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/category"
+        android:layout_below="@+id/quantity" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:layout_toEndOf="@+id/category"
+        android:id="@+id/categoryGiven"
+        android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shippingSection"
+        android:layout_below="@id/aboutSection"
+        android:background="#f8f8f8"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp">
+    <TextView
+        android:id="@+id/shippingInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/shippingInfo"/>
+
+    <TextView
+        android:id="@+id/returnPolicy"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:text="@string/returnPolicy"
+        android:layout_below="@+id/shippingInfo"/>
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/returnPolicy"
+        android:layout_toEndOf="@+id/returnPolicy"
+        android:id="@+id/returnPolicyGiven"
+        android:textSize="15sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
+</ScrollView>

@@ -17,6 +17,7 @@ import java.util.List;
 import android.content.Intent;
 
 public class DisplaySearchResultsActivity extends AppCompatActivity {
+    public final static String ITEM_ID = "university4credit.universitygear.ID";
     private static final String TAG = "RecyclerViewExample";
     private String searchResults;
 
@@ -51,7 +52,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             Integer result = 0;
             try {
                     //parseResult(searchResults);
-                    Item feed = new Item(searchResults);
+                    Item feed = new Item(searchResults, false);
                     feedsList = feed.itemFeed;
                     result = 1; // Successful
             } catch (Exception e) {
@@ -68,9 +69,12 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 adapter = new MyRecyclerViewAdapter(DisplaySearchResultsActivity.this, feedsList);
                 mRecyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
+                    //@Override
                     public void onItemClick(Item item) {
-                        Toast.makeText(DisplaySearchResultsActivity.this, item.title, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(DisplaySearchResultsActivity.this, item.title, Toast.LENGTH_LONG).show();
+                        Intent singleItemIntent = new Intent(DisplaySearchResultsActivity.this, DisplaySingleItemActivity.class);
+                        singleItemIntent.putExtra(ITEM_ID, item.itemID);
+                        startActivity(singleItemIntent);
                     }
                 });
             } else {
