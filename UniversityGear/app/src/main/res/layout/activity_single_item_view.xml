@@ -9,16 +9,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/display_item"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    android:id="@+id/display_item">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageAndTitle"
         android:background="#f8f8f8"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
     <ImageView
@@ -50,13 +48,20 @@
         android:layout_below="@+id/itemTitle" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/imageAndTitle"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/descAndButton"
         android:layout_below="@+id/imageAndTitle"
         android:background="#f8f8f8"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/itemDescription"
@@ -81,19 +86,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/buyButton"
+        android:background="@drawable/rounded_button"
         android:textStyle="bold"
+        android:textColor="#F8F8F8"
         android:layout_margin="20dp"
         android:layout_below="@+id/description"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"/>
     </RelativeLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/descAndButton"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/aboutSection"
         android:layout_below="@+id/descAndButton"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="#f8f8f8"
         android:padding="10dp">
     <TextView
@@ -163,13 +176,19 @@
         android:textSize="15sp"/>
     </RelativeLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/aboutSection"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/shippingSection"
         android:layout_below="@id/aboutSection"
         android:background="#f8f8f8"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
     <TextView
         android:id="@+id/shippingInfo"
@@ -197,6 +216,13 @@
         android:id="@+id/returnPolicyGiven"
         android:textSize="15sp"/>
     </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/shippingSection"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>
 </ScrollView>
