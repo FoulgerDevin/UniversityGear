@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
+    private ProgressBar progressBar;
     // Is the button now checked?
 
 
@@ -72,8 +75,12 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                hideSoftKeyboard();
+                progressBar.setVisibility(View.VISIBLE);
                 mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
@@ -215,6 +222,7 @@ public class SearchActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(List strings) {
+            progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
             if(result.isEmpty()) {
                 //Display Message if no results are found
@@ -235,5 +243,13 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(), 0);
     }
 }
