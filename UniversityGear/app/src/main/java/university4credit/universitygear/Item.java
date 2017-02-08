@@ -41,6 +41,7 @@ public class Item {
     String pattern;
     String quantitySold;
     String availability;
+    String gender;
 
     private JSONObject jsonItems = null;
     private JSONArray itemSummaries = null;
@@ -62,6 +63,13 @@ public class Item {
         String rValue = "Unspecified";
         String rUnit = "Unspecified";
         String brandGiven = "Unspecified";
+        String patternGiven = "Unspecified";
+        String materialGiven = "Unspecified";
+        String type = "Unspecified";
+        String categoriesGiven = "Unspecified";
+        String genderGiven = "Unspecified";
+        String shipAvailability = "Unspecified";
+        String quantity = "Unspecified";
 
         //This if else statement determines if the object is either a list
         //of items or a single item. If so, create each one respectively.
@@ -69,7 +77,7 @@ public class Item {
             try {
                 if (item != null) {
                     jsonItems = new JSONObject(item);
-                    Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
+                    //Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
                     itemSummaries = new JSONArray(jsonItems.getString("itemSummaries"));
                 }
             } catch(JSONException jsonE) {
@@ -92,7 +100,8 @@ public class Item {
                         }
                         Item newItem = new Item(singleItem.getString("itemId"),
                                 singleItem.getString("title"), singleItemPrice.getString("value"),
-                                con, imageUrl, null, null, null, null, null, null, null, null);
+                                con, imageUrl, null, null, null, null, null, null, null, null,
+                                null, null, null, null, null, null, null);
                         itemFeed.add(newItem);
 
                     } catch (JSONException jsonE) {
@@ -137,10 +146,39 @@ public class Item {
                     if (item.contains("brand")) {
                         brandGiven = singleItem.getString("brand");
                     }
+                    if (item.contains("pattern")) {
+                        patternGiven = singleItem.getString("pattern");
+                    }
+                    if (item.contains("material")) {
+                        materialGiven = singleItem.getString("material");
+                    }
+                    if (item.contains("categoryPath")) {
+                        categoriesGiven = singleItem.getString("categoryPath");
+                        //categoriesGiven = categoriesGiven.replaceAll("|", ", ");
+                    }
+                    if (item.contains("gender")) {
+                        genderGiven = singleItem.getString("gender");
+                    }
+                    if (item.contains("availabilityStatusForShipToHome")) {
+                        shipAvailability = singleItem.getString("availabilityStatusForShipToHome");
+                        if (shipAvailability.equals("IN_STOCK")) {
+                            shipAvailability = "In stock";
+                        } else if (shipAvailability.equals("LIMITED_STOCK")) {
+                            shipAvailability = "Limited stock";
+                        } else if (shipAvailability.equals("OUT_OF_STOCK")) {
+                            shipAvailability = "Out of stock";
+                        }
+                    }
+                    if (item.contains("quantitySold")) {
+                        quantity = singleItem.getString("quantitySold") + " sold";
+                    }
                     sItem = new Item(singleItem.getString("itemId"),
-                            singleItem.getString("title"), singleItemPrice.getString("value"),
+                            singleItem.getString("title"), singleItemPrice.getString("currency") +
+                            singleItemPrice.getString("value"),
                             con, imageUrl, sTitle, shortDesc, rAccepts, rReturns,
-                            rPayer, rValue, rUnit, brandGiven);
+                            rPayer, rValue, rUnit, brandGiven, patternGiven,
+                            materialGiven, type, categoriesGiven, genderGiven,
+                            shipAvailability, quantity);
                 } catch(JSONException jsonE) {
                     Log.e("SINGLE ITEM", "Failed to create a single item");
                 }
@@ -154,10 +192,13 @@ public class Item {
      */
     Item(String id, String itemTitle, String givenPrice, String cond, String image,
          String sTitle, String sDescription, String rAccepted, String rMethod,
-         String rPayer, String rValue, String rUnit, String brandGiven){
+         String rPayer, String rValue, String rUnit, String brandGiven,
+         String patternGiven, String materialGiven, String typeGiven,
+         String categoriesGiven, String genderGiven, String shipAvail,
+         String quantity){
         itemID = id;
         title = itemTitle;
-        price = "$" + givenPrice;
+        price = givenPrice;
         condition = cond;
         if (image != null) {
             imageURL = image;//new URL(image);
@@ -182,5 +223,12 @@ public class Item {
             returnUnit = "Accepted within " + rValue + " " + rUnit;
         }
         brand = brandGiven;
+        pattern = patternGiven;
+        material = materialGiven;
+        LAType = typeGiven;
+        categoryPath = categoriesGiven;
+        gender = genderGiven;
+        availability = shipAvail;
+        quantitySold = quantity;
     }
 }

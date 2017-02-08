@@ -149,6 +149,15 @@
             android:textSize="15sp"/>
 
         <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quantityGiven"
+            android:layout_toEndOf="@+id/quantity"
+            android:id="@+id/quantityGiven2"
+            android:textSize="15sp"/>
+
+        <TextView
             android:id="@+id/conditionGiven"
             android:text=""
             android:layout_width="wrap_content"
@@ -165,13 +174,14 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:text="@string/category"
-            android:layout_below="@+id/quantity" />
+            android:layout_below="@+id/quantityGiven2" />
 
         <TextView
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/quantity"
+            android:layout_below="@+id/quantityGiven2"
+            android:layout_above="@+id/brand"
             android:layout_toEndOf="@+id/category"
             android:id="@+id/categoryGiven"
             android:textSize="15sp"/>
@@ -248,7 +258,23 @@
             android:id="@+id/typeGiven"
             android:textSize="15sp"/>
 
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/gender"
+            android:layout_below="@+id/type" />
 
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/type"
+            android:layout_toEndOf="@+id/gender"
+            android:id="@+id/genderGiven"
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View

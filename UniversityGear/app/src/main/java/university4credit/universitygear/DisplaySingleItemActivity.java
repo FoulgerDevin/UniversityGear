@@ -97,7 +97,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //Log.e("Input Stream", " " + inputStream);
             //Log.e("Result", "" + result);
 
+            Log.e("SINGLE ITEM", result);
             item = new Item(result, true);
+            //Log.e("ITEM CATEGORY PATH", item.sItem.categoryPath);
 
             //Starting activity with search results passed in
             return item;
@@ -115,37 +117,57 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
                         .into(imageView);
             }
 
+            //Title
             TextView title = (TextView)findViewById(R.id.itemTitle);
             title.setText(item.sItem.title);
 
+            //Price
             TextView price = (TextView)findViewById(R.id.itemPrice);
             price.setText(item.sItem.price);
 
+            //Description
             TextView description = (TextView) findViewById(R.id.description);
-            description.setText(Html.fromHtml(Html.fromHtml(item.sItem.shortDescription).toString()));
+            description.setText(Html.fromHtml(item.sItem.shortDescription));
             description.setVisibility(description.GONE);
 
+            //Condition
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
             condition.setText(item.sItem.condition);
 
-            //TextView quantity = (TextView)findViewById(R.id.);
-            //quantity.setText(item.);
+            TextView quantity = (TextView)findViewById(R.id.quantityGiven);
+            TextView quantity2 = (TextView)findViewById(R.id.quantityGiven2);
+            if (item.sItem.availability.equals("Unspecified")) {
+                TextView quantityLabel = (TextView)findViewById(R.id.quantity);
+                quantity.setVisibility(quantity.GONE);
+                quantity2.setVisibility(quantity2.GONE);
+                quantityLabel.setVisibility(quantityLabel.GONE);
+            } else {
+                quantity.setText(item.sItem.availability);
+                quantity2.setText(item.sItem.quantitySold);
+            }
 
-            TextView categoryLabel = (TextView)findViewById(R.id.category);
-            categoryLabel.setVisibility(categoryLabel.GONE);
+            //Category
             TextView category = (TextView)findViewById(R.id.categoryGiven);
-            category.setVisibility(category.GONE);
-            //category.setText(item.);
+            if (item.sItem.categoryPath.equals("Unspecified")) {
+                TextView categoryLabel = (TextView)findViewById(R.id.category);
+                categoryLabel.setVisibility(categoryLabel.GONE);
+                category.setVisibility(category.GONE);
+            } else {
+                category.setText(item.sItem.categoryPath);
+            }
 
+            //Returns
             TextView returns = (TextView)findViewById(R.id.returnPolicyGiven);
             returns.setText(item.sItem.returnUnit);
 
+            //Return payer
             TextView returnPayer = (TextView)findViewById(R.id.returnPayerGiven);
             returnPayer.setText(item.sItem.returnPayer);
 
             TextView guarantee = (TextView)findViewById(R.id.guaranteePolicyGiven);
             guarantee.setText(item.sItem.refundMethod);
 
+            //Brand
             TextView brand = (TextView)findViewById(R.id.brandGiven);
             if (item.sItem.brand.equals("Unspecified")) {
                 TextView brandLabel = (TextView)findViewById(R.id.brand);
@@ -153,6 +175,46 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
                 brandLabel.setVisibility(brandLabel.GONE);
             } else {
                 brand.setText(item.sItem.brand);
+            }
+
+            //Pattern
+            TextView pattern = (TextView)findViewById(R.id.patternGiven);
+            if (item.sItem.pattern.equals("Unspecified")) {
+                TextView patternLabel = (TextView)findViewById(R.id.pattern);
+                patternLabel.setVisibility(patternLabel.GONE);
+                pattern.setVisibility(pattern.GONE);
+            } else {
+                pattern.setText(item.sItem.pattern);
+            }
+
+            //Material
+            TextView material = (TextView)findViewById(R.id.materialGiven);
+            if (item.sItem.material.equals("Unspecified") || item.sItem.material.equals("Unbranded")) {
+                TextView materialLabel = (TextView)findViewById(R.id.material);
+                materialLabel.setVisibility(materialLabel.GONE);
+                material.setVisibility(material.GONE);
+            } else {
+                material.setText(item.sItem.material);
+            }
+
+            //LAType
+            TextView type = (TextView)findViewById(R.id.typeGiven);
+            if (item.sItem.LAType.equals("Unspecified")) {
+                TextView typeLabel = (TextView)findViewById(R.id.type);
+                typeLabel.setVisibility(typeLabel.GONE);
+                type.setVisibility(type.GONE);
+            } else {
+                type.setText(item.sItem.LAType);
+            }
+
+            //gender
+            TextView gender = (TextView)findViewById(R.id.genderGiven);
+            if (item.sItem.gender.equals("Unspecified")) {
+                TextView genderLabel = (TextView)findViewById(R.id.gender);
+                genderLabel.setVisibility(genderLabel.GONE);
+                gender.setVisibility(gender.GONE);
+            } else {
+                gender.setText(item.sItem.gender);
             }
         }
     }
