@@ -30,9 +30,20 @@ public class Item {
     String returnPayer;
     String returnValue;
     String returnUnit;
+    String brand;
+    String categoryPath;
+    String color;
+    String itemWebURL;
+    String material;
+    String LAName;
+    String LAType;
+    String LAValue;
+    String pattern;
+    String quantitySold;
+    String availability;
 
-    JSONObject jsonItems = null;
-    JSONArray itemSummaries = null;
+    private JSONObject jsonItems = null;
+    private JSONArray itemSummaries = null;
     List<Item> itemFeed = new ArrayList();
     Item sItem;
 
@@ -50,6 +61,7 @@ public class Item {
         String rPayer = "Unspecified";
         String rValue = "Unspecified";
         String rUnit = "Unspecified";
+        String brandGiven = "Unspecified";
 
         //This if else statement determines if the object is either a list
         //of items or a single item. If so, create each one respectively.
@@ -80,7 +92,7 @@ public class Item {
                         }
                         Item newItem = new Item(singleItem.getString("itemId"),
                                 singleItem.getString("title"), singleItemPrice.getString("value"),
-                                con, imageUrl, null, null, null, null, null, null, null);
+                                con, imageUrl, null, null, null, null, null, null, null, null);
                         itemFeed.add(newItem);
 
                     } catch (JSONException jsonE) {
@@ -116,16 +128,19 @@ public class Item {
                     if (item.contains("description")) {
                         shortDesc = singleItem.getString("description");
                     }
-                    if (item.contains("generatedShortDescription")) {
+                    /*if (item.contains("generatedShortDescription")) {
                         shortDesc = singleItem.getString("generatedShortDescription");
-                    }
+                    }*/
                     if (item.contains("subtitle")) {
                         sTitle = singleItem.getString("subtitle");
+                    }
+                    if (item.contains("brand")) {
+                        brandGiven = singleItem.getString("brand");
                     }
                     sItem = new Item(singleItem.getString("itemId"),
                             singleItem.getString("title"), singleItemPrice.getString("value"),
                             con, imageUrl, sTitle, shortDesc, rAccepts, rReturns,
-                            rPayer, rValue, rUnit);
+                            rPayer, rValue, rUnit, brandGiven);
                 } catch(JSONException jsonE) {
                     Log.e("SINGLE ITEM", "Failed to create a single item");
                 }
@@ -139,7 +154,7 @@ public class Item {
      */
     Item(String id, String itemTitle, String givenPrice, String cond, String image,
          String sTitle, String sDescription, String rAccepted, String rMethod,
-         String rPayer, String rValue, String rUnit){
+         String rPayer, String rValue, String rUnit, String brandGiven){
         itemID = id;
         title = itemTitle;
         price = "$" + givenPrice;
@@ -155,16 +170,17 @@ public class Item {
         } else {
             refundMethod = rMethod;
         }
-        if (rPayer.equals("BUYER")) {
+        if (rPayer != null && rPayer.equals("BUYER")) {
             returnPayer = "Buyer pays return shipping";
         } else {
             returnPayer = rPayer;
         }
         returnValue = rValue;
-        if (rUnit.equals("CALENDER_DAYS")) {
+        if (rUnit != null && rUnit.equals("CALENDAR_DAY")) {
             returnUnit = "Accepted within " + rValue + " days";
         } else {
             returnUnit = "Accepted within " + rValue + " " + rUnit;
         }
+        brand = brandGiven;
     }
 }

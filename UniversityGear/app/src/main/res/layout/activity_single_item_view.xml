@@ -175,6 +175,80 @@
             android:layout_toEndOf="@+id/category"
             android:id="@+id/categoryGiven"
             android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/brand"
+            android:layout_below="@+id/category" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category"
+            android:layout_toEndOf="@+id/brand"
+            android:id="@+id/brandGiven"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/material"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/material"
+            android:layout_below="@+id/brand" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/brand"
+            android:layout_toEndOf="@+id/material"
+            android:id="@+id/materialGiven"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/pattern"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/pattern"
+            android:layout_below="@+id/material" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/material"
+            android:layout_toEndOf="@+id/pattern"
+            android:id="@+id/patternGiven"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/type"
+            android:layout_below="@+id/pattern" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pattern"
+            android:layout_toEndOf="@+id/type"
+            android:id="@+id/typeGiven"
+            android:textSize="15sp"/>
+
+
     </RelativeLayout>
 
     <View

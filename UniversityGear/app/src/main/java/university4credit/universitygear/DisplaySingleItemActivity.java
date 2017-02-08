@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,9 +121,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             TextView price = (TextView)findViewById(R.id.itemPrice);
             price.setText(item.sItem.price);
 
-            TextView description = (TextView)findViewById(R.id.description);
+            TextView description = (TextView) findViewById(R.id.description);
             description.setText(Html.fromHtml(Html.fromHtml(item.sItem.shortDescription).toString()));
-            //description.setVisibility(description.GONE);
+            description.setVisibility(description.GONE);
 
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
             condition.setText(item.sItem.condition);
@@ -136,7 +138,22 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //category.setText(item.);
 
             TextView returns = (TextView)findViewById(R.id.returnPolicyGiven);
-            returns.setText(item.sItem.refundMethod);
+            returns.setText(item.sItem.returnUnit);
+
+            TextView returnPayer = (TextView)findViewById(R.id.returnPayerGiven);
+            returnPayer.setText(item.sItem.returnPayer);
+
+            TextView guarantee = (TextView)findViewById(R.id.guaranteePolicyGiven);
+            guarantee.setText(item.sItem.refundMethod);
+
+            TextView brand = (TextView)findViewById(R.id.brandGiven);
+            if (item.sItem.brand.equals("Unspecified")) {
+                TextView brandLabel = (TextView)findViewById(R.id.brand);
+                brand.setVisibility(brand.GONE);
+                brandLabel.setVisibility(brandLabel.GONE);
+            } else {
+                brand.setText(item.sItem.brand);
+            }
         }
     }
 }
