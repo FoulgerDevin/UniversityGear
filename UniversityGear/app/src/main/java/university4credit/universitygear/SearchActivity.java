@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
+    private ProgressBar progressBar;
     // Is the button now checked?
 
 
@@ -72,8 +75,12 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                hideSoftKeyboard();
+                progressBar.setVisibility(View.VISIBLE);
                 mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
@@ -173,7 +180,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
             //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9mmpgCgUgqjrQA0Is3N3Xrs7tBu3D9IqLZVtkUdJuTNzpx06O7PO3Gm7P4xNTUjU2hBFYkxFYgjRQBCJCIRgQoygIVER5YeIMQoJEKKB+IiPoHe2D7Y1lj5IbOL+2dx7z+s75ztn7gVd+YUPb6ne8ut0X0H2zi7Qle3zBYtAYX7e0hk52fPzskCGgG9n16Ku3O6cS6UOTBhJaTVykpbpIH9nwjAdKb1ZRrm2KVnQ0R3JhAnkSFiR4rHalRIbAFLStrClWAblr6kso3hWC4U4UQsDkdU4kSe75qDNBquMgoLIKkDlOSDKSAXeueO4qMZ0MDRxGcWCYIgGLA34BsBKAisBLsALwnrKvwbZjm6ZRCQAqGg6XCmta2fEOnqo0HGQjYkRKloTWxFfFauprKprKGUybEUH8hDHELvO8FWFpSL/Gmi4aHQ3TlpairuKghyHYqL9HoYblWKDwUwg/HSqIeA0ThAioiYICgTabUnlCstOQDx6HN6OrtJaWlRCJtZx6lYZJdmQNyMFD6zqiImaSr/397gLDV3TkV1GVZXH1jXGq1ZT/nh9vW216ypSPaRBjuNCohgSqChGDkkhspux7W7WDaN1wFe/wYFMj3BWYZmq7uXN8ddZuByRwNHI9PAZ6SFCq8xVdkzDXlCZcvxgGrnQeq+u/YV0cavplRYlSC786eWtizDIips8uF284HkV8SoPIS9yMKLKw3nh9frEuBH1yhOrr2eQDFN0AtptCCcNqCBaIal1E8jWVYnnZV6EikZzbFiheVVQ6EhEQDSLRCSykOOBxv/P6IGxrcsuRkMUGXmQxllGxRUrieotQ1dS1EiR9NQZIESnU0a1YpyUGKajoyPQwQUsu4VhAQgya2tXxpVWlIDUkKx+a2FaT1NDQUTL0SWcSpJoOgnziHOzhYpytloPbZwqd1NkHUeGQf4G2TsswujI3X+B6nhQpxZIT98hBmBSD3gEDyhWgrEgaWZvqzkdsX8sQozspoh/FdkBG0HVMo3U2PVaXELgfu2xKTmkGoH+XiQwRnj0en18BsbhVDfbCZctOzVOmMOVx6EDFcVyTTwRdwOq49DQXEMj88Nr14k4zFAfT5gmNFJYV5whl5PqslgyWaNOrS7jK2xEhi3daOrt3oeGjpevpZEqQ5ZHMqKBjFhNZoOTgq2idl1BzfoUg266hjEpXLUto0Eivd73X8CqY2KTQlWJ2qcaSVVVDEV4WabDcojcYQQ5REM5zNMoIkZUQlOgyGBSmCsMnQyGhtRU+wZWWw5G6uSgkZvo1ALlTZjBARMMhzUyZFhIbqaIpcOCwtOywAtjhTxiI+NG94+7PDP8PR3NSv+C3b5joNt3hDzJQQjQwaVgSX5OY27OnZSjYxRwoKnKVmdAh1rA0VtM8ly0UaANpZJQt7PzfbXf96x7OuMlv3MjmDf0li/MCRZlPOzBgpsnecGZc6cHQ4AFPGAFFnDrwcKbp7nB4tzZXb+lmJJ7C64evdr+7plDz9GrwVsHwfQhIZ8vLyu325dloctP3ld46LXzPy2/uGH3S7PfW1z92fKi/Ve22qeSkXXijb4Dd13/iKbVZOxgzpxi+50Fuy+UvPCDce3krsRXbfDRFw+//Ym+49w9l5c9e3fTK00tG/Rvc6xzZ1Mf7+OKe2Kbe37f09Z0ve0h9MiRkudbfnn/+KXikl19s56KLNq7uGneiS8j+MeZG32vSqUb/kLHGa1V3fvn5e/mMdO23XFy7ukLfZ+/sWba1otLvv5jznH+xs8P8Eu3Hznx5rEPl8SeaM4veP3YF9fA/mV7Zh9daxeFZ/RemNV8+FRv1fbzXKKUb7vSs4J5EG5pvRGfHzzT+8yBgtOb7m/s+6Cx+tqmHWc//Wbbvo0vLyx97Hxlfxn/BlwEOvJjEQAA");
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#f^0#p^3#I^3#r^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9kWwFtTwMIaSzYih0Mzundmd3dlJu7h9YEv6WLstjyrWOzN324HZmXHuTNtFDM0moAlCIlFAArYBjfwgvogmRk1F0YgSlKgp6A+IhITUiCZgjJaod7YPtjWWPkhs4v7Z3HvP6zvnO2fuBd35c1fuqN7xW6FrTnZvN+jOdrmYAjA3P69kXk72fXlZIEPA1du9rDs3lXOlFMOEagiNCBu6hpG7K6FqWEhvllG2qQk6xAoWNJhAWLAkIRapqxVYDxAMU7d0SVcpd01lGcXGAZRCKIB8ccQAxJFdbcRmk15GQUbi4z7klyUQ4HneOcfYRjUatqBmEX3ABGnA0oBvApzgYwSW8wSZYAvlXotMrOgaEfEAKpwOV0jrmhmxThwqxBiZFjFChWsiq2MNkZrKqvqmUm+GrfBwHmIWtGw8dlWhy8i9Fqo2mtgNTksLMVuSEMaUNzzkYaxRITISzDTCT6fax8Ag72PYEA9CAQncnlSu1s0EtCaOw9lRZDqeFhWQZilW8lYZJdkQNyHJGl7VExM1lW7n72EbqkpcQWYZVVUe2dAcq2qk3LFo1NQ7FBnJDlLG5/MFA4EgR4UthEkKkdlqmfYmRVXbh30NGRzO9DhnFbomK07esLtet8oRCRyNTw+bkR4i1KA1mJG45QSVKRccTmMgFGhx6jpUSNtq15zSogTJhTu9vHURRlhxkwe3ixcMh4AYDAGWBRwninAsL5xenx43wk55ItGoF4kwSSeguRlZhgolREsktXYCmYos+P2iPwClOO1jeYn2y5xEh0IcolkyEgIs9PlB3P8/o4dlmYpoW2iUIuMP0jjLqJikGyiqq4qUpMaLpKfOMCG6cBnVblmG4PV2dnZ6On0e3WzzsgAw3vV1tTGpHSVIzUdklVsL00qaGhIiWlgRrKRBoukizCPOtTYq7DPlKDStZLmdJOsYUlXyN8LeMRGGx+/+C1TsQJ1dIB19TAxAQ/E4BPdIesKrQ9LMzlZrOmL3ZIS8op0k/mVkekwEZV1Tk5PXa7MJgYe0J6eESTU8Q71IYIzz6PT61AxMwamidRAu62ZyijDHKk9BB0qSbmvWdNwNq05BI26rcTI/nHadjsMM9amEqUE1aSkSHnU5oy6LGEaNPLu6zF9hIjJs6WZN6XA+NHSsfD2NZBGyfiQiGoiIjYssMyPYMupQJNSqzDLomq2qM8JV1zYRJNLrB/8LWPXeyIxQVaKO2UZSWQ4EQ35RpHkxSO4wnBikocj7aRQKhGRCUyCJYEaYK1SFDIam5Gz7Blbr2ELyzKCRm+jsAuVMmJEBw/B8nAwZFpKbKWJpnpP8tMj5uclCHreRcaP7x13eO/Y9Hc5K/5iU6wOQcr1LnuQgCGimBKzIz2nOzbmTwoqFPBhqsqh3eRQY92ClTSPPRRN5NqOkARUzO99Vd+nZDdsyXvK9G8G9o2/5uTlMQcbDHiy5eZLHzF9cyAQBC3jAkScj1wLuv3mayyzKXdB4puHBS6uVIyffPnPt0OCCgb1fLO0DhaNCLldeVm7KldV/46V198z/BV44/tqHx96/XDy4c//PP1eUPtHz1e99p57bsf2pP5ffdeRqsXFM7fvo+IGF1nuJC/trr7/6/I16nMN+9utS4zEx8v2XSwbvPn9eLHjjraIfmkqLaz7GZ+knj52u9BQve+VidX7w86vfrCh5uqHywDMFA4cKB1ZdM3rOPrRnUVV7XvPl3SdN3/Ldy1HXur6/1u+RVWMp9SK1cNec2tOLrwzu6y85P/hTUb78beML/av4Oz7duu1g5eG9PX8crfcODmx5Z/thcWfR628+crSzz3j54tavQ5/8WLQvdaRT27PvXMuuG+CcNh8dmnfqu939VzYasd6e6usnHm8trjrxQOrRldGja1Jb1gyV8W/TJ5Q6YxEAAA==");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -213,6 +220,7 @@ public class SearchActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(List strings) {
+            progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
             if(result.isEmpty()) {
                 //Display Message if no results are found
@@ -233,5 +241,13 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(), 0);
     }
 }
