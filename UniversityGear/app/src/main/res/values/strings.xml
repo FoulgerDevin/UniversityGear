@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UniversityGear</string>
+    <string name="sandboxKey"></string>
+    <string name="appKey"></string>
+    <string name="search_message">Keyword</string>
+    <string name="search_button">Search</string>
 </resources>

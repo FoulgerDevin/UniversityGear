@@ -1,23 +1,38 @@
 package university4credit.universitygear;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "university4credit.universitygear.MESSAGE";
     Button mButton;
     EditText mEdit;
     TextView mText;
@@ -27,8 +42,8 @@ public class SearchActivity extends AppCompatActivity {
     String tempstring;
     String tempstr;
     String join;
-    String temp;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
+    public List<Item> itemFeed = null;
     // Is the button now checked?
 
 
@@ -57,21 +72,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = checkedRadioButton.getText().toString();
-            }
-        });
-
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                mEdit   = (EditText)findViewById(R.id.editText1);
-                mText = (TextView)findViewById(R.id.textView1);
+                mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
                     mindistance = 3;
@@ -93,7 +96,8 @@ public class SearchActivity extends AppCompatActivity {
                     join += " "; join+=ParsedWords[x];
                 }
                 join.toLowerCase();
-                new asynctask().execute(join);
+                new SearchItemTask().execute(join);
+
                 FileOutputStream stream = null;
                 try {
                     stream = openFileOutput("history.txt", Context.MODE_APPEND);
@@ -111,12 +115,15 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
-    private class asynctask extends AsyncTask< String,Void,String> {
+
+    private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
         private String temp;
         private Context tempc;
+        private String itemLimit = "200";
         URL url;
         HttpURLConnection conn;
         InputStream inputstream;
+        String result = "";
 
         private String getStringFromInputStream(InputStream is) {
 
@@ -147,14 +154,12 @@ public class SearchActivity extends AppCompatActivity {
 
         }
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected void onPreExecute() { super.onPreExecute(); }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected List<Item> doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=1";
+            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
@@ -167,7 +172,8 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#f^0#p^1#I^3#r^0#t^H4sIAAAAAAAAAOVXb2wURRTv9dorDVSNEEuIyrEStcDuze5e9+423CV3BcJByxWuNNDQwNzuXLvt3e5mZ9b2CMRatQSCiQLygUQgYkzUxA9GMRjAogKxRDGQGCV8Akn8E/BPolSCqbPXo1yrgQqnIXG/bOa9N29+7/femz+gz1M9b2DpwNUaV1X5/j7QV+5y8VNBtady/n3u8lmVZaDIwLW/b25fRb/724UYZjOmvAph09Ax8vZmMzqW88IwY1u6bECsYVmHWYRlosjJaFOjLHBANi2DGIqRYbzxRWFGRH5JqBdQQOGDKuIRleo3fLYYVA8Qr6RBIAX5kOJPC1SPsY3iOiZQJ2FGAHyABTwrSC0AyH5J9vs5EKxvY7ytyMKaoVMTDjCRPFw5P9cqwnprqBBjZBHqhInEo0uSiWh80eIVLQt9Rb4iBR6SBBIbjx81GCrytsKMjW69DM5by0lbURDGjC8yusJ4p3L0Bpg7gJ+nOqUilQ+gYEhEQBTV0lC5xLCykNwahyPRVDadN5WRTjSSux2jlI1UF1JIYbSCuogv8jq/lTbMaGkNWWFmcSy6NtrczERiVg7qjRpkV+vaUw5YNhlbw/JBqEJYn1ZZQVUFRUBiYaFRbwWaJ6zUYOiq5pCGvSsMEkMUNZrIjVjEDTVK6AkrmiYOomI74QaHImhzkjqaRZt06k5eUZYS4c0Pb5+BsdmEWFrKJmjMw0RFnqIwA01TU5mJynwtFsqnF4eZTkJM2efr6enhekTOsDp8AgC8b01TY1LpRFnIUFun10fttdtPYLV8KAptY2ovk5xJsfTSWqUA9A4mIkiSJAQKvI+HFZko/YugKGbf+I4oVYeoCPFQTKFAyq/wqhAoRYdECkXqc3CgFMyxWWh1I2JmoIJYhdaZnUWWpspifVoQg2nEqlIozfpD6TSbqlcllk8jBBBKpZRQ8P/UKJMt9YaMRpUttNRKUu8lq/WlBiZInWyt/21oScUwUbOR0ZTcfxKb0+uTjk+01GZokVzMztFxEmUy9HdX4Sr5TK4v0cZVskT+w565s9g1SO6tqHl/sF4M8RLw311c9EJzT8WlGFnO2YY5C5rEsDgKzcwgzFkIG7ZFL2BcwjmUW4xupNMtjlhGJoOsVv6uWMBOI99bPFQ8c9hxgakPaGqjlFBufAak0Tui9XnQ3skY+VJ2juuwESYUiIqsf+GA941/bkTK8h/f7zoC+l2H6IsFBADLzwd1HvfqCvc0BmsE0dzqasro5TSY5rDWodPbtIW4bpQzoWaVe1xNF7evfbroobO/Hcwce+pUu/mpRe8e8PBNTSV/f20NHwC8IAHgl/z+NvDYTW0F/1DFjMbknNPDX9RwddfnbBgm24a2XT5dDWrGjFyuyrKKfleZlT17dktd67XYxxu/unRi1pmt3yeuRwd3/dh14NWa4cG9v7wnsEd+qDUqH13+0xS845NDQ1UHL/z6xN7j298dCv38QvvziZdnzFx2+jfP1S8DUuVcor/eMzJy4ZHv9vg2hbvh+/sOL4tx5z49cPCPD3/fPXto90l34qUFtrD5jaEt5xa8dnFP+5REZ9dWZujyzJa3ZenS401RH04vOV8+snJbtafMPHlq3QffaDD+dfbUtCubau23zh99oKpBq513fMfq4MY3Z5+ZM9B+7PI7nitzr3Ufq3JdOyQ1oVWtcVF+ZfCjOvnBz1nm+mc7D3dtfnIf8EyvmL7BfaLt6K7lL67sN9cNP1u9ZWBw5LnRNP4JaptfnYIOAAA=");
+            //conn.setRequestProperty("Authorization", "Bearer " + context.getString(R.string.OAuth));
+            conn.setRequestProperty("Authorization","Bearer v^1.1#i^1#r^0#p^3#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9mmpgCgUgqjrQA0Is3N3Xrs7tBu3D9IqLZVtkUdJuTNzpx06O7PO3Gm7P4xNTUjU2hBFYkxFYgjRQBCJCIRgQoygIVER5YeIMQoJEKKB+IiPoHe2D7Y1lj5IbOL+2dx7z+s75ztn7gVd+YUPb6ne8ut0X0H2zi7Qle3zBYtAYX7e0hk52fPzskCGgG9n16Ku3O6cS6UOTBhJaTVykpbpIH9nwjAdKb1ZRrm2KVnQ0R3JhAnkSFiR4rHalRIbAFLStrClWAblr6kso3hWC4U4UQsDkdU4kSe75qDNBquMgoLIKkDlOSDKSAXeueO4qMZ0MDRxGcWCYIgGLA34BsBKAisBLsALwnrKvwbZjm6ZRCQAqGg6XCmta2fEOnqo0HGQjYkRKloTWxFfFauprKprKGUybEUH8hDHELvO8FWFpSL/Gmi4aHQ3TlpairuKghyHYqL9HoYblWKDwUwg/HSqIeA0ThAioiYICgTabUnlCstOQDx6HN6OrtJaWlRCJtZx6lYZJdmQNyMFD6zqiImaSr/397gLDV3TkV1GVZXH1jXGq1ZT/nh9vW216ypSPaRBjuNCohgSqChGDkkhspux7W7WDaN1wFe/wYFMj3BWYZmq7uXN8ddZuByRwNHI9PAZ6SFCq8xVdkzDXlCZcvxgGrnQeq+u/YV0cavplRYlSC786eWtizDIips8uF284HkV8SoPIS9yMKLKw3nh9frEuBH1yhOrr2eQDFN0AtptCCcNqCBaIal1E8jWVYnnZV6EikZzbFiheVVQ6EhEQDSLRCSykOOBxv/P6IGxrcsuRkMUGXmQxllGxRUrieotQ1dS1EiR9NQZIESnU0a1YpyUGKajoyPQwQUsu4VhAQgya2tXxpVWlIDUkKx+a2FaT1NDQUTL0SWcSpJoOgnziHOzhYpytloPbZwqd1NkHUeGQf4G2TsswujI3X+B6nhQpxZIT98hBmBSD3gEDyhWgrEgaWZvqzkdsX8sQozspoh/FdkBG0HVMo3U2PVaXELgfu2xKTmkGoH+XiQwRnj0en18BsbhVDfbCZctOzVOmMOVx6EDFcVyTTwRdwOq49DQXEMj88Nr14k4zFAfT5gmNFJYV5whl5PqslgyWaNOrS7jK2xEhi3daOrt3oeGjpevpZEqQ5ZHMqKBjFhNZoOTgq2idl1BzfoUg266hjEpXLUto0Eivd73X8CqY2KTQlWJ2qcaSVVVDEV4WabDcojcYQQ5REM5zNMoIkZUQlOgyGBSmCsMnQyGhtRU+wZWWw5G6uSgkZvo1ALlTZjBARMMhzUyZFhIbqaIpcOCwtOywAtjhTxiI+NG94+7PDP8PR3NSv+C3b5joNt3hDzJQQjQwaVgSX5OY27OnZSjYxRwoKnKVmdAh1rA0VtM8ly0UaANpZJQt7PzfbXf96x7OuMlv3MjmDf0li/MCRZlPOzBgpsnecGZc6cHQ4AFPGAFFnDrwcKbp7nB4tzZXb+lmJJ7C64evdr+7plDz9GrwVsHwfQhIZ8vLyu325dloctP3ld46LXzPy2/uGH3S7PfW1z92fKi/Ve22qeSkXXijb4Dd13/iKbVZOxgzpxi+50Fuy+UvPCDce3krsRXbfDRFw+//Ym+49w9l5c9e3fTK00tG/Rvc6xzZ1Mf7+OKe2Kbe37f09Z0ve0h9MiRkudbfnn/+KXikl19s56KLNq7uGneiS8j+MeZG32vSqUb/kLHGa1V3fvn5e/mMdO23XFy7ukLfZ+/sWba1otLvv5jznH+xs8P8Eu3Hznx5rEPl8SeaM4veP3YF9fA/mV7Zh9daxeFZ/RemNV8+FRv1fbzXKKUb7vSs4J5EG5pvRGfHzzT+8yBgtOb7m/s+6Cx+tqmHWc//Wbbvo0vLyx97Hxlfxn/BlwEOvJjEQAA");
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
@@ -178,10 +184,11 @@ public class SearchActivity extends AppCompatActivity {
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
-            int stat = 0;
+            int stat;
             try {
                 //this line is here to test the code. If it returns 200 then it succeeds otherwise theres something wrong with the payload
                 stat = conn.getResponseCode();
+                Log.e("Connection code", " " + stat);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -189,21 +196,42 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 //get the item feed
                 inputstream = conn.getInputStream();
-                tempstr = getStringFromInputStream(inputstream);
+                result = getStringFromInputStream(inputstream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return tempstr;
+            Item items = null;
+            if (result != null && result.length() > 0) {
+                items = new Item(result);
+                itemFeed = items.itemFeed;
+            }
+            Log.e("Inputsteam", " " + inputstream);
+            Log.e("Result string", "" + result);
+
+            //Starting activity with search results passed in
+            return items.itemFeed;
         }
         @Override
-        protected void onPostExecute(String strings) {
-            //I set the result on the screen for testing purpose.
-            mText.setText(tempstr);
-
-
+        protected void onPostExecute(List strings) {
+            Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
+            if(result.isEmpty()) {
+                //Display Message if no results are found
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setTitle("No Items Found");
+                builder.setMessage("Your keyword/s did not return any items.");
+                builder.setNegativeButton("Try Again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                
+            } else {
+                intent.putExtra(EXTRA_MESSAGE, result);
+                startActivity(intent);
+            }
         }
-
     }
-
-
 }
