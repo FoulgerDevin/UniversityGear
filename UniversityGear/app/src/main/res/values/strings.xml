@@ -1,7 +1,22 @@
 <resources>
     <string name="app_name">UniversityGear</string>
     <string name="sandboxKey"></string>
-    <string name="appKey"></string>
+    <string name="appKey">v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXXWwUVRTu9jcNVDCAkIJhHYo/wMzO7M7Mzg7skm0BKba0sKUCgjg/d9phZ2cmc+/QbtKEUpEooqkiJTxoSoCkkGA0GCJE9EESCShgiC8GNIoQeVKCgWgMeme6lG01FGE1JM7L5J5z7jnf+c45d+bS3eWVs7Ys3nKjKlBR3N9NdxcHAswYurK8bPZDJcXVZUV0nkGgv7umu7Sn5Md5UMoYtrgcQNsyIQh2ZgwTir4wTriOKVoS1KFoShkARaSIqWRjgximaNF2LGQplkEE6xfECU2JSkwMxGiNCWsxgcdS85bPFitOqAIvxcIxQeEUWQCSgvUQuqDehEgyUZwI00yUpMMkLbTQvMhxIhelojy/mgi2AgfqlolNKJpI+HBFf6+Th/XOUCUIgYOwEyJRn1yUakrWL1i4tGVeKM9XIsdDCknIhcNXdZYKgq2S4YI7h4G+tZhyFQVASIQSgxGGOxWTt8DcA3yfak6LCEBmY6wsM5KqaQWhcpHlZCR0ZxyeRFdJzTcVgYl0lB2NUcyGvB4oKLdail3ULwh6r2WuZOiaDpw4sbA2uSrZ3Ewk2DoHqDoiV5j6Bg8rmapdScosp/EsGxZIGQhalJe5XJxBZzmWRwSqs0zsCCcLg0stVAswaDCSGjaPGmzUZDY5SQ15gPLthFsUssxqr6aDRXRRu+mVFWQwD0F/OXoBhnYj5Oiyi8CQh5EKn6E4Idm2rhIjlX4r5rqnE8aJdoRsMRTq6OigOiKU5bSFwjTNhFY2NqSUdpCRCM/Wm3XfXh99A6n7qSgA74S6iLI2xtKJWxUDMNuIRJhnaYbN8T4cVmKk9C+CvJxDwweiUAMSZQWVjeBWkRmBUcMFGZBErkdDHg4gS1kyIzlpgGxDUgCp4D5zM8DRVTHCaWEcG5AqH9NINqZppMypPMloANAAyLISE/5Hc3K3nV5n6FjZgjutMO1eqFZfbEEE1Ltt9b9NLaVYNmi2DF3J/ke5ebN+l/lFHLVZclC21s3idQoYBn7dV7qKX8l1hTq3ClXIfzYy95a6LqEHK2mGFXguwse46P3lhf9mHqi8FCtDeYcw5Ug2shwKQ7MNACkHQMt18N8X1eR9klusNDDxCYccyzCA08rcFwvQm+MHiwe8v3TTERtiH5KtD1KCuQlZEs7eE63zQQe9OKMZhWQ3S7W5ACIMRAXOv/B5Dw2/aySK/IfpCRyjewJH8HWFjtIkM5t+qrxkRWnJWALqCODamqpsdVK6pFFQbzPxr7QDqDTI2pLuFJcHGi9uW7Ux75bTv5aeMnTPqSxhxuRdeuhptzVlzLjJVUyUDtMCzXMcF11Nz7itLWUeKZ24fHJ/+a+HL7whzzx7au6Z/glvT/1sN101ZBQIlBWV9gSKJg0cnzz99BdrXql88zdL7Upv5Iizn6cbpI29hy/Ovh4ab75qlg1Mqq6qq1lz6PJu85DbpzQMvNy15+mfXni+/OvmqdL6afPX9+7/8hjz8amVa1776ODRVMWmOQe7Lz15tfWtvunblmze/uFLM6sPPFq9bNf4NnViyYXrDz9XMzAh8j53dHOFuD0pnnzina3Z4xPniz+0Pfau+8cWvWvnp7HaM/s+2bP4lzF9c7vqonxDR9W1tS1XLm//4Ny3M2YdCN68un/zM9/MSRzYv8PYdY67Fj6zpPf0zcvttt5es+Hn5Sd3nBi7t/P1xq17tXFXxp7XEzdOfnekccPAV5Xfp5893/pe+kT0xcd3Xvp9354pDYNl/BNQNT5Vfw4AAA==</string>
     <string name="search_message">Keyword</string>
     <string name="search_button">Search</string>
+    <string name="buyButton">Buy It Now</string>
+    <string name="imageContactDescription">Image of an item for sale</string>
+    <string name="aboutItem">About This Item</string>
+    <string name="shippingInfo">Shipping and Return Info</string>
+    <string name="condition">Condition</string>
+    <string name="quantity">Quantity</string>
+    <string name="category">Category</string>
+    <string name="returnPolicy">Returns</string>
+    <string name="description">Description</string>
+    <string name="guaranteePolicy">Guarantee</string>
+    <string name="brand">Brand</string>
+    <string name="material">Material</string>
+    <string name="pattern">Pattern</string>
+    <string name="type">Type</string>
+    <string name="gender">Gender</string>
 </resources>
