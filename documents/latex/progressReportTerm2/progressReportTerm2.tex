@@ -222,15 +222,43 @@ We have developed over half of our application. So far, we have implemented the
 ability to search, view, and select single items. This alone is a large part of 
 the project. In the coming weeks, users will be able to purchase items, as well 
 as use several filters to find the items that they need. These classes we have 
-created also interact with eBay's APIs
+created also interact with eBay's APIs. So far, we have used their Browse API, 
+but now we are going to be using the Order API to allow users to purchase the 
+items that they want. 
+
+\subsection{Search Class Development}
+The search class is the first activity that the users are greeted by. They will 
+interact with this class first. as it is required to get any results. 
+
+\subsection{Item Class Development}
+The item class is what allow us to build specific items or a list of items. 
+First, the class will create a list of items that will be displayed to the 
+user in a list item view. Once an item is selected from the list, the item 
+class will build another single item, with much more information pertaining to 
+the item selected. Development for this class is something that will be ongoing 
+throughout the project. This is because more information may need to be grabbed 
+depending on what kind of item is being selected. However, development was rather 
+straight forwarded, as we grabbed the specific information we needed. 
+
+\subsection{Single Item Activity}
+The single item activity class is what the users use to view the single item they 
+have selected. This activity will display the pertinent information of an item, 
+like its title, color, price, description, material, pattern, and any other item 
+specific information. This class made use of eBay's Browse API. Specifically, it 
+used the get item method, which retrieves data for a given item. 
+
+\subsection{UI Development} 
 
 \section{Impediments and solutions}
 Over the course of the term, our team managed to avoid many impediments. However, 
 we did need to revise our problem statement. In order to solve this, we re-wrote the 
 problem statement with the revisions provided by the professors of the capstone 
-class. 
+class. \newline
 
-Another problem is the design documents. The format that is required is not something we are familiar with. There is a lot of questions regarding what to put where. After looking at several examples, as well as asking people, we managed to get it done in the end.
+Another problem is the design documents. The format that is required is not 
+something we are familiar with. There is a lot of questions regarding what to 
+put where. After looking at several examples, as well as asking people, 
+we managed to get it done in the end.
 
 \section{Retrospective}
 
