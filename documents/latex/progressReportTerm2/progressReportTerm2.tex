@@ -1,0 +1,261 @@
+\documentclass[journal,compsoc, 10pt, draftclsnofoot, onecolumn]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+\newcommand{\subparagraph}{}
+\usepackage{titlesec}
+
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{placeins}
+
+\usepackage[margin=0.75in]{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\newcommand{\namesigdate}[2][6cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[0.5\normalbaselineskip] \hrule \\[0.pt]
+    {\small \vspace{-3em} \textit{Signature}} \\[0.5\normalbaselineskip] \hrule \\[0pt]
+    {\small \vspace{-3em}\textit{Date}}
+  \end{tabular}
+}
+
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\lstset{
+language=C,
+basicstyle=\ttfamily,
+commentstyle=\color{blue},
+numberstyle=\color{red},
+stringstyle=\color{orange}
+}
+
+\def\nameD{Devin Foulger}
+\def\nameH{Hector Trujillo}
+\def\nameB{Bryan Liauw}
+
+\input{pygments.tex}
+
+\hypersetup {
+        colorlinks = true,
+        urlcolor = black,
+        linkcolor = black,
+        pdfauthor = {\nameD\nameH\nameB},
+        pdfkeywords = {},
+        pdfsubject = {},
+        pdfpagemode = UseNone
+}
+
+\titleformat{\section}
+	{\normalfont\fontsize{15}{10}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+	{\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+	{\normalfont\fontsize{12}{15}\bfseries}{\thesubsubsection}{1em}{}
+
+\begin{document}
+
+\title{\vspace{20em}Winterl Progress Report \\{\vspace{-1ex}\huge UniversityGear} \\
+{\large \today}}
+\author{\vspace{10ex}Devin Foulger \\{\vspace{-1ex}Hector Trujillo}
+\\{\vspace{-1ex}Bryan Liauw}}
+
+\begin{titlepage}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+This document will recap what we have done over the term and will describe 
+what we plan to do in the following year. It will go into detail about the goals 
+we have set and how we plan to accomplish them. It will also include a summary 
+of the project status as it is now. It will also include a retrospective of what 
+has happened throughout the term.
+\end{abstract}
+
+\end{titlepage}
+
+\tableofcontents
+
+\section{Introduction}
+Throughout the term, we have been able to accomplish and learn a lot. We were 
+able to design an application that will help people purchase college merchandise. 
+We were able to come up with requirements and analyze the situation in a 
+meaningful way. The team also analyzed many different technologies that we 
+will be using to complete the project. 
+
+\section{Project goals and recap}
+The goal of the project is to build an Android application that will allow users 
+to purchase college related merchandise. This means that users will be able to 
+search for many items depending a lot of user provided information. They can 
+search for specific schools and their colors as well as condition of item, or 
+the price. We also set out to accomplish how to create documents in which we 
+could effectively describe our project. \newline
+
+Here our recaps from each term for each week.
+
+\subsection{Fall Term}
+\textbf{Week 2}\newline
+During week 2, our group had just been in contact with our client, Luther. We 
+discussed what was expected of the project and what eBay wanted. With this 
+knowledge, we began work on our problem statement. This document outlined 
+what was to be expected from the application that we would be developing. The 
+team also set up a GitHub repo to hold all our documents and code. \newline
+
+\textbf{Week 3}\newline
+We completed our problem statement during week 3. After many emails with our 
+client, we came to an agreement with the problem statement.  \newline
+
+\textbf{Week 4}\newline
+During week 4, we had began to make plans on what needed to be revised in the 
+problem statement. The team had also created developer accounts on the eBay 
+website and began looking at the APIs we would be using. We had also received 
+a small rundown on what requirements will need to be met. Finally, we also began 
+the weekly meetings with our TA.\newline
+
+\textbf{Week 5}\newline
+This week, we worked towards completing our requirements document. We had 
+figured out what would need to be accomplished. Our client had also provided us 
+with a mock up of what our application could look like. This helped with the 
+creation of what requirements must be met.\newline
+
+\textbf{Week 6}\newline
+Over the course of week 6, the team accomplished a lot. We finished our 
+requirements document and met with our client in Portland. After meeting with 
+the team at eBay, it really felt like they wanted us to succeed. They helped us 
+to better define the requirements that needed to be completed.\newline
+
+\textbf{Week 7}\newline
+During week 7, we began work on the tech review. We had split the requirements 
+into three major parts: Searching and gathering data, UI and presenting data, and 
+purchasing the items. After that, each team member focused on the parts that they 
+had been assigned. \newline
+
+\textbf{Week 8}\newline
+Over week 8, the team did a mock design of what the application would look like. 
+This was the beginning of the design document. Each member had also completed 
+their part of the tech review. The review featured many different technologies that 
+we would be using, discussing the benefits of each one. \newline
+
+\textbf{Week 9}\newline
+Large portions of the design document were completed over week 9. The group 
+created a UML to demonstrate what classes might be used during development. 
+\newline
+
+\textbf{Week 10}\newline
+The final week of the term, we completed our design document. However, we still 
+needed to begin work on the fall progress report. \newline
+
+Overall, we set out to accomplish many goals over the term. The end result of 
+each of our documents provides us with a good start for development. 
+
+\subsection{Winter Term}
+\textbf{Week 1}\newline
+During week 1, we talked about when we were going to meet to do some paired 
+programming. We also uploaded our blank Android project to GitHub to get 
+started. \newline
+
+\textbf{Week 2}\newline
+This week we accomplished creating our search activity, however the class does 
+not currently work with eBay's APIs. \newline
+
+\textbf{Week 3}\newline
+For this week, we were able to get eBay's search API integrated with our 
+search class allowing for us to make searches. On top of that, we also started 
+the list view activity and the item class. The item class will allow us to create 
+items in any class. The list view allows us to view the items by using a recycler 
+view.\newline
+
+\textbf{Week 4}\newline
+During week 4, we have been connecting everyones pieces. This means that we 
+can now go from searching to the list view correctly displaying search results. 
+The list view correctly displays the title, image, and price of the item. The 
+item class is also continually being added to, depending on what new variables
+we will be needing. \newline
+
+\textbf{Week 5}\newline
+This week, we have been updating the search activity to apply filters. It will 
+also now only select BIN items and specific colleges. The single item view has 
+also been completed. The user can now select an item from the list view to view 
+in full detail in the single item view. This used eBay's API to get the correct 
+information on a specific item. The item class has also been updated to handle 
+many of the given fields for a single item. 
+
+
+\section{Project status}
+The design for our application, UniversityGear, has been fairly complete. We 
+have detailed the functional requirements of our project. We have also completed 
+a technology review in which we discovered what technologies would be the most 
+efficient with our application. Last, we created a design document to detail how 
+we were going to implement the technologies we have found into our application.
+After many weeks of communication with our client, we have arrived at the 
+development phase.\newline
+
+We have developed over half of our application. So far, we have implemented the 
+ability to search, view, and select single items. This alone is a large part of 
+the project. In the coming weeks, users will be able to purchase items, as well 
+as use several filters to find the items that they need. These classes we have 
+created also interact with eBay's APIs
+
+\section{Impediments and solutions}
+Over the course of the term, our team managed to avoid many impediments. However, 
+we did need to revise our problem statement. In order to solve this, we re-wrote the 
+problem statement with the revisions provided by the professors of the capstone 
+class. 
+
+Another problem is the design documents. The format that is required is not something we are familiar with. There is a lot of questions regarding what to put where. After looking at several examples, as well as asking people, we managed to get it done in the end.
+
+\section{Retrospective}
+
+\begin{table}[!h]
+\centering
+\caption{Retrospectives}
+\label{my-label}
+\begin{tabularx}{\textwidth}{X|X|X}
+\hline
+\textbf{Positives} & \textbf{Deltas} & \textbf{Actions} \\ \hline
+Completed the problem statement                  &  Didn't meet the criteria                &Rewrote the report to define the problem better                 \\ \hline
+Met with the client in Portland                  &     Could meet with clients more frequently            & Arrange more meetings on-line                 \\ \hline
+Completed the requirements document                  & Not quantifying goals, spelling errors, and missing an abstract                & Proofreading it more and asking for more clarifications prior to submitting it                 \\ \hline
+Completed the technology review                 & Writing could be improved                & Go to the Writing Center in order to see missed mistakes                 \\ \hline
+Completed the design document                  & Can start earlier                 &Talk more to TA and instructor on clarifying some matters                  \\ \hline
+\end{tabularx}
+\end{table}
+
+\FloatBarrier
+\section{Conclusion}
+During the course of the term we have learned many things. This includes items 
+from different IEEE formats used in the real world to best practices when gathering 
+project requirements. We also learned how to look at projects from the 10,000 
+foot level instead of trying to focus on specific details. We will begin development 
+on our project during winter term. However, we are hoping to make progress 
+during winter break. 
+
+\end{document}
