@@ -230,6 +230,20 @@ items that they want.
 The search class is the first activity that the users are greeted by. They will 
 interact with this class first. as it is required to get any results. 
 
+This search activity will also function as our home page which consists of a
+simple design that contains a search text field and a search button. Once the 
+user presses the search button, the Search Activity takes the input and 
+searches' eBay's database for related items. We were also able to implement a 
+progress bar that shows up when the user clicks on Submit and disappears when 
+the search results are ready to be presented. This is important because it lets 
+the user know that the application is processing the request. 
+
+\subsection{Notification's Development}
+Have implemented the Alert notification that lets the user know that their 
+keyword/s did not return any results. This message is important because it 
+lets the user know that the application is working as it should, and there 
+were simply no items containing the keyword/s that they used.
+
 \subsection{Item Class Development}
 The item class is what allow us to build specific items or a list of items. 
 First, the class will create a list of items that will be displayed to the 
@@ -239,6 +253,15 @@ the item selected. Development for this class is something that will be ongoing
 throughout the project. This is because more information may need to be grabbed 
 depending on what kind of item is being selected. However, development was rather 
 straight forwarded, as we grabbed the specific information we needed. 
+
+\subsection{List View Development}
+Successfully completed the presentation of the search results in a list view. 
+This list view displays the item title, image, and item price for every image 
+that is returned. The user is allowed to scroll through the different items 
+until they find one that catches their attention. We also set up the 
+"onClickListener" for each item so that when a user clicks on an item that they 
+like, they are presented with more details on that specific item.
+
 
 \subsection{Single Item Activity}
 The single item activity class is what the users use to view the single item they 
@@ -259,6 +282,55 @@ Another problem is the design documents. The format that is required is not
 something we are familiar with. There is a lot of questions regarding what to 
 put where. After looking at several examples, as well as asking people, 
 we managed to get it done in the end.
+
+Initially, we had hoped to get started on the project during winter break. 
+It proved difficult to find the energy to work on it after a grueling Fall 
+term. Some of the items that we had hoped to accomplish during this time was 
+to become familiar with eBay's APIs and how to use them. Another goal that we 
+had for the break was to get familiar with the technology that we were going 
+to be using to implement the list item view and the android notification/alert 
+systems. The failure to work on these goals during the break, didn't have a 
+large impact on the project. The main consequence was that we had more work to 
+do in a shorter period. Also, it did slow down development just a bit as we 
+familiarized ourselves with the technologies being used, however we were able 
+to recover from this slow start to get back on schedule.
+
+\section{Remaining Items}
+
+\subsection{Item Filter Development}
+One of the larger pieces that still needs to be developed is the implementation
+ of the Search filters. These filters will help the user narrow down their 
+search results to display items that are truly relevant to what they are 
+looking for. For the alpha release we will have the front end complete. This 
+will consist of having the filters available for the user to select, but the 
+will not do anything until after the alpha release. 
+
+\subsection{Internet Connectivity Verification}
+Another small, but important item that still needs to be implemented is to 
+have the application check to ensure an active internet connection. If the 
+user does not have an active internet connection, we will display an alert 
+stating that a connection to the internet is a requirement to using the 
+application.  This will help in avoiding scenarios where the user tries to 
+search for items, but nothing happens because they are not connected to the 
+internet. 
+
+\subsection{Known Bugs}
+Improve or fix the way images are being presented within the current list view 
+results. There are certain items who's images are cropped out because they are 
+either too big or are in portrait mode. Ensuring that the images fit into their 
+intended area will be important so that the users can see the entire image and 
+thus get a good idea of the product that is for sale. There is also a bug in 
+the list view results display that we need to track down and fix. The bug 
+results in images not displaying at all when the user is viewing the search 
+results in a list view. However, the item displays as it should in the single 
+item view. The part that makes it harder to identify is the fact that this bug 
+is only present when working in the sandbox environment. When testing the 
+application on eBay's production servers, the images display properly on both 
+the list view and single item view. It could come down to being an issue with 
+the data in eBay's sandbox environment. To determine this, we will need to do 
+plenty of testing, and discuss with our client eBay potential causes for the 
+different behavior in the different environments. 
+
 
 \section{Retrospective}
 
