@@ -270,8 +270,6 @@ like its title, color, price, description, material, pattern, and any other item
 specific information. This class made use of eBay's Browse API. Specifically, it 
 used the get item method, which retrieves data for a given item. 
 
-\subsection{UI Development} 
-
 \section{Impediments and solutions}
 Over the course of the term, our team managed to avoid many impediments. However, 
 we did need to revise our problem statement. In order to solve this, we re-wrote the 
@@ -281,7 +279,7 @@ class. \newline
 Another problem is the design documents. The format that is required is not 
 something we are familiar with. There is a lot of questions regarding what to 
 put where. After looking at several examples, as well as asking people, 
-we managed to get it done in the end.
+we managed to get it done in the end.\newline
 
 Initially, we had hoped to get started on the project during winter break. 
 It proved difficult to find the energy to work on it after a grueling Fall 
@@ -314,6 +312,13 @@ application.  This will help in avoiding scenarios where the user tries to
 search for items, but nothing happens because they are not connected to the 
 internet. 
 
+\subsection{Purchase Class Development}
+One of the larger classes, the purchase class, still needs to be developed before 
+the end of the term. This class is what will allow users to purchase an item of their 
+choice. In order to implement this class, we will need to use eBay's Order API. The 
+Order API allows us to use guest checkout, meaning that any user will be able to 
+use our app without a log in.
+
 \subsection{Known Bugs}
 Improve or fix the way images are being presented within the current list view 
 results. There are certain items who's images are cropped out because they are 
@@ -331,10 +336,37 @@ the data in eBay's sandbox environment. To determine this, we will need to do
 plenty of testing, and discuss with our client eBay potential causes for the 
 different behavior in the different environments. 
 
+\section{Project Images}
+\begin{figure}[h]
+This image demonstrates what is displayed to the user after they succesffully 
+complete a search. This will list all possible searches. Each item card will display 
+the title, image and price. 
+\centering
+\caption{List view of items}
+\includegraphics[scale=.2]{listview}
+\end{figure}
+
+\begin{figure}[t]
+This is an image of what a single item would look like when being viewed. 
+It contains the title, price, and other important information that pertains to 
+the item.
+\centering
+\caption{Image of single item}
+\includegraphics[scale=.2]{singleview1}
+\end{figure}
+
+\begin{figure}[t]
+This is what the rest of the single item view would display to the user. It 
+shows more details about the item as well as shipping and return info.
+\centering
+\caption{Item details of a single item}
+\includegraphics[scale=.2]{singleview2}
+\end{figure}
+\FloatBarrier
 
 \section{Retrospective}
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \centering
 \caption{Retrospectives}
 \label{my-label}
@@ -356,6 +388,7 @@ from different IEEE formats used in the real world to best practices when gather
 project requirements. We also learned how to look at projects from the 10,000 
 foot level instead of trying to focus on specific details. We will begin development 
 on our project during winter term. However, we are hoping to make progress 
-during winter break. 
+during winter break. Over half of winter term and we have already accomplished 
+half of what we have set out to do. 
 
 \end{document}
