@@ -11,14 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SearchActivity">
+        </activity>
+        <activity android:name=".DisplaySearchResultsActivity"/>
+        <activity android:name=".DisplaySingleItemActivity"/>
+        <activity
+            android:name=".SearchActivity2"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplaySearchResultsActivity"/>
-        <activity android:name=".DisplaySingleItemActivity"/>
     </application>
 
 </manifest>
