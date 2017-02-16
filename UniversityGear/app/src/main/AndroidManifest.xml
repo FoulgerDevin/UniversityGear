@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DisplaySearchResultsActivity"/>
+        <activity android:name=".DisplaySingleItemActivity"/>
     </application>
 
 </manifest>

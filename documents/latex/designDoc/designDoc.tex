@@ -304,7 +304,9 @@ The third variable is the color of the item and is named "color", which it is a
 string value. "searchTerms" is another variable of type string, and is used to 
 hold the search values the user provides. The last variable is the "school" and 
 is a string. The search method for this class also heavily relies on an API 
-called "Browse" which is provided by eBay.
+called "Browse" which is provided by eBay. \newline
+
+The search class will now encompass the storage class. 
 
 \begin{figure}[h]
 \centering
@@ -319,7 +321,12 @@ will not have to enter in the same information again, considering that they
 will most likely search for the same schools over and over again. It will have 
 the ability to save, load, and delete filters. It will also need the information 
 provided by the user such as the school and searchTerms. Those variables will be 
-provided by the search class. 
+provided by the search class. \newline
+
+The storage class will no longer be used. This is because the methods involved are 
+small enough that they can be condensed into the search class. The only place 
+that these methods would be used is in the search class and because of this, we 
+decided to condense the two. 
 
 \begin{figure}[h]
 \centering
@@ -482,7 +489,6 @@ different it is. As previously mentioned, the loop happens every time user
 enters a keyword. Once the keyword is entered, the algorithm will run until 
 it reaches a string distance that is below or equal to the threshold.
 
-\newpage
 \subsubsection*{Examples}
 \begin{lstlisting}
 LevenshteinDis(string1, string2){
@@ -501,5 +507,16 @@ LevenshteinDis(string1, string2){
 	}
 }
 \end{lstlisting}
+
+\newpage
+\begin{table}[h]
+\centering
+\caption{Revisions Log}
+\label{my-label}
+\begin{tabularx}{\textwidth}{l|X}
+\textbf{Name}  & \textbf{Revision} \\ \hline
+ Devin Foulger   &   Added a description as to why we will no longer be using the storage class \\ \hline
+\end{tabularx}
+\end{table}
 
 \end{document}

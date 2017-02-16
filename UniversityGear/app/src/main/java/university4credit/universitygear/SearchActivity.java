@@ -12,9 +12,11 @@ import android.app.Activity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -55,7 +57,11 @@ public class SearchActivity extends AppCompatActivity {
     String join;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
+<<<<<<< HEAD
 
+=======
+    private ProgressBar progressBar;
+>>>>>>> refs/remotes/origin/master
     // Is the button now checked?
 
 
@@ -84,6 +90,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
+<<<<<<< HEAD
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
         box1 = (CheckBox)findViewById(R.id.checkbox1);
         box2 = (CheckBox)findViewById(R.id.checkbox2);
@@ -112,6 +119,14 @@ public class SearchActivity extends AppCompatActivity {
                 if(box4.isChecked()){
                     tempid += "&category_id=64882";
                 }
+=======
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                hideSoftKeyboard();
+                progressBar.setVisibility(View.VISIBLE);
+>>>>>>> refs/remotes/origin/master
                 mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
@@ -217,9 +232,19 @@ public class SearchActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+<<<<<<< HEAD
             conn.setRequestProperty("Authorization","Basic "+base64);
             conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn.setDoOutput(true);
+=======
+
+            //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
+            conn.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+
+            //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
+            conn.setRequestProperty("Accept","application/json");
+            conn.setRequestProperty("Content-Type","application/json");
+>>>>>>> refs/remotes/origin/master
             try {
                 conn.setRequestMethod("POST");
                 //conn.setDoOutput(false);
@@ -290,18 +315,20 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Item items = null;
+            Log.e("RESULT STRING", "" + result);
             if (result != null && result.length() > 0) {
-                items = new Item(result);
+                items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
-            Log.e("Inputsteam", " " + inputstream);
-            Log.e("Result string", "" + result);
+            //Log.e("Inputsteam", " " + inputstream);
+            //Log.e("Result string", "" + result);
 
             //Starting activity with search results passed in
             return items.itemFeed;
         }
         @Override
         protected void onPostExecute(List strings) {
+            progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
             if(result.isEmpty()) {
                 //Display Message if no results are found
@@ -322,5 +349,13 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(), 0);
     }
 }

@@ -1,5 +1,6 @@
 package university4credit.universitygear;
 
+import android.text.Html;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -18,52 +19,168 @@ import java.util.List;
 public class Item {
     String itemID;
     String title;
+    String subtitle;
+    String shortDescription;
     String price;
     String condition;
+    String returnsAccepted;
+    String refundMethod;
     //URL imageURL;
     String imageURL;
-    JSONObject jsonItems = null;
-    JSONArray itemSummaries = null;
+    String returnPayer;
+    String returnValue;
+    String returnUnit;
+    String brand;
+    String categoryPath;
+    String color;
+    String itemWebURL;
+    String material;
+    String LAName;
+    String LAType;
+    String LAValue;
+    String pattern;
+    String quantitySold;
+    String availability;
+    String gender;
+
+    private JSONObject jsonItems = null;
+    private JSONArray itemSummaries = null;
     List<Item> itemFeed = new ArrayList();
+    Item sItem;
 
     /*
      * This constructor is used to create an array of items. It should be passed
      * a JSON object that contains the items.
      */
-    Item(String item) {
-        try {
-            if (item != null) {
-                jsonItems = new JSONObject(item);
-                //Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
-                itemSummaries = new JSONArray(jsonItems.getString("itemSummaries"));
+    Item(String item, Boolean isSingleItem) {
+        String con = "Unspecified";
+        String shortDesc = "None provided by user";
+        String imageUrl = null;
+        String rReturns = "Unspecified";
+        String rAccepts = "Unspecified";
+        String sTitle = "Unspecified";
+        String rPayer = "Unspecified";
+        String rValue = "Unspecified";
+        String rUnit = "Unspecified";
+        String brandGiven = "Unspecified";
+        String patternGiven = "Unspecified";
+        String materialGiven = "Unspecified";
+        String type = "Unspecified";
+        String categoriesGiven = "Unspecified";
+        String genderGiven = "Unspecified";
+        String shipAvailability = "Unspecified";
+        String quantity = "Unspecified";
+
+        //This if else statement determines if the object is either a list
+        //of items or a single item. If so, create each one respectively.
+        if (!isSingleItem) {
+            try {
+                if (item != null) {
+                    jsonItems = new JSONObject(item);
+                    //Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
+                    itemSummaries = new JSONArray(jsonItems.getString("itemSummaries"));
+                }
+            } catch(JSONException jsonE) {
+                Log.e("JSONOBJECT", "Failed to create JSON item");
             }
-        } catch(JSONException jsonE) {
-            Log.e("JSONOBJECT", "Failed to create JSON item");
-        }
 
-        for (int i = 0; i < itemSummaries.length(); i++) {
-            if (itemSummaries != null) {
+            for (int i = 0; i < itemSummaries.length(); i++) {
+                if (itemSummaries != null) {
+                    try {
+                        JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
+                        JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
+                        JSONObject singleItemImage;
+
+                        if (itemSummaries.getString(i).contains("image")) {
+                            singleItemImage = new JSONObject(singleItem.getString("image"));
+                            imageUrl = singleItemImage.getString("imageUrl");
+                        }
+                        if (itemSummaries.getString(i).contains("condition")) {
+                            con = singleItem.getString("condition");
+                        }
+                        Item newItem = new Item(singleItem.getString("itemId"),
+                                singleItem.getString("title"), singleItemPrice.getString("value"),
+                                con, imageUrl, null, null, null, null, null, null, null, null,
+                                null, null, null, null, null, null, null);
+                        itemFeed.add(newItem);
+
+                    } catch (JSONException jsonE) {
+                        Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
+                    }
+                }
+            }
+        } else { //single item
+            if (item != null) {
                 try {
-                    String con = "Unspecified";
-                    String imageUrl = null;
-
-                    JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
+                    JSONObject singleItem = new JSONObject(item);
                     JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
                     JSONObject singleItemImage;
-                    if (itemSummaries.getString(i).contains("image")) {
+                    JSONObject singleItemReturns;
+                    if (item.contains("returnTerms")) {
+                        singleItemReturns = new JSONObject(singleItem.getString("returnTerms"));
+                        if (item.contains("returnsAccepted")) { rAccepts = singleItemReturns.getString("returnsAccepted"); }
+                        if (item.contains("refundMethod")) { rReturns = singleItemReturns.getString("refundMethod");}
+                        if (item.contains("returnShippingCostPayer")) { rPayer = singleItemReturns.getString("returnShippingCostPayer"); }
+                        if (item.contains("returnPeriod")) {
+                            JSONObject rPeriod = new JSONObject(singleItemReturns.getString("returnPeriod"));
+                            rValue = rPeriod.getString("value");
+                            rUnit = rPeriod.getString("unit");
+                        }
+                    }
+                    if (item.contains("image")) {
                         singleItemImage = new JSONObject(singleItem.getString("image"));
                         imageUrl = singleItemImage.getString("imageUrl");
                     }
-                    if (itemSummaries.getString(i).contains("condition")) {
+                    if (item.contains("condition")) {
                         con = singleItem.getString("condition");
                     }
-                    Item newItem = new Item(singleItem.getString("itemId"),
-                            singleItem.getString("title"), singleItemPrice.getString("value"),
-                            con, imageUrl);
-                    itemFeed.add(newItem);
-
-                 } catch (JSONException jsonE) {
-                    Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
+                    if (item.contains("description")) {
+                        shortDesc = singleItem.getString("description");
+                    }
+                    /*if (item.contains("generatedShortDescription")) {
+                        shortDesc = singleItem.getString("generatedShortDescription");
+                    }*/
+                    if (item.contains("subtitle")) {
+                        sTitle = singleItem.getString("subtitle");
+                    }
+                    if (item.contains("brand")) {
+                        brandGiven = singleItem.getString("brand");
+                    }
+                    if (item.contains("pattern")) {
+                        patternGiven = singleItem.getString("pattern");
+                    }
+                    if (item.contains("material")) {
+                        materialGiven = singleItem.getString("material");
+                    }
+                    if (item.contains("categoryPath")) {
+                        categoriesGiven = singleItem.getString("categoryPath");
+                        //categoriesGiven = categoriesGiven.replaceAll("|", ", ");
+                    }
+                    if (item.contains("gender")) {
+                        genderGiven = singleItem.getString("gender");
+                    }
+                    if (item.contains("availabilityStatusForShipToHome")) {
+                        shipAvailability = singleItem.getString("availabilityStatusForShipToHome");
+                        if (shipAvailability.equals("IN_STOCK")) {
+                            shipAvailability = "In stock";
+                        } else if (shipAvailability.equals("LIMITED_STOCK")) {
+                            shipAvailability = "Limited stock";
+                        } else if (shipAvailability.equals("OUT_OF_STOCK")) {
+                            shipAvailability = "Out of stock";
+                        }
+                    }
+                    if (item.contains("quantitySold")) {
+                        quantity = singleItem.getString("quantitySold") + " sold";
+                    }
+                    sItem = new Item(singleItem.getString("itemId"),
+                            singleItem.getString("title"), singleItemPrice.getString("currency") +
+                            singleItemPrice.getString("value"),
+                            con, imageUrl, sTitle, shortDesc, rAccepts, rReturns,
+                            rPayer, rValue, rUnit, brandGiven, patternGiven,
+                            materialGiven, type, categoriesGiven, genderGiven,
+                            shipAvailability, quantity);
+                } catch(JSONException jsonE) {
+                    Log.e("SINGLE ITEM", "Failed to create a single item");
                 }
             }
         }
@@ -73,13 +190,45 @@ public class Item {
      * This constructor is used to build individual items and is passed in all
      * the necessary information.
      */
-    Item(String id, String itemTitle, String givenPrice, String cond, String image){
+    Item(String id, String itemTitle, String givenPrice, String cond, String image,
+         String sTitle, String sDescription, String rAccepted, String rMethod,
+         String rPayer, String rValue, String rUnit, String brandGiven,
+         String patternGiven, String materialGiven, String typeGiven,
+         String categoriesGiven, String genderGiven, String shipAvail,
+         String quantity){
         itemID = id;
         title = itemTitle;
-        price = "$" + givenPrice;
+        price = givenPrice;
         condition = cond;
         if (image != null) {
             imageURL = image;//new URL(image);
         }
+        subtitle = sTitle;
+        shortDescription = sDescription;
+        returnsAccepted = rAccepted;
+        if (rMethod != null && rMethod.equals("MONEY_BACK")) {
+            refundMethod = "Money back guarantee";
+        } else {
+            refundMethod = rMethod;
+        }
+        if (rPayer != null && rPayer.equals("BUYER")) {
+            returnPayer = "Buyer pays return shipping";
+        } else {
+            returnPayer = rPayer;
+        }
+        returnValue = rValue;
+        if (rUnit != null && rUnit.equals("CALENDAR_DAY")) {
+            returnUnit = "Accepted within " + rValue + " days";
+        } else {
+            returnUnit = "Accepted within " + rValue + " " + rUnit;
+        }
+        brand = brandGiven;
+        pattern = patternGiven;
+        material = materialGiven;
+        LAType = typeGiven;
+        categoryPath = categoriesGiven;
+        gender = genderGiven;
+        availability = shipAvail;
+        quantitySold = quantity;
     }
 }
