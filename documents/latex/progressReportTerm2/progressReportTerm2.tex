@@ -180,15 +180,15 @@ each of our documents provides us with a good start for development.
 \textbf{Week 1}\newline
 During week 1, we talked about when we were going to meet to do some paired 
 programming. We also uploaded our blank Android project to GitHub to get 
-started. \newline
+started. We also spent the time earlier during the term and the break learning how most other website, such as Google and Yahoo, employ their search function, which we ideally want to mimic. However, it turns out Google, which is the benchmark of search engines, employs a Levenshtein Distance method that is used alongside an artificial machine learning that takes in what people often search as probability. This advanced method is not viable for us because we would not have as much traffic, so we decided to stick with Levenshtein Distance only. \newline
 
 \textbf{Week 2}\newline
 This week we accomplished creating our search activity, however the class does 
-not currently work with eBay's APIs. \newline
+not currently work with eBay's APIs. Basically what we have done is a basic search function with textbox that gets user input. We also have a radio button that virtually does nothing but pass in the string that it contains. The input that the users give does nothing yet. We have yet to integrate any functionality from the Ebay API. However, the text box does have limited Levenshtein Distance feature, in that we do not have a lot of keywords that user’s input can be changed to. This early version of Levenshtein Distance has a lot of bugs that happens because the toleration level for mistakes is too high, which we have corrected.  \newline
 
 \textbf{Week 3}\newline
 For this week, we were able to get eBay's search API integrated with our 
-search class allowing for us to make searches. On top of that, we also started 
+search class allowing for us to make searches.This is done through passing in a HTTP requests using an asynctask class that is integrated inside the activity. After this milestone, we can finally use the result from the search activity to start working on other activity. However, this API needed authentication, which we arbitrarily pass in. This is not viable for beta release since the authentication, which utilizes oAuth keys, changes every two days. The filters also pass in words instead of actually filtering. On top of that, we also started 
 the list view activity and the item class. The item class will allow us to create 
 items in any class. The list view allows us to view the items by using a recycler 
 view.\newline
@@ -201,12 +201,7 @@ item class is also continually being added to, depending on what new variables
 we will be needing. \newline
 
 \textbf{Week 5}\newline
-This week, we have been updating the search activity to apply filters. It will 
-also now only select BIN items and specific colleges. The single item view has 
-also been completed. The user can now select an item from the list view to view 
-in full detail in the single item view. This used eBay's API to get the correct 
-information on a specific item. The item class has also been updated to handle 
-many of the given fields for a single item. 
+ We added secondary filter activity as well as a method that gives new oAuth token everytime it is called. For now, a new oAuth token is going to be retrieved every time a search is being submitted. The filters now utilize the filter options provided by the Ebay API such as the price range and item condition. We also provided item categories to limit the search for the user. We also changed some filter categories and how a search works. Now, prior to actually searching for the item, we asked the user for a particular school first. This is done through typing in the school name in the text box or pressing one or more of the toggle buttons provided and then pressing the next button. It will pass in the value as an extra message for intent. We have not given the ability to pass in both value from the text box and the toggle buttons because we feel that it is not necessary for the user to do. After going through selecting the school, we provide the user with a text box and several checkboxes for user to limit their search. Submitting it will send the keywords and filters to Ebay’s server, which we will return the result afterwards. This process is from one of the examples that Ebay actually provided us with. 
 
 
 \section{Project status}
@@ -270,6 +265,18 @@ like its title, color, price, description, material, pattern, and any other item
 specific information. This class made use of eBay's Browse API. Specifically, it 
 used the get item method, which retrieves data for a given item. 
 
+\subsection{Location-based Recommendation}
+An implementation that I would like to consider as a stretch goal is using android’s GPS to get user’s location and give a list of recommended school based on this information. This could potentially increase the usability of our app. This might not be a hard method to implement as the location is mostly available in one of the android’s built-in function. The difficulty would lie in assigning the location to the schools. This would be time-consuming. Also, this function is definitely not a requirement so we can put this off.
+
+\subsection{Utilizing Storage}
+Storage is not fully utilized yet. Although this does not affect performance as much, we would like to increase the speed on how user will be able to search. While we have a storage method in the search activity, it is a stub currently and does nothing but saving what user has inputted. We need to be able to find a way to integrate this to either filter function or text box function. Also, we need to test the 
+
+\subsection{Keyword Bank for Levenshtein Distance}
+We would like to improve on is the Levenshtein Distance keywords list. For now, we have a limited list of keywords. This, while not essentially hindering usage of the app, limits a lot of what could potentially help user in the searches. Currently, our implementation relies on an array that consists of only several words. We would like to use an internal storage to store a list of keywords as well as school names.
+
+\subsection{Bug Testing}
+We also need to test this activity to ensure that it is bug-free. For now, we would want to try passing in empty string and making sure it will not crash. Another error we think might possibly happen is when we return to the previous activity. This will usually happen because the stack is not what we thought it is. This is one of the places where we think it is vulnerable.
+
 \section{Impediments and solutions}
 Over the course of the term, our team managed to avoid many impediments. However, 
 we did need to revise our problem statement. In order to solve this, we re-wrote the 
@@ -292,6 +299,10 @@ large impact on the project. The main consequence was that we had more work to
 do in a shorter period. Also, it did slow down development just a bit as we 
 familiarized ourselves with the technologies being used, however we were able 
 to recover from this slow start to get back on schedule.
+
+We have run into several problems trying to integrate the Ebay API. We do not know exactly know what variable they want at first for authentication. Since they have two different oAuth keys, it turns out we were using the wrong oAuth key the whole time. Another problem is that we pass in an incorrect value due to our method of encoding. We thought the encoding would use a default encoding when the value is actually somewhat modified. We managed to solve both these problems by communicating with our clients. 
+A problem that still remains unsolved is that one of our members broke his gradle build. This becomes a huge problem because he is unable to open changes that we made into his own computer, therefore relying on meetings to catch up with the rest of our work. However, despite this, he can work around it by working on one activity at a time. Since we have our meetings pretty frequently, we can rectify this pretty easily.
+
 
 \section{Remaining Items}
 
