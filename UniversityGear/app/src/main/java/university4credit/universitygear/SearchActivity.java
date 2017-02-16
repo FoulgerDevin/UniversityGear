@@ -9,14 +9,19 @@ import android.os.Bundle;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,10 +30,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -38,10 +45,13 @@ public class SearchActivity extends AppCompatActivity {
     TextView mText;
     String newtext;
     Context context;
+    String temp;
     int mindistance;
     String tempstring;
     String tempstr;
     String tempid;
+    String oAuthtoken;
+    CheckBox box1, box2, box3, box4;
     String join;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
@@ -75,13 +85,17 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         mButton = (Button)findViewById(R.id.button1);
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+        box1 = (CheckBox)findViewById(R.id.checkbox1);
+        box2 = (CheckBox)findViewById(R.id.checkbox2);
+        box3 = (CheckBox)findViewById(R.id.checkbox3);
+        box4 = (CheckBox)findViewById(R.id.checkbox4);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
                 RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = "filter=conditions:{"+checkedRadioButton.getText().toString()+"}";
+                temp = "filter=conditions:{" + checkedRadioButton.getText().toString() + "}";
             }
         });
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +155,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
-        private String temp, oAuthtoken;
+
         private Context tempc;
         private String itemLimit = "200";
         URL url, url2;
