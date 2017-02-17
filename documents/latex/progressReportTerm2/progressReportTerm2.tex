@@ -180,16 +180,37 @@ each of our documents provides us with a good start for development.
 \textbf{Week 1}\newline
 During week 1, we talked about when we were going to meet to do some paired 
 programming. We also uploaded our blank Android project to GitHub to get 
-started. We also spent the time earlier during the term and the break learning how most other website, such as Google and Yahoo, employ their search function, which we ideally want to mimic. However, it turns out Google, which is the benchmark of search engines, employs a Levenshtein Distance method that is used alongside an artificial machine learning that takes in what people often search as probability. This advanced method is not viable for us because we would not have as much traffic, so we decided to stick with Levenshtein Distance only. \newline
+started. We also spent the time earlier during the term and the break learning 
+how most other website, such as Google and Yahoo, employ their search 
+function, which we ideally want to mimic. However, it turns out Google, 
+which is the benchmark of search engines, employs a Levenshtein Distance
+ method that is used alongside an artificial machine learning that takes in 
+what people often search as probability. This advanced method is not viable 
+for us because we would not have as much traffic, so we decided to stick with 
+Levenshtein Distance only. \newline
 
 \textbf{Week 2}\newline
 This week we accomplished creating our search activity, however the class does 
-not currently work with eBay's APIs. Basically what we have done is a basic search function with textbox that gets user input. We also have a radio button that virtually does nothing but pass in the string that it contains. The input that the users give does nothing yet. We have yet to integrate any functionality from the Ebay API. However, the text box does have limited Levenshtein Distance feature, in that we do not have a lot of keywords that user’s input can be changed to. This early version of Levenshtein Distance has a lot of bugs that happens because the toleration level for mistakes is too high, which we have corrected.  \newline
+not currently work with eBay's APIs. Basically what we have done is a basic 
+search function with a textbox that gets user input. We also have a radio button 
+that virtually does nothing but pass in the string that it contains. The input that 
+the users give does nothing yet. We have yet to integrate any functionality from 
+the eBay API. However, the text box does have limited Levenshtein Distance 
+feature, in that we do not have a lot of keywords that user's input can be 
+changed to. This early version of Levenshtein Distance has a lot of bugs that 
+happens because the toleration level for mistakes is too high, which we have 
+corrected.  \newline
 
 \textbf{Week 3}\newline
 For this week, we were able to get eBay's search API integrated with our 
-search class allowing for us to make searches.This is done through passing in a HTTP requests using an asynctask class that is integrated inside the activity. After this milestone, we can finally use the result from the search activity to start working on other activity. However, this API needed authentication, which we arbitrarily pass in. This is not viable for beta release since the authentication, which utilizes oAuth keys, changes every two days. The filters also pass in words instead of actually filtering. On top of that, we also started 
-the list view activity and the item class. The item class will allow us to create 
+search class allowing for us to make searches.This is done through passing 
+in a HTTP requests using an asynchronous task class that is integrated inside the 
+activity. After this milestone, we can finally use the result from the search
+ activity to start working on other activity. However, this API needed 
+authentication, which we arbitrarily pass in. This is not viable for beta release 
+since the authentication, which utilizes oAuth keys, changes every two days. 
+The filters also pass in words instead of actually filtering. On top of that, we 
+also started the list view activity and the item class. The item class will allow us to create 
 items in any class. The list view allows us to view the items by using a recycler 
 view.\newline
 
@@ -201,7 +222,22 @@ item class is also continually being added to, depending on what new variables
 we will be needing. \newline
 
 \textbf{Week 5}\newline
- We added secondary filter activity as well as a method that gives new oAuth token everytime it is called. For now, a new oAuth token is going to be retrieved every time a search is being submitted. The filters now utilize the filter options provided by the Ebay API such as the price range and item condition. We also provided item categories to limit the search for the user. We also changed some filter categories and how a search works. Now, prior to actually searching for the item, we asked the user for a particular school first. This is done through typing in the school name in the text box or pressing one or more of the toggle buttons provided and then pressing the next button. It will pass in the value as an extra message for intent. We have not given the ability to pass in both value from the text box and the toggle buttons because we feel that it is not necessary for the user to do. After going through selecting the school, we provide the user with a text box and several checkboxes for user to limit their search. Submitting it will send the keywords and filters to Ebay’s server, which we will return the result afterwards. This process is from one of the examples that Ebay actually provided us with. 
+ We added secondary filter activity as well as a method that gives new oAuth 
+token every time it is called. For now, a new oAuth token is going to be 
+retrieved every time a search is being submitted. The filters now utilize the 
+filter options provided by the eBay API such as the price range and item 
+condition. We also provided item categories to limit the search for the user. 
+We also changed some filter categories and how a search works. Now, 
+prior to actually searching for the item, we asked the user for a particular 
+school first. This is done through typing in the school name in the text box 
+or pressing one or more of the toggle buttons provided and then pressing the 
+next button. It will pass in the value as an extra message for intent. We have 
+not given the ability to pass in both value from the text box and the toggle 
+buttons because we feel that it is not necessary for the user to do. After 
+going through selecting the school, we provide the user with a text box and 
+several check boxes for user to limit their search. Submitting it will send the
+ keywords and filters to eBay's server, which we will return the result afterwards. 
+This process is from one of the examples that eBay actually provided us with. 
 
 
 \section{Project status}
@@ -224,7 +260,6 @@ items that they want.
 \subsection{Search Class Development}
 The search class is the first activity that the users are greeted by. They will 
 interact with this class first. as it is required to get any results. 
-
 This search activity will also function as our home page which consists of a
 simple design that contains a search text field and a search button. Once the 
 user presses the search button, the Search Activity takes the input and 
@@ -247,7 +282,15 @@ class will build another single item, with much more information pertaining to
 the item selected. Development for this class is something that will be ongoing 
 throughout the project. This is because more information may need to be grabbed 
 depending on what kind of item is being selected. However, development was rather 
-straight forwarded, as we grabbed the specific information we needed. 
+straight forwarded, as we grabbed the specific information we needed. \newline
+
+It was important that this was one of the first classes that 
+needed to be created. This is because other parts of the project will heavily 
+depend upon this class. This class used the standard JSON methods that are 
+present in Java. These tools allowed us to parse and gather the correct 
+information that we needed. All of the data returned by eBay's APIs are in 
+JSON format.  So far, the class will return many things like the items title, 
+price, description, color, material, pattern, type, and category. 
 
 \subsection{List View Development}
 Successfully completed the presentation of the search results in a list view. 
@@ -265,17 +308,53 @@ like its title, color, price, description, material, pattern, and any other item
 specific information. This class made use of eBay's Browse API. Specifically, it 
 used the get item method, which retrieves data for a given item. 
 
+This activity is started after a user selects a single item from the list view. From 
+there, it passes in the item id to the single item activity. The single item 
+activity then uses that item id in the eBay API. The API then returns a JSON file 
+with all of the information on the item. When searching for things like mugs, it 
+won't contain the same contents as a jacket would. A mug might only show the 
+fields material, while a jacket could have a pattern and a material field. 
+So the content displayed to the user is somewhat dynamic. \newline
+
+The UI for the single item activity resembles the style of the eBay app.  The layout is rather 
+simple and it is easy to follow. It is broken into several sections. The first 
+section is the image, title, and price of the item. From there, we have the 
+description and the purchase button. Then there is the about section. It contains 
+the condition of the item, its quantity, category, brand, and other important 
+information. The last section is the shipping and return info. This section states 
+what kind of return policy the item has and how long a user will have to return the 
+item. It also specifies who pays for returns on the item.\newline
+
 \subsection{Location-based Recommendation}
-An implementation that I would like to consider as a stretch goal is using android’s GPS to get user’s location and give a list of recommended school based on this information. This could potentially increase the usability of our app. This might not be a hard method to implement as the location is mostly available in one of the android’s built-in function. The difficulty would lie in assigning the location to the schools. This would be time-consuming. Also, this function is definitely not a requirement so we can put this off.
+An implementation that we would like to consider as a stretch goal is using 
+Androids GPS to get user's location and give a list of recommended school 
+based on this information. This could potentially increase the usability of our 
+application. This might not be a hard method to implement as the location is 
+mostly available in one of the Androids built-in function. The difficulty would 
+lie in assigning the location to the schools. This would be time-consuming. 
+Also, this function is definitely not a requirement so we can put this off.
 
 \subsection{Utilizing Storage}
-Storage is not fully utilized yet. Although this does not affect performance as much, we would like to increase the speed on how user will be able to search. While we have a storage method in the search activity, it is a stub currently and does nothing but saving what user has inputted. We need to be able to find a way to integrate this to either filter function or text box function. Also, we need to test the 
+Storage is not fully utilized yet. Although this does not affect performance as 
+much, we would like to increase the speed on how user will be able to search. 
+While we have a storage method in the search activity, it is a stub currently 
+and does nothing but saving what user has inputted. We need to be able to 
+find a way to integrate this to either filter function or text box function. Also,
+ we need to test the 
 
 \subsection{Keyword Bank for Levenshtein Distance}
-We would like to improve on is the Levenshtein Distance keywords list. For now, we have a limited list of keywords. This, while not essentially hindering usage of the app, limits a lot of what could potentially help user in the searches. Currently, our implementation relies on an array that consists of only several words. We would like to use an internal storage to store a list of keywords as well as school names.
+We would like to improve on is the Levenshtein Distance keywords list. For now, 
+we have a limited list of keywords. This, while not essentially hindering usage of 
+the app, limits a lot of what could potentially help user in the searches. Currently,
+ our implementation relies on an array that consists of only several words. We would 
+like to use an internal storage to store a list of keywords as well as school names.
 
 \subsection{Bug Testing}
-We also need to test this activity to ensure that it is bug-free. For now, we would want to try passing in empty string and making sure it will not crash. Another error we think might possibly happen is when we return to the previous activity. This will usually happen because the stack is not what we thought it is. This is one of the places where we think it is vulnerable.
+We also need to test this activity to ensure that it is bug-free. For now, we would 
+want to try passing in empty string and making sure it will not crash. Another error 
+we think might possibly happen is when we return to the previous activity. This will 
+usually happen because the stack is not what we thought it is. This is one of the 
+places where we think it is vulnerable.
 
 \section{Impediments and solutions}
 Over the course of the term, our team managed to avoid many impediments. However, 
@@ -293,16 +372,26 @@ It proved difficult to find the energy to work on it after a grueling Fall
 term. Some of the items that we had hoped to accomplish during this time was 
 to become familiar with eBay's APIs and how to use them. Another goal that we 
 had for the break was to get familiar with the technology that we were going 
-to be using to implement the list item view and the android notification/alert 
+to be using to implement the list item view and the Android notification/alert 
 systems. The failure to work on these goals during the break, didn't have a 
 large impact on the project. The main consequence was that we had more work to 
 do in a shorter period. Also, it did slow down development just a bit as we 
 familiarized ourselves with the technologies being used, however we were able 
-to recover from this slow start to get back on schedule.
+to recover from this slow start to get back on schedule.\newline
 
-We have run into several problems trying to integrate the Ebay API. We do not know exactly know what variable they want at first for authentication. Since they have two different oAuth keys, it turns out we were using the wrong oAuth key the whole time. Another problem is that we pass in an incorrect value due to our method of encoding. We thought the encoding would use a default encoding when the value is actually somewhat modified. We managed to solve both these problems by communicating with our clients. 
-A problem that still remains unsolved is that one of our members broke his gradle build. This becomes a huge problem because he is unable to open changes that we made into his own computer, therefore relying on meetings to catch up with the rest of our work. However, despite this, he can work around it by working on one activity at a time. Since we have our meetings pretty frequently, we can rectify this pretty easily.
+We have run into several problems trying to integrate the eBay API. We do not know 
+exactly know what variable they want at first for authentication. Since they have two 
+different oAuth keys, it turns out we were using the wrong oAuth key the whole time. 
+Another problem is that we pass in an incorrect value due to our method of encoding. 
+We thought the encoding would use a default encoding when the value is actually 
+somewhat modified. We managed to solve both these problems by communicating 
+with our clients. \newline
 
+A problem that still remains unsolved is that one of our members broke his gradle build. 
+This becomes a huge problem because he is unable to open changes that we made into 
+his own computer, therefore relying on meetings to catch up with the rest of our work. 
+However, despite this, he can work around it by working on one activity at a time. Since 
+we have our meetings pretty frequently, we can rectify this pretty easily.
 
 \section{Remaining Items}
 
@@ -349,7 +438,7 @@ different behavior in the different environments.
 
 \section{Project Images}
 \begin{figure}[h]
-This image demonstrates what is displayed to the user after they succesffully 
+This image demonstrates what is displayed to the user after they successfully 
 complete a search. This will list all possible searches. Each item card will display 
 the title, image and price. 
 \centering
@@ -374,66 +463,6 @@ shows more details about the item as well as shipping and return info.
 \includegraphics[scale=.2]{singleview2}
 \end{figure}
 \FloatBarrier
-
-\section{Term Accomplishments}
-Each group member will talk about what they have accomplished over winter term.
-
-\subsection{Devin's Accomplishments}
-I have accomplished many of the goals that I have set out to accomplish this 
-term. I have created some of the major classes that our project will be using. 
-I have also completed some of the UI that the users will be viewing. So far, 
-I have managed to build the item class, which helps create items returned from 
-search results. I have also created an activity that lets users observe the 
-item they have selected in greater detail. This also came with a UI that I had 
-to develop.\newline
-
-The first thing that I had worked on this term was the item class. It wasn't 
-something that was very difficult to accomplish. It was more of a task in terms 
-of determining which data to use, as eBay's APIs provide a lot of information 
-on single items. It was important that this was one of the first classes that 
-needed to be created. This is because other parts of the project will heavily 
-depend upon this class. This class used the standard JSON methods that are 
-present in Java. These tools allowed me to parse and gather the correct 
-information that I needed. All of the data returned by eBay's APIs are in 
-JSON format. After using the built in tools, I think that I made the correct 
-choice when it comes to what JSON options I had at my disposal. However, the 
-item class is still expanding as we determine what information is 
-important. So far, the class will return many things like the items title, 
-price, description, color, material, pattern, type, and category. \newline
-
-The next task that I accomplished was the creation of the single item activity. 
-This class allowed for a user to select and view a single item. It used the item 
-class to help build the single item. It also relied on eBay's Browse API. This 
-activity is started after a user selects a single item from the list view. From 
-there, it passes in the item id to the single item activity. The single item 
-activity then uses that item id in the eBay API. The API then returns a JSON file 
-with all of the information on the item. When searching for things like mugs, it 
-won't contain the same contents as a jacket would. A mug might only show the 
-fields material, while a jacket could have a pattern and a material field. 
-So the content displayed to the user is somewhat dynamic. \newline
-
-The UI for the single item activity resembles the style of the eBay app. However, I 
-have taken some liberties so it is not exactly the same. The layout is rather 
-simple and it is easy to follow. It is broken into several sections. The first 
-section is the image, title, and price of the item. From there, we have the 
-description and the purchase button. Then there is the about section. It contains 
-the condition of the item, its quantity, category, brand, and other important 
-information. The last section is the shipping and return info. This section states 
-what kind of return policy the item has and how long a user will have to return the 
-item. It also specifies who pays for returns on the item.\newline
-
-I also helped my other team members accomplish some minor tasks. So far, I have helped 
-with merge conflicts. The beginning was a bit messy because we were all editing the 
-main activity as we needed. I also helped integrate the item class into the item list 
-view. For the remainder of the term, I have two things that I need to finish. First, 
-the purchase class needs to be developed. After that, I will return to the single 
-item activity UI to add a webview. This webview will be used so that users can 
-correctly view the description of an item, as some of the descriptions contain HTML
-elements. 
-
-\subsection{Bryan's Accomplishments}
-
-\subsection{Hector's Accomplishments}
 
 \section{Retrospective}
 
