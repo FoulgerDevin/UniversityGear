@@ -11,34 +11,160 @@
     tools:context="university4credit.universitygear.SearchActivity"
     android:background="#E9E9E9">
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#A4C639" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="23dp"
+        android:text="search keyword"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0099FF" />
+
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:background="@drawable/rounded_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:background="#CCCCCC"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/search_message"
-        android:paddingLeft="15dp"
-        android:layout_centerHorizontal="true">
+        android:inputType="textPersonName" >
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:background="#0099FF"
+        android:text="submit"
+        android:textColor="#FFFFFF" />
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Textbooks"
+        android:id="@+id/checkbox1"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clothing, Shoes and Accessories"
+        android:id="@+id/checkbox2"
+        android:layout_below="@+id/checkbox1"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sports Equipment"
+        android:id="@+id/checkbox3"
+        android:layout_below="@+id/checkbox2"
+        android:layout_alignParentStart="true" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sports Fans Goods"
+        android:id="@+id/checkbox4"
+        android:layout_below="@+id/checkbox3"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Category"
+        android:id="@+id/textView"
+        android:layout_above="@+id/checkbox1"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Condition"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/checkbox4"
+        android:layout_alignParentStart="true" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/radiogroup"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USED"
+            android:id="@+id/radioButton"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NEW"
+            android:id="@+id/radioButton2"
+            android:layout_below="@+id/radioButton"
+            android:layout_alignParentStart="true" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UNSPECIFIED"
+            android:id="@+id/radioButton3"
+            android:layout_below="@+id/radioButton2"
+            android:layout_alignParentStart="true" />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_above="@+id/textView"
+        android:layout_toStartOf="@+id/editText1" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignEnd="@+id/radiogroup" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price Range"
+        android:id="@+id/textView4"
+        android:layout_above="@+id/editText"
+        android:layout_alignParentStart="true" />
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:gravity="center"
-        android:background="@drawable/rounded_button"
-        android:text="@string/search_button"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/editText1"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

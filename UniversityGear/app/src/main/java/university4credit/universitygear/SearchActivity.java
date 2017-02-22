@@ -9,16 +9,24 @@ import android.os.Bundle;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CheckBox;
+import android
+
+
+        .widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,10 +35,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -38,12 +48,19 @@ public class SearchActivity extends AppCompatActivity {
     Button mButton;
     EditText mEdit;
     TextView mText;
+    TextView num1,num2;
     String newtext;
     Context context;
     int mindistance;
     String tempstring;
     String tempstr;
+    String temp;
+    String schoolname;
     String join;
+    CheckBox box1, box2, box3, box4;
+    JSONObject json;
+    String tempid = "";
+    String price;
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
     private ProgressBar progressBar;
@@ -77,10 +94,59 @@ public class SearchActivity extends AppCompatActivity {
         mButton = (Button)findViewById(R.id.button1);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+        Intent intent = getIntent();
+        schoolname = intent.getStringExtra("asdf");
+        box1 = (CheckBox)findViewById(R.id.checkbox1);
+        box2 = (CheckBox)findViewById(R.id.checkbox2);
+        box3 = (CheckBox)findViewById(R.id.checkbox3);
+        box4 = (CheckBox)findViewById(R.id.checkbox4);
+        mButton = (Button)findViewById(R.id.button1);
+        temp = "filter=conditions:{UNSPECIFIED}";
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+                temp = "filter=conditions:{"+checkedRadioButton.getText().toString()+"}";
+            }
+        });
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 hideSoftKeyboard();
                 progressBar.setVisibility(View.VISIBLE);
+                if(box1.isChecked()){
+                    tempid += "&category_id=2228";
+                }
+                if(box2.isChecked()){
+                    tempid += "&category_id=11450";
+                }
+                if(box3.isChecked()){
+                    tempid += "&category_id=888";
+                }
+                if(box4.isChecked()){
+                    tempid += "&category_id=64882";
+                }
+                num1 = (EditText)findViewById(R.id.editText);
+                num2 = (EditText)findViewById(R.id.editText2);
+
+                if(num1.length()!=0){
+                    if(num2.length()!=0){
+                        price = "&filter=priceCurrency:USD&filter=price:["+num1.getText().toString()+".."+num2.getText().toString()+"]";
+                    }
+                    else{
+                        price = "&filter=priceCurrency:USD&filter=price:["+num1.getText().toString()+"]";
+                    }
+                }
+                else{
+                    if(num2.length()!=0){
+                        price = "&filter=priceCurrency:USD&filter=price:[.."+num2.getText().toString()+"]";
+                    }
+                    else{
+                        price = "";
+                    }
+                }
                 mEdit = (EditText)findViewById(R.id.editText1);
                 String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
                 for(int x = 0; x < ParsedWords.length;x++){
@@ -127,10 +193,11 @@ public class SearchActivity extends AppCompatActivity {
         private String temp;
         private Context tempc;
         private String itemLimit = "200";
-        URL url;
-        HttpURLConnection conn;
+        URL url, url2;
+        HttpURLConnection conn,conn3;
         InputStream inputstream;
         String result = "";
+        String oAuthtoken;
 
         private String getStringFromInputStream(InputStream is) {
 
@@ -166,7 +233,65 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected List<Item> doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[0]+"&limit=" + itemLimit;
+            String id = "BryanLia-Universi-SBX-18adaa5fd-2dd2c2e3:SBX-8adaa5fd4c3c-8c04-4d13-9adb-8196";
+            byte[] data = new byte[0];
+            try {
+                data = id.getBytes("UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            String base64 = Base64.encodeToString(data, Base64.NO_WRAP);
+            try {
+                url = new URL("https://api.sandbox.ebay.com/identity/v1/oauth2/token");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn3 = (HttpURLConnection)url.openConnection();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            conn3.setRequestProperty("Authorization","Basic "+base64);
+            conn3.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            conn3.setDoOutput(true);
+            try {
+                conn3.setRequestMethod("POST");
+                //conn.setDoOutput(false);
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            }
+
+            String urlParameters  = "grant_type=client_credentials&redirect_uri=Bryan_Liauw-BryanLia-Univer-kheulrrfh&scope=https://api.ebay.com/oauth/api_scope";
+            byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            conn3.setRequestProperty( "Content-Length", Integer.toString( postData.length ));
+            try {
+                conn3.getOutputStream().write(postData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn3.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line+"\n");
+                }
+                br.close();
+
+                json = new JSONObject(sb.toString());
+                oAuthtoken = json.getString("access_token");
+                Log.d("hey", oAuthtoken);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("e","asdf");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:(FIXED_PRICE)&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
@@ -180,7 +305,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            conn.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+            conn.setRequestProperty("Authorization", "Bearer " + oAuthtoken);
 
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
@@ -216,7 +341,9 @@ public class SearchActivity extends AppCompatActivity {
             }
             //Log.e("Inputsteam", " " + inputstream);
             //Log.e("Result string", "" + result);
-
+            else {
+                
+            }
             //Starting activity with search results passed in
             return items.itemFeed;
         }
