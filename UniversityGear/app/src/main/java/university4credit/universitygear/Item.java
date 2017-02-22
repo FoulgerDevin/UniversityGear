@@ -52,6 +52,29 @@ public class Item {
      * This constructor is used to create an array of items. It should be passed
      * a JSON object that contains the items.
      */
+    Item(Boolean isEmpty){
+        if(isEmpty){
+            String con = "Unspecified";
+            String shortDesc = "None provided by user";
+            String imageUrl = null;
+            String rReturns = "Unspecified";
+            String rAccepts = "Unspecified";
+            String sTitle = "Unspecified";
+            String rPayer = "Unspecified";
+            String rValue = "Unspecified";
+            String rUnit = "Unspecified";
+            String brandGiven = "Unspecified";
+            String patternGiven = "Unspecified";
+            String materialGiven = "Unspecified";
+            String type = "Unspecified";
+            String categoriesGiven = "Unspecified";
+            String genderGiven = "Unspecified";
+            String shipAvailability = "Unspecified";
+            String quantity = "Unspecified";
+
+        }
+
+    }
     Item(String item, Boolean isSingleItem) {
         String con = "Unspecified";
         String shortDesc = "None provided by user";
