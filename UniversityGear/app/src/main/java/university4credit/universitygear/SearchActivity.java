@@ -339,11 +339,11 @@ public class SearchActivity extends AppCompatActivity {
                 items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
-            else {
-                items = new Item(true);
-            }
             //Log.e("Inputsteam", " " + inputstream);
             //Log.e("Result string", "" + result);
+            else {
+                
+            }
             //Starting activity with search results passed in
             return items.itemFeed;
         }
