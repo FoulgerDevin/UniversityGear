@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".DisplaySearchResultsActivity"/>
         <activity android:name=".DisplaySingleItemActivity"/>
+        <activity android:name=".PurchaseActivity"/>
     </application>
 
 </manifest>

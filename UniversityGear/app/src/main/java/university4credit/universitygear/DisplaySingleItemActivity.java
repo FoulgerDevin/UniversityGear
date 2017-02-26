@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +43,15 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         //Log.e("ITEM ID PASSED IN", "" + itemId);
 
         new DownloadItemTask().execute(itemId);
+
+
+        Button buyButton = (Button)findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+                startActivity(purchaseIntent);
+            }
+        });
     }
 
     private class DownloadItemTask extends AsyncTask<String, Void, Item> {

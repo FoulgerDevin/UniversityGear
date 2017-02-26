@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#E9E9E9">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemDetailsSection"
+        android:background="#f8f8f8"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/itemDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="@string/item"/>
+
+        <TextView
+            android:id="@+id/checkoutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text=""
+            android:layout_below="@+id/itemDetails"/>
+
+        <TextView
+            android:id="@+id/checkoutPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text=""
+            android:layout_below="@+id/checkoutTitle"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/itemDetailsSection"
+        android:layout_marginBottom="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userShippingSection"
+        android:background="#f8f8f8"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_below="@+id/itemDetailsSection">
+
+        <TextView
+            android:id="@+id/shippingInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="@string/userShippingInfo"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/userShippingSection"
+        android:layout_marginBottom="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/paymentInfoSection"
+        android:background="#f8f8f8"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_below="@+id/userShippingSection">
+
+        <TextView
+            android:id="@+id/paymentInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="@string/paymentInfo"/>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/checkoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkoutButton"
+        android:layout_below="@+id/paymentInfoSection"
+        android:layout_margin="25dp"
+        android:background="@drawable/rounded_button"
+        android:textStyle="bold"
+        android:textColor="#F8F8F8"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/paymentInfoSection"/>
+</RelativeLayout>
