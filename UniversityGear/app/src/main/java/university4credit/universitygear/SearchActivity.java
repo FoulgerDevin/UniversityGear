@@ -290,7 +290,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 json = new JSONObject(sb.toString());
                 oAuthtoken = json.getString("access_token");
-                sharedPreference = getSharedPreferences("oAuth", MODE_PRIVATE);
+                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreference.edit();
 
                 editor.putString("oAuth", oAuthtoken);
