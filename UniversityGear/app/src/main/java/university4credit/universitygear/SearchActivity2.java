@@ -8,13 +8,14 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-public class SearchActivity2 extends Activity {
+public class SearchActivity2 extends AppCompatActivity {
     ToggleButton button1,button2,button3;
     Button mbutton, mbutton2;
     EditText edit;
