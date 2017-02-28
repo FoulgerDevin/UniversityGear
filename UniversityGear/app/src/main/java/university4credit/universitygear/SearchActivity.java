@@ -303,7 +303,7 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:(FIXED_PRICE)&limit=" + itemLimit;
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:{FIXED_PRICE}&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
