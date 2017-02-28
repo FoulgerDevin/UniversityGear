@@ -1,15 +1,21 @@
 package university4credit.universitygear;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-public class SearchActivity2 extends Activity {
+public class SearchActivity2 extends AppCompatActivity {
     ToggleButton button1,button2,button3;
     Button mbutton, mbutton2;
     EditText edit;
@@ -17,6 +23,20 @@ public class SearchActivity2 extends Activity {
     String schoolname = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!isConnectedToInternet()) {
+            //Display Message that internet is required
+            AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity2.this);
+            builder.setTitle("No Internet Connection");
+            builder.setMessage("You need to be connected to the internet to use this application.\n\nPlease check your settings and try again.");
+            builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search2);
         button1 = (ToggleButton)findViewById(R.id.toggleButton);
@@ -60,6 +80,12 @@ public class SearchActivity2 extends Activity {
             }
         });
 
+    }
+    private boolean isConnectedToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnected();
     }
 
 }
