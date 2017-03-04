@@ -2,7 +2,9 @@ package university4credit.universitygear;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +44,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "university4credit.universitygear.MESSAGE";
@@ -64,6 +68,8 @@ public class SearchActivity extends AppCompatActivity {
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
     private ProgressBar progressBar;
+    private SharedPreferences sharedPreference;
+
     // Is the button now checked?
 
 
@@ -112,6 +118,7 @@ public class SearchActivity extends AppCompatActivity {
                 temp = "filter=conditions:{"+checkedRadioButton.getText().toString()+"}";
             }
         });
+
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 hideSoftKeyboard();
@@ -283,6 +290,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 json = new JSONObject(sb.toString());
                 oAuthtoken = json.getString("access_token");
+                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+
+                editor.putString("oAuth", oAuthtoken);
+                editor.commit();
                 Log.d("hey", oAuthtoken);
 
             } catch (IOException e) {
@@ -291,7 +303,7 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:(FIXED_PRICE)&limit=" + itemLimit;
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:{FIXED_PRICE}&limit=" + itemLimit;
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
