@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">UniversityGear</string>
+    <string name="purchaseInitiateUrl">https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/initiate</string>
     <string name="sandboxKey"></string>
-    <string name="appKey">v^1.1#i^1#p^1#I^3#r^0#f^0#t^H4sIAAAAAAAAAOVXfWwURRTvtdeSBrExESRI9FwgAcnuze7t7e2t3JlrS20T+qHXNlBRsh+zZene7rIza3saS20IIBCJ0QQxfqCJkiCJf5CAKGgCMSqKYCixVgOoKEZNbBRCRIzObY9yrYYinIbE+2dv5r158/v93nuzO6CvovLONfVrzk0JTCrd2gf6SgMBdjKorCiff2NZ6YzyElDgENjaN7sv2F/23QIkZ0xHug8ix7YQDPVkTAtJ/mSC8lxLsmVkIMmSMxBJWJXSqcZFEscAyXFtbKu2SYUaahOUIouAk6EGBEj+yoDMWhdjttoJKq7Imi6CCBuR2SjLCcSOkAcbLIRlCycoDrAxGnA0J7QCUQK8xLNMDIAOKtQOXWTYFnFhAJX04Ur+WrcA6+WhyghBF5MgVLIhVZduTjXULmxqXRAuiJXM65DGMvbQ2FGNrcFQu2x68PLbIN9bSnuqChGiwsmRHcYGlVIXwVwFfF9qVonwMR6ooi5EZE2ViyJlne1mZHx5HLkZQ6N131WCFjZwdiJFiRrKCqji/KiJhGioDeUe93qyaegGdBPUwurUklRLC5Xka1yoGZhus4yHcljpdPViWuGjusDznEgrUNRjghLN7zMSLK/yuI1qbIsEImRRqMnG1ZCAhmOliUnRAmmIU7PV7KZ0nANU4MeCvIRCTOzI5XQkiR5ebuXSCjNEh5A/nDgBo6sxdg3Fw3A0wniDr1CCkh3H0KjxRr8U89XTgxLUcowdKRzu7u5muiOM7XaGOQDY8OLGRWl1OcyQAiG+uV73/Y2JF9CGT0WFZCUyJJx1CJYeUqoEgNVJJTmBByyf130srOT42b9MFHAOj22IYjVIlI1ycSUqxEBEiKsgXowGSeZrNJzDQY64LJ2R3S6IHVNWIa2SOvMy0DU0KRLVuYioQ1oT4jrNx3WdVqKaQLM6hABCRVHj4v+oT6600mtMgxhbSaUVp9yLVer1NsJQu9JS/1tqadV2YIttGmr2P+KW6/Ur5BdxtRbZxdlqL0vGaWia5HFNdFU/k8uKdW4VK5H/rGWujroh4+uLNMuLIogLnMheGy/yNXNd8VLtDJM7hBlXdrDtMgSaY0LEuBDZnku+vpjm3Cu51e6CFjnhsGubJnTbr00FlOvj60sHsj742B4HkRiyY4xIQrQJ2zJhn5ta5oMO5faZyCmseFmm04MIEyAadP+F13t47F0jWeL/2P7APtAf2EOuKyAGaHY+mFdR1hYsu4FCBoYkt5am2D2MIesMMjot8intQqYLZh3ZcEsrAo1fb1yyquCWs/UBMH30nlNZxk4uuPSAmZcs5WzVLVPYGOA4AYiA59kOMOuSNchOC97cjG/dckb//vmBJdrDpvjjmweWDh4EU0adAoHykmB/oKRuf8uF2MrSof3lgzM7Xl55Ae387Z3jc9umL9v2tpM6+/SmH85sO/3CscHDZ2J77XVVpxc3vWENff7F1Ofmzf62Uz7Zu+m9R8L9B07vfmKhemy/SXW99XFq35F7pmab7mLOR1Y9NenJ5hXrJt89OBDpOHWgF1umNiSyvX2vrt4+R51W1rZe3NH72e/uS8ObztZvvOPE0nUDe7d80pdef/TgK7OGMjv26cPnXjvnPD6j5EVxddWGj4ZjPx060k+34kO/7jyRzd5Wt+fBRztu5w5/k6k6eeqD+rXDu75a07n2GQ/ufteaKy99dk5pdPvr7v0/b6AaBmorzaPvb77pfNeH9tH2zZ/2/BL8MrKr5fgfI2n8ExvZmrt/DgAA</string>
+    <string name="appKey">v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTu9oWVh5ogWoO4GZCkNjN7Z3Z2dndk12xbHg30AbvQlqDNPO60I7szw9w7tEsC1AZRIhKIoCRiqCQqIT6ofxSiBQVDgogJEishCoGIT0IM4fEDxTvbpWyroQirIXH+TO655577fd85Z+Ze0FVa9tjqWasvjfWMKuzpAl2FHg87GpSVllSOKyp8qKQA5Dh4erqmdBV3F/04DUmppCXOg8gyDQS9namkgcSMMUI5tiGaEtKRaEgpiESsiPFY3RyRY4Bo2SY2FTNJeWtrIpTKBfycCgRFk2S/JEjEalyLmTAjFC8rkqpokJWCfjUsC2QeIQfWGghLBo5QHGCDNPDTQEgATuR5kWUZTggvpLwLoI100yAuDKCiGbhiZq2dg/XGUCWEoI1JECpaG5sRb4jV1kyvT0zz5cSKZnWIYwk7aOio2lShd4GUdOCNt0EZbzHuKApEiPJFB3YYGlSMXQNzC/AzUitBEODYgMAKISgpLMiLlDNMOyXhG+NwLbpKaxlXERpYx+mRFCVqyE9DBWdH9SREbY3Xfc11pKSu6dCOUNOrYi2xxkYqylfbUNUxPd/Ql7pY6XhVMy3zAU3geS5EyzCkBQU5kN1nIFhW5WEbVZsGCUTIIm+9iasgAQ2HS+PPkYY4NRgNdkzDLqBcP/6ahGxgoZvTgSQ6uN1w0wpTRAdvZjhyAgZXY2zrsoPhYIThExmFIpRkWbpKDZ/MlGK2ejpRhGrH2BJ9vo6ODqbDz5h2m48DgPU1182JK+0wRXqR+Lq9nvHXR15A6xkqCiQrkS7itEWwdJJSJQCMNirKCTxg+azuQ2FFh1v/Ysjh7BvaEPlqEA4IgNNYyIZkJcyGw/lokGi2Rn0uDihLaTol2YshtpKSAmmF1JmTgrauiv6AxvlDGqRVIazRfFjTaDmgCjSrQQgglAmk0P+oT2620quTOplMkErLT7nnq9RnmQhD9WZL/W+pxRXTgo1mUlfS/xE3t9dvkp/fVhslG6ernDQZx2EySV63RVfJZLI1X9+tfCXyn7XMrVHXJXxnkWb5UCgohLgAe3u8yGnmjuKlmCnG/QgztmRh02YINCsJEWNDZDo2OX0xDe4vOWEuhgb5wmHbTCahveD2VEBuH99ZOpD1xc/sshCJIVn6gCREG58pEfauqTUD2uvuM5KTT3bSTJsDESZAVGj/C79339C7RrQg87Ddno9Bt2cXua6AIKDZSlBRWjS/uGgMhXQMSW4NVTY7GV3SGKS3GeQobUNmMUxbkm4XlnrqTq9tWZlzy+l5Ejw4eM8pK2JH51x6wMTrMyXsPQ+MZYPA754WeJ5lF4LJ12eL2QnF4y+/syly1/H+8a/38tsvb5ny9cwv9qwCYwedPJ6SguJuT0HocE1dc/nVtejTi4mKcY9OqD5rHExM7T9zcd1c5vFI36mHWyMtS/ZtWfPNSoUz3ux96Vjj5+eer/9yx7QT67elD1xKN1Vs2Nh8X1vpR31j7j6/pCb0+3KVKz2n9b763v4oemr52799srXv5ETfolGbV/VjbqI047sDp47ZNU9U3z+pIfRCvP3slcrJ319NvTb93cM9j5x4cf3eN5rWfLV8zGQn7TsTnlSydkVk6a97m04uOrR/Ktjz05GmH8q3/jF741vlo7fJTuNR/7cXDjw7u/fen89f+SC1y2qd98r+948WRTccfG7HskNnf9lcVVmz+8OS2M4jFduXlW3afaFv5/H+0+Vg6o6XP5N2tqxrWLFvII1/AgoV02F/DgAA</string>
     <string name="search_message">Keyword</string>
     <string name="search_button">Search</string>
     <string name="buyButton">Buy It Now</string>
@@ -23,4 +24,71 @@
     <string name="userShippingInfo">Shipping</string>
     <string name="paymentInfo">Payment Information</string>
     <string name="checkoutButton">Purchase</string>
+    <string name="billingInfo">Billing</string>
+    <string name="cardNum">Card Number</string>
+    <string name="expDate">Expiration Date</string>
+    <string name="securityCode">Security Code</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="streetAddress">Street Address</string>
+    <string name="streetAddress2">Street Address 2</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zipCode">ZIP code</string>
+    <string name="emailAddress">Email</string>
+    <string name="confirmEmail">Confirm Email</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="sameAsShipping">Billing Same as Shipping</string>
+    <string-array name="states">
+        <item>AL</item>
+        <item>AR</item>
+        <item>AZ</item>
+        <item>CA</item>
+        <item>CO</item>
+        <item>CT</item>
+        <item>DE</item>
+        <item>DC</item>
+        <item>FL</item>
+        <item>GA</item>
+        <item>HI</item>
+        <item>ID</item>
+        <item>IL</item>
+        <item>IN</item>
+        <item>IA</item>
+        <item>KS</item>
+        <item>KY</item>
+        <item>LA</item>
+        <item>ME</item>
+        <item>MD</item>
+        <item>MA</item>
+        <item>MI</item>
+        <item>MN</item>
+        <item>MS</item>
+        <item>MO</item>
+        <item>MT</item>
+        <item>NE</item>
+        <item>NV</item>
+        <item>NH</item>
+        <item>NJ</item>
+        <item>NM</item>
+        <item>NY</item>
+        <item>NC</item>
+        <item>ND</item>
+        <item>OH</item>
+        <item>OK</item>
+        <item>OR</item>
+        <item>PA</item>
+        <item>RI</item>
+        <item>SC</item>
+        <item>SD</item>
+        <item>TN</item>
+        <item>TX</item>
+        <item>UT</item>
+        <item>VT</item>
+        <item>VA</item>
+        <item>WA</item>
+        <item>WV</item>
+        <item>WI</item>
+        <item>WY</item>
+    </string-array>
 </resources>

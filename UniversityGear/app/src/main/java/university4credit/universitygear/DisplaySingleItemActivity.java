@@ -31,7 +31,13 @@ import java.net.URL;
  */
 
 public class DisplaySingleItemActivity extends AppCompatActivity {
+    public final static String ITEM_ID = "university4credit.universitygear.ID";
+    public final static String ITEM_TITLE = "university4credit.universitygear.TITLE";
+    public final static String ITEM_CURRENCY = "university4credit.universitygear.CURRENCY";
+    public final static String ITEM_PRICE = "university4credit.universitygear.PRICE";
     Item item;
+    //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+                //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
+                //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
+                //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
                 startActivity(purchaseIntent);
             }
         });
@@ -227,6 +236,16 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } else {
                 gender.setText(item.sItem.gender);
             }
+
+            //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+            //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
+            //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
+            //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
+            /*Bundle bundle = new Bundle();
+            bundle.putString("item_id", item.sItem.itemID);
+            bundle.putString("item_title", item.sItem.title);
+            bundle.putString("item_price", item.sItem.price);
+            purchaseIntent.putExtras(bundle);*/
         }
     }
 }
