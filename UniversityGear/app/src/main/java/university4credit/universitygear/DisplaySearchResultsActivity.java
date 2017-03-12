@@ -25,6 +25,8 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyRecyclerViewAdapter adapter;
     private ProgressBar progressBar;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private Item feed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,19 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         searchResults = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
+                loadNextDataFromApi();
+            }
+        };
+        mRecyclerView.addOnScrollListener(scrollListener);
         new DisplayResultsTask().execute();
     }
 
@@ -52,7 +65,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             Integer result = 0;
             try {
                     //parseResult(searchResults);
-                    Item feed = new Item(searchResults, false);
+                    feed = new Item(searchResults, false);
                     feedsList = feed.itemFeed;
                     result = 1; // Successful
             } catch (Exception e) {
@@ -82,29 +95,18 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             }
         }
     }
+    public void loadNextDataFromApi() {
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
 
-    private void parseResult(String results) {
-        try {
-            JSONObject response = new JSONObject(results);
-            JSONArray posts = response.optJSONArray("itemSummaries");
-            feedsList = new ArrayList<>();
-
-            for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.optJSONObject(i);
-                JSONObject price = post.getJSONObject("price");
-                JSONObject image = post.getJSONObject("image");
-
-                FeedItem item = new FeedItem();
-                item.setTitle(post.optString("title")); //Setting Image Title
-                item.setThumbnail(image.optString("imageURL")); // Setting Item Image
-                //Will Generalize the conditions to be either new or used.
-                item.setPrice(price.optString("value") + " " + price.optString("currency") + "\n" + post.optString("condition"));
-
-                //feedsList.add(item);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        //Item feed2 = new Item(searchResults, false);
+        //feedsList = feed2.itemFeed;
+        String results = SearchActivity.callSearchAPI();
+        //feed.loadMoreItems(results);
+        //feedsList = feed.itemFeed;
     }
 
 }
