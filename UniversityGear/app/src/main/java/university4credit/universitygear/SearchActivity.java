@@ -2,6 +2,7 @@ package university4credit.universitygear;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -69,15 +70,9 @@ public class SearchActivity extends AppCompatActivity {
     static String price;
     String[] database = {"Oregon", "State", "University", "Jersey", "Mug", "Nike", "Underarmour"};
     public List<Item> itemFeed = null;
-    static String[] searchParams = null;
     static Integer searchOffset = 0;
     private ProgressBar progressBar;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-    // Is the button now checked?
+
 
 
     public static int distance(String a, String b) {
@@ -177,6 +172,9 @@ public class SearchActivity extends AppCompatActivity {
                     join += ParsedWords[x];
                 }
                 join.toLowerCase();
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("SearchWord", join);
                 new SearchItemTask().execute(join);
 
                 FileOutputStream stream = null;
@@ -197,44 +195,14 @@ public class SearchActivity extends AppCompatActivity {
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Search Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 
     private class SearchItemTask extends AsyncTask<String, Void, List<Item>> {
         private String temp;
@@ -253,8 +221,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected List<Item> doInBackground(String... params) {
-            searchParams = params;
-            result = callSearchAPI();
+            result = callSearchAPI(params);
 
             //This is what i need to move now
             Item items = null;
@@ -297,7 +264,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    public static String callSearchAPI() {
+    public static String callSearchAPI(String... searchParams) {
         String itemLimit = "200";
         URL url = null;
         HttpURLConnection conn = null;
@@ -418,7 +385,7 @@ public class SearchActivity extends AppCompatActivity {
         return apiResults;
     }
 
-    private static String getStringFromInputStream(InputStream is) {
+    public static String getStringFromInputStream(InputStream is) {
 
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();
