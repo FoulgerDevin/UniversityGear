@@ -27,6 +27,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private EndlessRecyclerViewScrollListener scrollListener;
     private Item feed;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +38,12 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         searchResults = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
-                loadNextDataFromApi();
-            }
-        };
-        mRecyclerView.addOnScrollListener(scrollListener);
+
         new DisplayResultsTask().execute();
     }
 
@@ -90,6 +84,15 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                         startActivity(singleItemIntent);
                     }
                 });
+
+                scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
+                        String results = SearchActivity.callSearchAPI();
+                    }
+                };
+                mRecyclerView.addOnScrollListener(scrollListener);
             } else {
                 Toast.makeText(DisplaySearchResultsActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
