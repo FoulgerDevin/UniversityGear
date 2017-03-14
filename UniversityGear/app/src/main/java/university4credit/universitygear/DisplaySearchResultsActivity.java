@@ -63,8 +63,9 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
-                SharedPreferences sharedpref= getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedpref= getSharedPreferences("Search",Context.MODE_PRIVATE);
                 String word = sharedpref.getString("SearchWord","");
+                Log.d("word", word);
                 new ScrollSearchTask().execute(word,String.valueOf(searchOffset));
 
             }
@@ -185,14 +186,6 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            try {
-                inputstream.close();
-                conn3.getOutputStream().close();
-                conn.disconnect();
-                conn3.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             Item items = null;
             Log.e("RESULT STRING", "" + apiResults);
             if (apiResults != null && apiResults.length() > 0) {

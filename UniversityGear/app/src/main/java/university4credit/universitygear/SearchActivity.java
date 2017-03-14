@@ -172,9 +172,10 @@ public class SearchActivity extends AppCompatActivity {
                     join += ParsedWords[x];
                 }
                 join.toLowerCase();
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getSharedPreferences("Search",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("SearchWord", join);
+                editor.commit();
                 new SearchItemTask().execute(join);
 
                 FileOutputStream stream = null;
