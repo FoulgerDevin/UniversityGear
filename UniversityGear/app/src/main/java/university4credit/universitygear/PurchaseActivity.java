@@ -1,6 +1,8 @@
 package university4credit.universitygear;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,7 +111,8 @@ public class PurchaseActivity extends AppCompatActivity{
             }
 
             //Set the correct header information
-            apiConnection.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+            SharedPreferences sharedPreferences = getSharedPreferences("oauth", Context.MODE_PRIVATE);
+            apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
             apiConnection.setRequestProperty("Accept", "application/json");
             apiConnection.setRequestProperty("Content-Type", "application/json");
 
@@ -152,7 +155,7 @@ public class PurchaseActivity extends AppCompatActivity{
             //Create a JSON object from the returned streamResult and get
             //the checkoutSessionId
             try {
-                purchaseInitiateJSON = new JSONObject(streamResult);
+                 purchaseInitiateJSON = new JSONObject(streamResult);
                 if (streamResult.contains("sessionCheckoutId")) {
                     checkoutSessionId = purchaseInitiateJSON.getString("sessionCheckoutId");
                 }
