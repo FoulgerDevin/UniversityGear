@@ -58,13 +58,13 @@ public class SearchActivity extends AppCompatActivity {
     int mindistance;
     String tempstring;
     String tempstr;
-    String temp;
+    String temp = "";
     String schoolname;
     String join;
     CheckBox box1, box2, box3, box4;
     JSONObject json;
     String tempid = "";
-    String price;
+    String price="";
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
     private ProgressBar progressBar;
@@ -115,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
                 RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = "filter=conditions:{"+checkedRadioButton.getText().toString()+"}";
+                temp = "filter=conditions:%7B"+checkedRadioButton.getText().toString()+"%7D";
             }
         });
 
@@ -303,15 +303,24 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[3]+params[2]+params[1]+"&limit=" + itemLimit;
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+            byte[] ptext = urlString.getBytes();
+            String val = "";
+            try {
+                val = new String(ptext,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
             Log.d("e", urlString);
-            Log.d("4", params[4]);
+            Log.d("4", val);
             Log.d("3", params[3]);
             Log.d("2", params[2]);
             Log.d("1", params[1]);
 
             try {
-                url = new URL(urlString);
+                url = new URL(val);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -332,16 +341,22 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 //since im getting item feeds, I set my request method to get
                 conn.setRequestMethod("GET");
+                conn.setRequestProperty( "Accept-Encoding", "" );
                 //conn.setDoOutput(false);
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
             try {
-                Log.d("asdf", String.valueOf(conn.getResponseCode()));
+                Log.e("ERROR", conn.getResponseMessage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            Log.e("ERROR", conn.getRequestMethod());
+            try {
+                Log.e("ERROR", String.valueOf(conn.getResponseCode()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 //get the item feed
                 inputstream = conn.getInputStream();
