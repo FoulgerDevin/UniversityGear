@@ -44,6 +44,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private Item feed;
     private LinearLayoutManager linearLayoutManager;
     private List<Item> itemFeed = null;
+    private int itemCount = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                searchOffset++;
                 Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedpref= getSharedPreferences("Search",Context.MODE_PRIVATE);
                 String word = sharedpref.getString("SearchWord","");
@@ -173,7 +175,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             try {
                 //this line is here to test the code. If it returns 200 then it succeeds otherwise theres something wrong with the payload
                 stat = conn.getResponseCode();
-                Log.e("Connection code", " " + stat);
+                Log.e("DSRA - Connection code", " " + stat);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -195,12 +197,35 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             else {
                 items = new Item(true);
             }
-            //Log.e("Inputsteam", " " + inputstream);
-            //Log.e("Result string", "" + result);
-            //Starting activity with search results passed in
             return items.itemFeed;
         }
+
+        @Override
+        protected void onPostExecute(List<Item> result) {
+            progressBar.setVisibility(View.GONE);
+
+            if (result.size() > 0) {
+                adapter = new MyRecyclerViewAdapter(DisplaySearchResultsActivity.this, feedsList);
+                mRecyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new OnItemClickListener() {
+                    //@Override
+                    public void onItemClick(Item item) {
+                        Intent singleItemIntent = new Intent(DisplaySearchResultsActivity.this, DisplaySingleItemActivity.class);
+                        singleItemIntent.putExtra(ITEM_ID, item.itemID);
+                        startActivity(singleItemIntent);
+                    }
+                });
+                feedsList.addAll(result);
+                if(feedsList.size() > 200) {
+                    Log.e("DSRA - state, size:", " " + feedsList.size());
+                    adapter.notifyItemRangeInserted(itemCount, 399);
+                }
+            } else {
+                Toast.makeText(DisplaySearchResultsActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
     public class DisplayResultsTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -215,6 +240,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                     //parseResult(searchResults);
                     feed = new Item(searchResults, false);
                     feedsList = feed.itemFeed;
+                    itemCount += 200;
                     result = 1; // Successful
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
@@ -232,14 +258,11 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 adapter.setOnItemClickListener(new OnItemClickListener() {
                     //@Override
                     public void onItemClick(Item item) {
-                        //Toast.makeText(DisplaySearchResultsActivity.this, item.title, Toast.LENGTH_LONG).show();
                         Intent singleItemIntent = new Intent(DisplaySearchResultsActivity.this, DisplaySingleItemActivity.class);
                         singleItemIntent.putExtra(ITEM_ID, item.itemID);
                         startActivity(singleItemIntent);
                     }
                 });
-
-
             } else {
                 Toast.makeText(DisplaySearchResultsActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
@@ -251,12 +274,6 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
         //  --> Deserialize and construct new model objects from the API response
         //  --> Append the new data objects to the existing set of items inside the array of items
         //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
-
-        //Item feed2 = new Item(searchResults, false);
-        //feedsList = feed2.itemFeed;
-        String results = SearchActivity.callSearchAPI();
-        //feed.loadMoreItems(results);
-        //feedsList = feed.itemFeed;
     }
 
 }
