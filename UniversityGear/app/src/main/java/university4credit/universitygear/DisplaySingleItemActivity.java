@@ -2,6 +2,7 @@ package university4credit.universitygear;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -84,8 +85,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            SharedPreferences sharedPreferences = getSharedPreferences("oauth",Context.MODE_PRIVATE);
 
-            connection.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+            connection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
             connection.setRequestProperty("Accept","application/json");
             connection.setRequestProperty("Content-Type","application/json");
 

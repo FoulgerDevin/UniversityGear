@@ -1,7 +1,9 @@
 package university4credit.universitygear;
 
 import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -238,7 +240,8 @@ public class PurchaseActivity extends AppCompatActivity{
             }
 
             //Set the correct header information
-            apiConnection.setRequestProperty("Authorization", "Bearer " + getString(R.string.appKey));
+            SharedPreferences sharedPreferences = getSharedPreferences("oauth", Context.MODE_PRIVATE);
+            apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
             apiConnection.setRequestProperty("Accept", "application/json");
             apiConnection.setRequestProperty("Content-Type", "application/json");
 
