@@ -210,16 +210,15 @@ public class PurchaseActivity extends AppCompatActivity{
             String purchaseUrlString = getString(R.string.purchaseInitiateUrl);
 
             JSONObject userInfo = new JSONObject();
-            JSONObject shippingAddress = new JSONObject();
             JSONArray  lineItemInputs = new JSONArray();
 
             try {
                 JSONObject shippingInfo = new JSONObject();
                 JSONObject lineItem = new JSONObject();
 
-                userInfo.put("contactEmail", values[0].get("email"));
                 userInfo.put("contactFirstName", values[0].get("firstName"));
                 userInfo.put("contactLastName", values[0].get("lastName"));
+                userInfo.put("contactEmail", values[0].get("email"));
 
                 shippingInfo.put("recipient", values[0].get("firstName") + " " + values[0].get("lastName"));
                 String phoneNumber = values[0].get("phoneNumber");
@@ -233,8 +232,6 @@ public class PurchaseActivity extends AppCompatActivity{
                 shippingInfo.put("postalCode", values[0].get("zipCode"));
                 shippingInfo.put("country", "US");
 
-                //shippingAddress.put("shippingAddress", shippingInfo);
-
                 userInfo.put("shippingAddress", shippingInfo);
 
                 lineItem.put("quantity", 1);
@@ -247,7 +244,7 @@ public class PurchaseActivity extends AppCompatActivity{
                 Log.i("JSON USER INFO", "" + userInfo);
 
             } catch(JSONException e) {
-                Log.e("JSON INFORMATION", "Could not create JSON object");
+                Log.e("JSON INFORMATION", "Could not create JSON object userInfo");
             }
 
             try {
@@ -260,6 +257,8 @@ public class PurchaseActivity extends AppCompatActivity{
             //Open the connection using the purchase url
             try {
                 apiConnection = (HttpURLConnection)purchaseUrl.openConnection();
+                apiConnection.setDoInput(true);
+                apiConnection.setDoOutput(true);
             } catch(IOException e) {
                 e.printStackTrace();
                 Log.e("CONNECTION","Failed to connect");
