@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -200,11 +201,13 @@ public class PurchaseActivity extends AppCompatActivity{
         JSONObject purchaseInitiateJSON;
         String checkoutSessionId = null;
 
+        Intent itemIntent = getIntent();
+        String itemId    = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_ID);
+
         @Override
         protected Void doInBackground(Map<String, String>... values) {
             //set the URL to be used in starting the purchase session
             String purchaseUrlString = getString(R.string.purchaseInitiateUrl);
-            Integer timeout = 10000;
 
             JSONObject userInfo = new JSONObject();
             JSONObject shippingAddress = new JSONObject();
@@ -212,16 +215,39 @@ public class PurchaseActivity extends AppCompatActivity{
 
             try {
                 JSONObject shippingInfo = new JSONObject();
-                shippingInfo.put("recipient", values[0].get("firstName") + " " + values[0].get("lastName"));
+                JSONObject lineItem = new JSONObject();
 
                 userInfo.put("contactEmail", values[0].get("email"));
                 userInfo.put("contactFirstName", values[0].get("firstName"));
                 userInfo.put("contactLastName", values[0].get("lastName"));
 
+                shippingInfo.put("recipient", values[0].get("firstName") + " " + values[0].get("lastName"));
+                String phoneNumber = values[0].get("phoneNumber");
+                phoneNumber.replace("(", "").replace(")", "").replace("-", " ");
+                shippingInfo.put("phoneNumber", phoneNumber);
+                shippingInfo.put("addressLine1", values[0].get("streetAddress"));
+                if (!values[0].get("streetAddress2").equals("")) {
+                    shippingInfo.put("addressLine2", values[0].get("streetAddress2"));
+                }
+                shippingInfo.put("stateOrProvince", values[0].get("state"));
+                shippingInfo.put("postalCode", values[0].get("zipCode"));
+                shippingInfo.put("country", "US");
+
+                //shippingAddress.put("shippingAddress", shippingInfo);
+
+                userInfo.put("shippingAddress", shippingInfo);
+
+                lineItem.put("quantity", 1);
+                lineItem.put("itemId", itemId);
+
+                lineItemInputs.put(lineItem);
+
+                userInfo.put("lineItemInputs", lineItemInputs);
+
                 Log.i("JSON USER INFO", "" + userInfo);
 
             } catch(JSONException e) {
-                Log.e("JSON INFORMATION", "Could not create error");
+                Log.e("JSON INFORMATION", "Could not create JSON object");
             }
 
             try {
@@ -248,9 +274,14 @@ public class PurchaseActivity extends AppCompatActivity{
             //Set the correct request method
             try {
                 apiConnection.setRequestMethod("POST");
+                OutputStreamWriter wr = new OutputStreamWriter(apiConnection.getOutputStream());
+                wr.write(userInfo.toString());
+                wr.flush();
             } catch(ProtocolException e) {
                 e.printStackTrace();
                 Log.e("REQUEST METHOD", "Failed to set request method");
+            } catch(IOException e) {
+                Log.e("OUTPUT STREAM WRITER", "Could not write to stream");
             }
 
             Log.e("API CONNECTION", "Connection: " + apiConnection);
