@@ -45,7 +45,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_item_view);
 
         Intent singleItemIntent = getIntent();
-        String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
+        final String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
         //Log.e("ITEM ID PASSED IN", "" + itemId);
 
         new DownloadItemTask().execute(itemId);
@@ -55,7 +55,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
-                //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
+                purchaseIntent.putExtra(ITEM_ID, itemId);
                 //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
                 //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
                 startActivity(purchaseIntent);
@@ -237,10 +237,10 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
                 gender.setText(item.sItem.gender);
             }
 
-            //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+            Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
             //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
-            //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
-            //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
+            purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
+            purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
             /*Bundle bundle = new Bundle();
             bundle.putString("item_id", item.sItem.itemID);
             bundle.putString("item_title", item.sItem.title);

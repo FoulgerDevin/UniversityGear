@@ -6,6 +6,7 @@
     android:background="#E9E9E9">
 
     <RelativeLayout
+        android:id="@+id/purchaseLayout"
         android:layout_width="match_parent" android:layout_height="match_parent"
         android:background="#E9E9E9">
 
@@ -174,7 +175,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/zipCodeText"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="10"/>
 
             <TextView
                 android:id="@+id/emailText"
@@ -189,7 +192,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/emailText"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="textEmailAddress"/>
 
             <TextView
                 android:id="@+id/phoneNumberText"
@@ -204,7 +208,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/phoneNumberText"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="phone"
+                android:maxLength="10"/>
 
         </RelativeLayout>
 
@@ -245,7 +251,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardText"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="16"/>
 
             <TextView
                 android:id="@+id/expirationDateText"
@@ -260,7 +268,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expirationDateText"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="date"/>
 
             <TextView
                 android:id="@+id/firstNameTextCard"
@@ -291,13 +300,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/firstNameCard"
                 android:textSize="18sp"/>
-
-            <!--<Button
-                android:id="@+id/sameAsShippingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lastNameCard"
-                android:text="@string/sameAsShipping"/>-->
 
             <CheckBox
                 android:id="@+id/sameAsShipping"
@@ -407,44 +409,33 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/stateBilling"
                 android:text="@string/zipCode"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/zipCodeBilling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/zipCodeTextBilling"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/emailTextBilling"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/zipCodeBilling"
-                android:text="@string/emailAddress"
-                android:textSize="18sp"/>
-
-            <EditText
-                android:id="@+id/emailBilling"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/emailTextBilling"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="10"/>
 
             <TextView
                 android:id="@+id/phoneNumberTextBilling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emailBilling"
+                android:layout_below="@+id/zipCodeBilling"
                 android:text="@string/phoneNumber"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/phoneNumberBilling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/phoneNumberTextBilling"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:inputType="phone"
+                android:maxLength="10"/>
 
 
         </RelativeLayout>
@@ -466,6 +457,13 @@
             android:background="@drawable/rounded_button"
             android:textStyle="bold"
             android:textColor="#F8F8F8"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>
