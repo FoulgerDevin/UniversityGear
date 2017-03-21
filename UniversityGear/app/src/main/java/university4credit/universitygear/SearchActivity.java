@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "university4credit.universitygear.MESSAGE";
@@ -55,16 +58,18 @@ public class SearchActivity extends AppCompatActivity {
     int mindistance;
     String tempstring;
     String tempstr;
-    String temp;
+    String temp = "";
     String schoolname;
     String join;
     CheckBox box1, box2, box3, box4;
     JSONObject json;
     String tempid = "";
-    String price;
+    String price="";
     String [] database = {"Oregon","State", "University", "Jersey", "Mug", "Nike", "Underarmour" };
     public List<Item> itemFeed = null;
     private ProgressBar progressBar;
+    private SharedPreferences sharedPreference;
+
     // Is the button now checked?
 
 
@@ -102,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
         box3 = (CheckBox)findViewById(R.id.checkbox3);
         box4 = (CheckBox)findViewById(R.id.checkbox4);
         mButton = (Button)findViewById(R.id.button1);
-        temp = "filter=conditions:{UNSPECIFIED}";
+        temp = "";
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -110,24 +115,25 @@ public class SearchActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
                 RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = "filter=conditions:{"+checkedRadioButton.getText().toString()+"}";
+                temp = "filter=conditions:%7B"+checkedRadioButton.getText().toString()+"%7D";
             }
         });
+
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 hideSoftKeyboard();
                 progressBar.setVisibility(View.VISIBLE);
                 if(box1.isChecked()){
-                    tempid += "&category_id=2228";
+                    tempid += "&category_ids=2228";
                 }
                 if(box2.isChecked()){
-                    tempid += "&category_id=11450";
+                    tempid += "&category_ids=11450";
                 }
                 if(box3.isChecked()){
-                    tempid += "&category_id=888";
+                    tempid += "&category_ids=888";
                 }
                 if(box4.isChecked()){
-                    tempid += "&category_id=64882";
+                    tempid += "&category_ids=64882";
                 }
                 num1 = (EditText)findViewById(R.id.editText);
                 num2 = (EditText)findViewById(R.id.editText2);
@@ -170,7 +176,7 @@ public class SearchActivity extends AppCompatActivity {
                     join += " "; join+=ParsedWords[x];
                 }
                 join.toLowerCase();
-                new SearchItemTask().execute(join);
+                new SearchItemTask().execute(join,price,temp,tempid,schoolname);
 
                 FileOutputStream stream = null;
                 try {
@@ -284,9 +290,10 @@ public class SearchActivity extends AppCompatActivity {
 
                 json = new JSONObject(sb.toString());
                 oAuthtoken = json.getString("access_token");
-                SharedPreferences sharedPreferences = getSharedPreferences("oauth",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("oAuthToken",oAuthtoken);
+                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+
+                editor.putString("oAuth", oAuthtoken);
                 editor.commit();
                 Log.d("hey", oAuthtoken);
 
@@ -296,9 +303,24 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+schoolname+params[0]+tempid+price+"&filter=buyingOptions:(FIXED_PRICE)&limit=" + itemLimit;
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+            byte[] ptext = urlString.getBytes();
+            String val = "";
             try {
-                url = new URL(urlString);
+                val = new String(ptext,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
+            Log.d("e", urlString);
+            Log.d("4", val);
+            Log.d("3", params[3]);
+            Log.d("2", params[2]);
+            Log.d("1", params[1]);
+
+            try {
+                url = new URL(val);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -315,28 +337,33 @@ public class SearchActivity extends AppCompatActivity {
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");
             conn.setRequestProperty("Content-Type","application/json");
+            conn.setRequestProperty("Connection", "close");
             try {
                 //since im getting item feeds, I set my request method to get
                 conn.setRequestMethod("GET");
+                conn.setRequestProperty( "Accept-Encoding", "" );
                 //conn.setDoOutput(false);
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
-            int stat;
             try {
-                //this line is here to test the code. If it returns 200 then it succeeds otherwise theres something wrong with the payload
-                stat = conn.getResponseCode();
-                Log.e("Connection code", " " + stat);
+                Log.e("ERROR", conn.getResponseMessage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.d("e", "Params= "+params[0]);
+            Log.e("ERROR", conn.getRequestMethod());
+            try {
+                Log.e("ERROR", String.valueOf(conn.getResponseCode()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 //get the item feed
                 inputstream = conn.getInputStream();
                 result = getStringFromInputStream(inputstream);
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
             Item items = null;
             Log.e("RESULT STRING", "" + result);
