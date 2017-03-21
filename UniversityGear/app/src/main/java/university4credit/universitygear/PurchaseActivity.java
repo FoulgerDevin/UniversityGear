@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -110,7 +111,7 @@ public class PurchaseActivity extends AppCompatActivity{
                 fieldValues.put("cardNumber", ((EditText)findViewById(R.id.cardNumber)).getText().toString());
                 fieldValues.put("expirationDate", ((EditText)findViewById(R.id.expirationDate)).getText().toString());
                 fieldValues.put("firstNameCard", ((EditText)findViewById(R.id.firstNameCard)).getText().toString());
-                fieldValues.put("lastName", ((EditText)findViewById(R.id.lastNameCard)).getText().toString());
+                fieldValues.put("lastNameCard", ((EditText)findViewById(R.id.lastNameCard)).getText().toString());
                 if (!billingCheck.isChecked()) {
                     fieldValues.put("streetAddressBilling", ((EditText) findViewById(R.id.billingAddress)).getText().toString());
                     fieldValues.put("streetAddress2Billing", ((EditText) findViewById(R.id.billingAddress2)).getText().toString());
@@ -216,18 +217,21 @@ public class PurchaseActivity extends AppCompatActivity{
                 JSONObject shippingInfo = new JSONObject();
                 JSONObject lineItem = new JSONObject();
 
+                userInfo.put("contactEmail", values[0].get("email"));
                 userInfo.put("contactFirstName", values[0].get("firstName"));
                 userInfo.put("contactLastName", values[0].get("lastName"));
-                userInfo.put("contactEmail", values[0].get("email"));
 
                 shippingInfo.put("recipient", values[0].get("firstName") + " " + values[0].get("lastName"));
                 String phoneNumber = values[0].get("phoneNumber");
                 phoneNumber.replace("(", "").replace(")", "").replace("-", " ");
+                phoneNumber = phoneNumber.substring(0,3) + " " + phoneNumber.substring(3, phoneNumber.length());
+                phoneNumber = phoneNumber.substring(0,7) + " " + phoneNumber.substring(7, phoneNumber.length());
                 shippingInfo.put("phoneNumber", phoneNumber);
                 shippingInfo.put("addressLine1", values[0].get("streetAddress"));
                 if (!values[0].get("streetAddress2").equals("")) {
                     shippingInfo.put("addressLine2", values[0].get("streetAddress2"));
                 }
+                shippingInfo.put("city", values[0].get("city"));
                 shippingInfo.put("stateOrProvince", values[0].get("state"));
                 shippingInfo.put("postalCode", values[0].get("zipCode"));
                 shippingInfo.put("country", "US");
@@ -266,16 +270,17 @@ public class PurchaseActivity extends AppCompatActivity{
 
             //Set the correct header information
             SharedPreferences sharedPreferences = getSharedPreferences("oauth", Context.MODE_PRIVATE);
+            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
             apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
             apiConnection.setRequestProperty("Accept", "application/json");
-            apiConnection.setRequestProperty("Content-Type", "application/json");
+            apiConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
             //Set the correct request method
             try {
                 apiConnection.setRequestMethod("POST");
-                OutputStreamWriter wr = new OutputStreamWriter(apiConnection.getOutputStream());
-                wr.write(userInfo.toString());
-                wr.flush();
+                OutputStream os = apiConnection.getOutputStream();
+                os.write(userInfo.toString().getBytes("UTF-8"));
+                os.close();
             } catch(ProtocolException e) {
                 e.printStackTrace();
                 Log.e("REQUEST METHOD", "Failed to set request method");
