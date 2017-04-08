@@ -42,7 +42,6 @@ public class Item {
     String quantitySold;
     String availability;
     String gender;
-    Integer itemIndex = 0;
 
     private JSONObject jsonItems = null;
     private JSONArray itemSummaries = null;
@@ -108,33 +107,31 @@ public class Item {
                 Log.e("JSONOBJECT", "Failed to create JSON item");
             }
 
-            loadItems();
-//            for (int i = 0; i < itemSummaries.length(); i++) {
-//                if (itemSummaries != null) {
-//                    try {
-//                        JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
-//                        JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
-//                        JSONObject singleItemImage;
-//
-//                        if (itemSummaries.getString(i).contains("image")) {
-//                            singleItemImage = new JSONObject(singleItem.getString("image"));
-//                            imageUrl = singleItemImage.getString("imageUrl");
-//                        }
-//                        if (itemSummaries.getString(i).contains("condition")) {
-//                            con = singleItem.getString("condition");
-//                        }
-//                        Item newItem = new Item(singleItem.getString("itemId"),
-//                                singleItem.getString("title"), singleItemPrice.getString("value"),
-//                                con, imageUrl, null, null, null, null, null, null, null, null,
-//                                null, null, null, null, null, null, null);
-//                        itemFeed.add(newItem);
-//                        itemIndex++;
-//
-//                    } catch (JSONException jsonE) {
-//                        Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
-//                    }
-//                }
-//            }
+            for (int i = 0; i < itemSummaries.length(); i++) {
+                if (itemSummaries != null) {
+                    try {
+                        JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
+                        JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
+                        JSONObject singleItemImage;
+
+                        if (itemSummaries.getString(i).contains("image")) {
+                            singleItemImage = new JSONObject(singleItem.getString("image"));
+                            imageUrl = singleItemImage.getString("imageUrl");
+                        }
+                        if (itemSummaries.getString(i).contains("condition")) {
+                            con = singleItem.getString("condition");
+                        }
+                        Item newItem = new Item(singleItem.getString("itemId"),
+                                singleItem.getString("title"), singleItemPrice.getString("value"),
+                                con, imageUrl, null, null, null, null, null, null, null, null,
+                                null, null, null, null, null, null, null);
+                        itemFeed.add(newItem);
+
+                    } catch (JSONException jsonE) {
+                        Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
+                    }
+                }
+            }
         } else { //single item
             if (item != null) {
                 try {
@@ -256,75 +253,5 @@ public class Item {
         gender = genderGiven;
         availability = shipAvail;
         quantitySold = quantity;
-    }
-
-    public void loadItems() {
-        String imageUrl = null;
-        String con = "Unspecified";
-        for (int i = itemIndex; i < itemSummaries.length(); i++) {
-            if (itemSummaries != null) {
-                try {
-                    JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
-                    JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
-                    JSONObject singleItemImage;
-
-                    if (itemSummaries.getString(i).contains("image")) {
-                        singleItemImage = new JSONObject(singleItem.getString("image"));
-                        imageUrl = singleItemImage.getString("imageUrl");
-                    }
-                    if (itemSummaries.getString(i).contains("condition")) {
-                        con = singleItem.getString("condition");
-                    }
-                    Item newItem = new Item(singleItem.getString("itemId"),
-                            itemIndex + "-" + singleItem.getString("title"), singleItemPrice.getString("value"),
-                            con, imageUrl, null, null, null, null, null, null, null, null,
-                            null, null, null, null, null, null, null);
-                    itemFeed.add(newItem);
-                    itemIndex++;
-                } catch (JSONException jsonE) {
-                    Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
-                }
-            }
-        }
-    }
-
-    public void loadMoreItems(String items) {
-        try {
-            if (items != null) {
-                jsonItems = new JSONObject(items);
-                //Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
-                itemSummaries = new JSONArray(jsonItems.getString("itemSummaries"));
-            }
-        } catch(JSONException jsonE) {
-            Log.e("JSONOBJECT", "Failed to create JSON item");
-        }
-
-        String imageUrl = null;
-        String con = "Unspecified";
-        for (int i = 0; i < itemSummaries.length(); i++) {
-            if (itemSummaries != null) {
-                try {
-                    JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
-                    JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
-                    JSONObject singleItemImage;
-
-                    if (itemSummaries.getString(i).contains("image")) {
-                        singleItemImage = new JSONObject(singleItem.getString("image"));
-                        imageUrl = singleItemImage.getString("imageUrl");
-                    }
-                    if (itemSummaries.getString(i).contains("condition")) {
-                        con = singleItem.getString("condition");
-                    }
-                    Item newItem = new Item(singleItem.getString("itemId"),
-                            itemIndex + "-" + singleItem.getString("title"), singleItemPrice.getString("value"),
-                            con, imageUrl, null, null, null, null, null, null, null, null,
-                            null, null, null, null, null, null, null);
-                    itemFeed.add(newItem);
-                    itemIndex++;
-                } catch (JSONException jsonE) {
-                    Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
-                }
-            }
-        }
     }
 }

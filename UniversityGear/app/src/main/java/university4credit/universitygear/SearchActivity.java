@@ -206,34 +206,6 @@ public class SearchActivity extends AppCompatActivity {
         String result = "";
         String oAuthtoken;
 
-        private String getStringFromInputStream(InputStream is) {
-
-            BufferedReader br = null;
-            StringBuilder sb = new StringBuilder();
-
-            String line;
-            try {
-
-                br = new BufferedReader(new InputStreamReader(is));
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return sb.toString();
-
-        }
         @Override
         protected void onPreExecute() { super.onPreExecute(); }
 
@@ -402,6 +374,35 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    public static String getStringFromInputStream(InputStream is) {
+
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+
+            br = new BufferedReader(new InputStreamReader(is));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return sb.toString();
+
     }
 
     private void hideSoftKeyboard() {

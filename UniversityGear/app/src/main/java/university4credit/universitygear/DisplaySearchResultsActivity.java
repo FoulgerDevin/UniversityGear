@@ -64,7 +64,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 searchOffset++;
-                Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DisplaySearchResultsActivity.this, "Scroll Listener is Working", Toast.LENGTH_SHORT).show();
                 SharedPreferences sharedpref= getSharedPreferences("Search",Context.MODE_PRIVATE);
                 String word = sharedpref.getString("SearchWord","");
                 Log.d("word", word);
@@ -218,7 +218,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 feedsList.addAll(result);
                 if(feedsList.size() > 200) {
                     Log.e("DSRA - state, size:", " " + feedsList.size());
-                    adapter.notifyItemRangeInserted(itemCount, 399);
+                    adapter.notifyItemRangeInserted(0, result.size());
                 }
             } else {
                 Toast.makeText(DisplaySearchResultsActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
@@ -268,12 +268,4 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             }
         }
     }
-    public void loadNextDataFromApi() {
-        // Send an API request to retrieve appropriate paginated data
-        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
-        //  --> Deserialize and construct new model objects from the API response
-        //  --> Append the new data objects to the existing set of items inside the array of items
-        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
-    }
-
 }
