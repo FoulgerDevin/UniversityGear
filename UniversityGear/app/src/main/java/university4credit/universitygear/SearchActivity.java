@@ -115,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
                 RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
-                temp = "filter=conditions:%7B"+checkedRadioButton.getText().toString()+"%7D";
+                temp = "&filter=conditions:%7B"+checkedRadioButton.getText().toString()+"%7D";
             }
         });
 
@@ -290,10 +290,10 @@ public class SearchActivity extends AppCompatActivity {
 
                 json = new JSONObject(sb.toString());
                 oAuthtoken = json.getString("access_token");
-                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+                sharedPreference = getSharedPreferences("oauth", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreference.edit();
 
-                editor.putString("oAuth", oAuthtoken);
+                editor.putString("oAuthToken", oAuthtoken);
                 editor.commit();
                 Log.d("hey", oAuthtoken);
 

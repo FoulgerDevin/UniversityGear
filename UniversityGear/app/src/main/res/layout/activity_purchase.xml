@@ -43,8 +43,6 @@
                 android:textSize="18sp"
                 android:text=""
                 android:layout_below="@+id/checkoutTitle"/>
-
-
         </RelativeLayout>
 
         <View
@@ -256,26 +254,77 @@
                 android:maxLength="16"/>
 
             <TextView
-                android:id="@+id/expirationDateText"
+                android:id="@+id/cardCVVText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardNumber"
-                android:text="@string/expDate"
+                android:text="@string/cardcvv"
                 android:textSize="18sp"/>
 
             <EditText
-                android:id="@+id/expirationDate"
+                android:id="@+id/cardCVV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expirationDateText"
+                android:layout_below="@+id/cardCVVText"
                 android:textSize="18sp"
-                android:inputType="date"/>
+                android:inputType="number"
+                android:maxLength="4"/>
+
+            <TextView
+                android:id="@+id/expirationMonthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardCVV"
+                android:text="@string/expMonth"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/expirationMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationMonthText"
+                android:textSize="18sp"
+                android:inputType="date"
+                android:maxLength="2"/>
+
+            <TextView
+                android:id="@+id/expirationYearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationMonth"
+                android:text="@string/expYear"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/expirationYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationYearText"
+                android:textSize="18sp"
+                android:inputType="date"
+                android:maxLength="4"/>
+
+            <TextView
+                android:id="@+id/cardTypeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationYear"
+                android:text="@string/card"
+                android:textSize="18sp"/>
+
+            <Spinner
+                android:id="@+id/cardType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardTypeText"
+                android:textSize="18sp"
+                android:entries="@array/cardTypes" />
 
             <TextView
                 android:id="@+id/firstNameTextCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expirationDate"
+                android:layout_below="@+id/cardType"
                 android:text="@string/firstName"
                 android:textSize="18sp"/>
 
@@ -298,7 +347,7 @@
                 android:id="@+id/lastNameCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/firstNameCard"
+                android:layout_below="@+id/lastNameTextCard"
                 android:textSize="18sp"/>
 
             <CheckBox

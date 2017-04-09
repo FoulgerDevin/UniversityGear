@@ -23,6 +23,7 @@
         <activity android:name=".DisplaySearchResultsActivity" />
         <activity android:name=".DisplaySingleItemActivity" />
         <activity android:name=".PurchaseActivity"/>
+        <activity android:name=".DisplayPurchaseInformation"/>
         <service
             android:name=".TrackGPS"
             android:enabled="true"

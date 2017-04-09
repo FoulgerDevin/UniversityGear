@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">UniversityGear</string>
-    <string name="purchaseInitiateUrl"> https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/initiate</string>
+    <string name="purchaseInitiateUrl">https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/initiate</string>
     <string name="sandboxKey"></string>
     <string name="search_message">Keyword</string>
     <string name="search_school">School of Interest</string>
@@ -27,7 +27,8 @@
     <string name="checkoutButton">Purchase</string>
     <string name="billingInfo">Billing</string>
     <string name="cardNum">Card Number</string>
-    <string name="expDate">Expiration Date</string>
+    <string name="expMonth">Expiration Month</string>
+    <string name="expYear">Expiration Year</string>
     <string name="securityCode">Security Code</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
@@ -40,6 +41,15 @@
     <string name="confirmEmail">Confirm Email</string>
     <string name="phoneNumber">Phone Number</string>
     <string name="sameAsShipping">Billing Same as Shipping</string>
+    <string name="card">Card Type</string>
+    <string name="cardcvv">CVV NUmber</string>
+    <string name="thanks">Thank you for your purchase.</string>
+    <string-array name="cardTypes">
+        <item>American Express</item>
+        <item>Discover</item>
+        <item>Mastercard</item>
+        <item>Visa</item>
+    </string-array>
     <string-array name="states">
         <item>AL</item>
         <item>AR</item>
