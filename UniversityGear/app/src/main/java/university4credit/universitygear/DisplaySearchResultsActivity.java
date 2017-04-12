@@ -150,7 +150,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             Integer total = Integer.valueOf(sharedPreference.getString("total", null));
 
             Log.e("total", total.toString());
-            if(Integer.valueOf(params[1])>total){
+            if((Integer.valueOf(params[1])*200)>(total+200)){
                 return null;
             }
             urlString += "&offset=" + params[1];
