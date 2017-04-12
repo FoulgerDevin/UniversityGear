@@ -34,7 +34,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     public final static String ITEM_ID = "university4credit.universitygear.ID";
     private static final String TAG = "RecyclerViewExample";
     private String searchResults;
-    private int searchOffset = 0;
+    private int searchOffset = 200;
 
     private List<Item> feedsList;
     private RecyclerView mRecyclerView;
@@ -145,7 +145,16 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+ params[0]+ "&filter=buyingOptions:(FIXED_PRICE)&limit=" + itemLimit + "&offset=" + params[1];
+            SharedPreferences sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+            String urlString = sharedPreference.getString("query", null);
+            Integer total = Integer.valueOf(sharedPreference.getString("total", null));
+
+            Log.e("total", total.toString());
+            if(Integer.valueOf(params[1])>total){
+                return null;
+            }
+            urlString += "&offset=" + params[1];
+            Log.e("query",urlString);
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {
