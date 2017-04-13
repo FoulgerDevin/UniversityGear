@@ -34,7 +34,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     public final static String ITEM_ID = "university4credit.universitygear.ID";
     private static final String TAG = "RecyclerViewExample";
     private String searchResults;
-    private int searchOffset = 200;
+    private int searchOffset = 10;
 
     private List<Item> feedsList;
     private RecyclerView mRecyclerView;
@@ -84,74 +84,18 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
             HttpURLConnection conn3 = null;
             InputStream inputstream = null;
             String oAuthtoken = null;
-            JSONObject json;
             String apiResults = "";
+            Item items = null;
 
-            //this is the url that i passed in
-            String id = "BryanLia-Universi-SBX-18adaa5fd-2dd2c2e3:SBX-8adaa5fd4c3c-8c04-4d13-9adb-8196";
-            byte[] data = new byte[0];
-            try {
-                data = id.getBytes("UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            String base64 = Base64.encodeToString(data, Base64.NO_WRAP);
-            try {
-                url = new URL("https://api.sandbox.ebay.com/identity/v1/oauth2/token");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn3 = (HttpURLConnection) url.openConnection();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            conn3.setRequestProperty("Authorization", "Basic " + base64);
-            conn3.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn3.setDoOutput(true);
-            try {
-                conn3.setRequestMethod("POST");
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            }
-
-            String urlParameters = "grant_type=client_credentials&redirect_uri=Bryan_Liauw-BryanLia-Univer-kheulrrfh&scope=https://api.ebay.com/oauth/api_scope";
-            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-            conn3.setRequestProperty("Content-Length", Integer.toString(postData.length));
-            try {
-                conn3.getOutputStream().write(postData);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn3.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                br.close();
-
-                json = new JSONObject(sb.toString());
-                oAuthtoken = json.getString("access_token");
-                Log.d("hey", oAuthtoken);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("e", "asdf");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             SharedPreferences sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
             String urlString = sharedPreference.getString("query", null);
+            oAuthtoken = sharedPreference.getString("oAuthToken",null);
             Integer total = Integer.valueOf(sharedPreference.getString("total", null));
 
             Log.e("total", total.toString());
-            if((Integer.valueOf(params[1])*200)>(total+200)){
-                return null;
+            if((Integer.valueOf(params[1])*10)>(total+10)){
+                items = new Item(apiResults, false);
+                itemFeed = items.itemFeed;
             }
             urlString += "&offset=" + params[1];
             Log.e("query",urlString);
@@ -197,11 +141,12 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Item items = null;
+
             Log.e("RESULT STRING", "" + apiResults);
             if (apiResults != null && apiResults.length() > 0) {
                 items = new Item(apiResults, false);
                 itemFeed = items.itemFeed;
+                return itemFeed;
             }
             else {
                 items = new Item(true);

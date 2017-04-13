@@ -262,7 +262,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 json = new JSONObject(sb.toString());
                 oAuthtoken = json.getString("access_token");
-                sharedPreference = getSharedPreferences("oauth", MODE_PRIVATE);
+                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreference.edit();
 
                 editor.putString("oAuthToken", oAuthtoken);
@@ -276,7 +276,6 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
-            sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreference.edit();
 
             editor.putString("query", urlString);
