@@ -206,34 +206,6 @@ public class SearchActivity extends AppCompatActivity {
         String result = "";
         String oAuthtoken;
 
-        private String getStringFromInputStream(InputStream is) {
-
-            BufferedReader br = null;
-            StringBuilder sb = new StringBuilder();
-
-            String line;
-            try {
-
-                br = new BufferedReader(new InputStreamReader(is));
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            return sb.toString();
-
-        }
         @Override
         protected void onPreExecute() { super.onPreExecute(); }
 
@@ -304,6 +276,11 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+            sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreference.edit();
+
+            editor.putString("query", urlString);
+            editor.commit();
             byte[] ptext = urlString.getBytes();
             String val = "";
             try {
@@ -367,10 +344,21 @@ public class SearchActivity extends AppCompatActivity {
             }
             Item items = null;
             Log.e("RESULT STRING", "" + result);
+            try {
+                JSONObject temp = new JSONObject(result);
+                String total = temp.getString("total");
+                editor.putString("total", total);
+                editor.commit();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             if (result != null && result.length() > 0) {
                 items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
+
             else {
                 items = new Item(true);
             }
@@ -402,6 +390,35 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    public static String getStringFromInputStream(InputStream is) {
+
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+
+            br = new BufferedReader(new InputStreamReader(is));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return sb.toString();
+
     }
 
     private void hideSoftKeyboard() {
