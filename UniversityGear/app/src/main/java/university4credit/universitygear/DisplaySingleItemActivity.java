@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,7 +32,13 @@ import java.net.URL;
  */
 
 public class DisplaySingleItemActivity extends AppCompatActivity {
+    public final static String ITEM_ID = "university4credit.universitygear.ID";
+    public final static String ITEM_TITLE = "university4credit.universitygear.TITLE";
+    public final static String ITEM_CURRENCY = "university4credit.universitygear.CURRENCY";
+    public final static String ITEM_PRICE = "university4credit.universitygear.PRICE";
     Item item;
+    //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +46,22 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_item_view);
 
         Intent singleItemIntent = getIntent();
-        String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
+        final String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
         //Log.e("ITEM ID PASSED IN", "" + itemId);
 
         new DownloadItemTask().execute(itemId);
+
+
+        Button buyButton = (Button)findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+                purchaseIntent.putExtra(ITEM_ID, itemId);
+                //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
+                //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
+                startActivity(purchaseIntent);
+            }
+        });
     }
 
     private class DownloadItemTask extends AsyncTask<String, Void, Item> {
@@ -65,10 +85,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            SharedPreferences sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
-            String oAuthtoken = sharedPreference.getString("oAuth", null);
-            Log.e("Oauth",oAuthtoken);
-            connection.setRequestProperty("Authorization", "Bearer " + oAuthtoken);
+            SharedPreferences sharedPreferences = getSharedPreferences("oauth",Context.MODE_PRIVATE);
+
+            connection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
             connection.setRequestProperty("Accept","application/json");
             connection.setRequestProperty("Content-Type","application/json");
 
@@ -219,6 +238,16 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } else {
                 gender.setText(item.sItem.gender);
             }
+
+            Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+            //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
+            purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
+            purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
+            /*Bundle bundle = new Bundle();
+            bundle.putString("item_id", item.sItem.itemID);
+            bundle.putString("item_title", item.sItem.title);
+            bundle.putString("item_price", item.sItem.price);
+            purchaseIntent.putExtras(bundle);*/
         }
     }
 }
