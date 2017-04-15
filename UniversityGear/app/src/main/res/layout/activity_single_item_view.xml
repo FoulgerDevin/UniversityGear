@@ -129,6 +129,17 @@
             android:layout_marginRight="10dp"
             android:layout_below="@+id/aboutItem" />
 
+
+        <TextView
+            android:id="@+id/conditionGiven"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/aboutItem"
+            android:layout_toEndOf="@+id/quantity" />
+
         <TextView
             android:id="@+id/quantity"
             android:layout_width="100dp"
@@ -156,16 +167,6 @@
             android:layout_toEndOf="@+id/quantity"
             android:id="@+id/quantityGiven2"
             android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/conditionGiven"
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/aboutItem"
-            android:layout_toEndOf="@+id/quantity" />
 
         <TextView
             android:id="@+id/category"

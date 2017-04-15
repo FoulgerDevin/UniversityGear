@@ -1,113 +1,520 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#E9E9E9">
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/itemDetailsSection"
-        android:background="#f8f8f8"
-        android:layout_marginTop="10dp"
-        android:padding="10dp">
+        android:id="@+id/purchaseLayout"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="#E9E9E9">
 
-        <TextView
-            android:id="@+id/itemDetails"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemDetailsSection"
+            android:background="#f8f8f8"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/itemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="@string/item"/>
+
+            <TextView
+                android:id="@+id/checkoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text=""
+                android:layout_below="@+id/itemDetails"/>
+
+            <TextView
+                android:id="@+id/checkoutPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text=""
+                android:layout_below="@+id/checkoutTitle"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/itemDetailsSection"
+            android:layout_marginBottom="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userShippingSection"
+            android:background="#f8f8f8"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_below="@+id/itemDetailsSection">
+
+            <TextView
+                android:id="@+id/shippingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="@string/userShippingInfo"/>
+
+            <TextView
+                android:id="@+id/firstNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shippingInfo"
+                android:text="@string/firstName"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstNameText"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/lastNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstName"
+                android:text="@string/lastName"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lastNameText"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/streetAddressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lastName"
+                android:text="@string/streetAddress"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/streetAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetAddressText"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/streetAddress2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetAddress"
+                android:text="@string/streetAddress2"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/streetAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetAddress2Text"
+                android:textSize="18sp"/>
+
+            <TextView
+            android:id="@+id/cityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="@string/item"/>
+            android:layout_below="@+id/streetAddress2"
+            android:text="@string/city"
+            android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/checkoutTitle"
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cityText"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/stateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/city"
+                android:text="@string/state"
+                android:textSize="18sp"/>
+
+            <Spinner
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stateText"
+                android:textSize="18sp"
+                android:entries="@array/states" />
+
+            <TextView
+                android:id="@+id/zipCodeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/state"
+                android:text="@string/zipCode"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zipCodeText"
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="10"/>
+
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zipCode"
+                android:text="@string/emailAddress"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailText"
+                android:textSize="18sp"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:id="@+id/phoneNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/email"
+                android:text="@string/phoneNumber"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phoneNumberText"
+                android:textSize="18sp"
+                android:inputType="phone"
+                android:maxLength="10"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/userShippingSection"
+            android:layout_marginBottom="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/paymentInfoSection"
+            android:background="#f8f8f8"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_below="@+id/userShippingSection">
+
+            <TextView
+                android:id="@+id/paymentInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="@string/paymentInfo"/>
+
+            <TextView
+                android:id="@+id/cardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/paymentInfo"
+                android:text="@string/cardNum"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/cardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardText"
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="16"/>
+
+            <TextView
+                android:id="@+id/cardCVVText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardNumber"
+                android:text="@string/cardcvv"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/cardCVV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardCVVText"
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="4"/>
+
+            <TextView
+                android:id="@+id/expirationMonthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardCVV"
+                android:text="@string/expMonth"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/expirationMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationMonthText"
+                android:textSize="18sp"
+                android:inputType="date"
+                android:maxLength="2"/>
+
+            <TextView
+                android:id="@+id/expirationYearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationMonth"
+                android:text="@string/expYear"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/expirationYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationYearText"
+                android:textSize="18sp"
+                android:inputType="date"
+                android:maxLength="4"/>
+
+            <TextView
+                android:id="@+id/cardTypeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expirationYear"
+                android:text="@string/card"
+                android:textSize="18sp"/>
+
+            <Spinner
+                android:id="@+id/cardType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardTypeText"
+                android:textSize="18sp"
+                android:entries="@array/cardTypes" />
+
+            <TextView
+                android:id="@+id/firstNameTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardType"
+                android:text="@string/firstName"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/firstNameCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstNameTextCard"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/lastNameTextCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstNameCard"
+                android:text="@string/lastName"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/lastNameCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lastNameTextCard"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/sameAsShipping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lastNameCard"/>
+
+            <TextView
+                android:id="@+id/sameAsShippingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:layout_below="@+id/lastNameCard"
+                android:layout_toRightOf="@+id/sameAsShipping"
+                android:text="@string/sameAsShipping"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/paymentInfoSection"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/billingInfoSection"
+            android:background="#f8f8f8"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_below="@+id/paymentInfoSection">
+
+            <TextView
+                android:id="@+id/billingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:text="@string/billingInfo"/>
+
+            <TextView
+                android:id="@+id/billingAddressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billingInfo"
+                android:text="@string/streetAddress"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/billingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billingAddressText"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/billingAddress2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billingAddress"
+                android:text="@string/streetAddress2"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/billingAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billingAddress2Text"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/cityTextBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billingAddress2"
+                android:text="@string/city"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/cityBilling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cityTextBilling"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/stateTextBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cityBilling"
+                android:text="@string/state"
+                android:textSize="18sp"/>
+
+            <Spinner
+                android:id="@+id/stateBilling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stateTextBilling"
+                android:textSize="18sp"
+                android:entries="@array/states" />
+
+            <TextView
+                android:id="@+id/zipCodeTextBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/stateBilling"
+                android:text="@string/zipCode"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/zipCodeBilling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zipCodeTextBilling"
+                android:textSize="18sp"
+                android:inputType="number"
+                android:maxLength="10"/>
+
+            <TextView
+                android:id="@+id/phoneNumberTextBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zipCodeBilling"
+                android:text="@string/phoneNumber"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/phoneNumberBilling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phoneNumberTextBilling"
+                android:textSize="18sp"
+                android:inputType="phone"
+                android:maxLength="10"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/billingInfoSection"/>
+
+        <Button
+            android:id="@+id/checkoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/checkoutButton"
+            android:layout_below="@+id/billingInfoSection"
+            android:layout_margin="25dp"
+            android:background="@drawable/rounded_button"
+            android:textStyle="bold"
+            android:textColor="#F8F8F8"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text=""
-            android:layout_below="@+id/itemDetails"/>
-
-        <TextView
-            android:id="@+id/checkoutPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text=""
-            android:layout_below="@+id/checkoutTitle"/>
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"
-        android:layout_below="@+id/itemDetailsSection"
-        android:layout_marginBottom="10dp"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/userShippingSection"
-        android:background="#f8f8f8"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/itemDetailsSection">
-
-        <TextView
-            android:id="@+id/shippingInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="@string/userShippingInfo"/>
-
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"
-        android:layout_below="@+id/userShippingSection"
-        android:layout_marginBottom="10dp"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/paymentInfoSection"
-        android:background="#f8f8f8"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_below="@+id/userShippingSection">
-
-        <TextView
-            android:id="@+id/paymentInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="@string/paymentInfo"/>
-
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/checkoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/checkoutButton"
-        android:layout_below="@+id/paymentInfoSection"
-        android:layout_margin="25dp"
-        android:background="@drawable/rounded_button"
-        android:textStyle="bold"
-        android:textColor="#F8F8F8"/>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/paymentInfoSection"/>
-</RelativeLayout>
+</ScrollView>
