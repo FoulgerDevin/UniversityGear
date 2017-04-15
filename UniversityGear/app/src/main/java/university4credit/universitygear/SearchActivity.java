@@ -307,8 +307,13 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+
+            SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
+            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
+            conn.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
+
             //this is the header that you need to pass in. The authorization key is something you get from the eBAy website. I can tell you how to get them but I think we can just use my key
-            conn.setRequestProperty("Authorization", "Bearer " + oAuthtoken);
+            //conn.setRequestProperty("Authorization", "Bearer " + oAuthtoken);
 
             //I added this header just so it can get the json object. I'm not sure if its necessary but can't hurt to put that in
             conn.setRequestProperty("Accept","application/json");

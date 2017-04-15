@@ -85,10 +85,8 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            SharedPreferences sharedPreferences = getSharedPreferences("oauth", Context.MODE_PRIVATE);
-
-            Log.e("OAUTH KEY", "" + sharedPreferences.getString("oAuth",""));
-
+            SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
+            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
             connection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
             connection.setRequestProperty("Accept","application/json");
             connection.setRequestProperty("Content-Type","application/json");
