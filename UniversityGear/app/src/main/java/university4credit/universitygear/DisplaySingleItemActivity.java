@@ -85,7 +85,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            SharedPreferences sharedPreferences = getSharedPreferences("oauth",Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("oauth", Context.MODE_PRIVATE);
+
+            Log.e("OAUTH KEY", "" + sharedPreferences.getString("oAuth",""));
 
             connection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
             connection.setRequestProperty("Accept","application/json");
@@ -150,7 +152,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //Description
             TextView description = (TextView) findViewById(R.id.description);
             description.setText(Html.fromHtml(item.sItem.shortDescription));
-            description.setVisibility(description.GONE);
+            //description.setVisibility(description.GONE);
 
             //Condition
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
