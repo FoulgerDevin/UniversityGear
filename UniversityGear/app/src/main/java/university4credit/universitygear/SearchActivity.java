@@ -121,76 +121,88 @@ public class SearchActivity extends AppCompatActivity {
 
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                hideSoftKeyboard();
-                progressBar.setVisibility(View.VISIBLE);
-                if(box1.isChecked()){
-                    tempid += "&category_ids=2228";
-                }
-                if(box2.isChecked()){
-                    tempid += "&category_ids=11450";
-                }
-                if(box3.isChecked()){
-                    tempid += "&category_ids=888";
-                }
-                if(box4.isChecked()){
-                    tempid += "&category_ids=64882";
-                }
-                num1 = (EditText)findViewById(R.id.editText);
-                num2 = (EditText)findViewById(R.id.editText2);
-
-                if(num1.length()!=0){
-                    if(num2.length()!=0){
-                        price = "&filter=priceCurrency:USD&filter=price:["+num1.getText().toString()+".."+num2.getText().toString()+"]";
-                    }
-                    else{
-                        price = "&filter=priceCurrency:USD&filter=price:["+num1.getText().toString()+"]";
-                    }
-                }
-                else{
-                    if(num2.length()!=0){
-                        price = "&filter=priceCurrency:USD&filter=price:[.."+num2.getText().toString()+"]";
-                    }
-                    else{
-                        price = "";
-                    }
-                }
                 mEdit = (EditText)findViewById(R.id.editText1);
-                String [] ParsedWords = mEdit.getText().toString().split("\\s+") ;
-                for(int x = 0; x < ParsedWords.length;x++){
-                    mindistance = 3;
-                    for(int y = 0; y < database.length; y++){
-                        if(distance(ParsedWords[x],database[y])<2){
-                            tempstring = database[y];
-                            break;
+                if(mEdit.getText().toString().isEmpty()) {
+                    //Display Message if no keyword is provided
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                    builder.setTitle("No Keyword Provided");
+                    builder.setMessage("You did not specify a keyword to search.");
+                    builder.setNegativeButton("Try Again", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
                         }
-                        else if(distance(ParsedWords[x],database[y])<mindistance){
-                            tempstring = database[y];
-                        }
-                        else tempstring = ParsedWords[x];
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    hideSoftKeyboard();
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (box1.isChecked()) {
+                        tempid += "&category_ids=2228";
                     }
-                    ParsedWords[x]=tempstring;
-                }
+                    if (box2.isChecked()) {
+                        tempid += "&category_ids=11450";
+                    }
+                    if (box3.isChecked()) {
+                        tempid += "&category_ids=888";
+                    }
+                    if (box4.isChecked()) {
+                        tempid += "&category_ids=64882";
+                    }
+                    num1 = (EditText) findViewById(R.id.editText);
+                    num2 = (EditText) findViewById(R.id.editText2);
 
-                join = ParsedWords[0];
-                for(int x = 1; x < ParsedWords.length;x++){
-                    join += " "; join+=ParsedWords[x];
-                }
-                join.toLowerCase();
-                new SearchItemTask().execute(join,price,temp,tempid,schoolname);
+                    if (num1.length() != 0) {
+                        if (num2.length() != 0) {
+                            price = "&filter=priceCurrency:USD&filter=price:[" + num1.getText().toString() + ".." + num2.getText().toString() + "]";
+                        } else {
+                            price = "&filter=priceCurrency:USD&filter=price:[" + num1.getText().toString() + "]";
+                        }
+                    } else {
+                        if (num2.length() != 0) {
+                            price = "&filter=priceCurrency:USD&filter=price:[.." + num2.getText().toString() + "]";
+                        } else {
+                            price = "";
+                        }
+                    }
 
-                FileOutputStream stream = null;
-                try {
-                    stream = openFileOutput("history.txt", Context.MODE_APPEND);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                    String[] ParsedWords = mEdit.getText().toString().split("\\s+");
+                    for (int x = 0; x < ParsedWords.length; x++) {
+                        mindistance = 3;
+                        for (int y = 0; y < database.length; y++) {
+                            if (distance(ParsedWords[x], database[y]) < 2) {
+                                tempstring = database[y];
+                                break;
+                            } else if (distance(ParsedWords[x], database[y]) < mindistance) {
+                                tempstring = database[y];
+                            } else tempstring = ParsedWords[x];
+                        }
+                        ParsedWords[x] = tempstring;
+                    }
 
-                try {
-                    stream.write(join.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    join = ParsedWords[0];
+                    for (int x = 1; x < ParsedWords.length; x++) {
+                        join += " ";
+                        join += ParsedWords[x];
+                    }
+                    join.toLowerCase();
+                    new SearchItemTask().execute(join, price, temp, tempid, schoolname);
+
+                    FileOutputStream stream = null;
+                    try {
+                        stream = openFileOutput("history.txt", Context.MODE_APPEND);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        stream.write(join.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("E", "tempstr = " + tempstr);
                 }
-                Log.d("E","tempstr = " + tempstr);
             }
         });
 
@@ -375,6 +387,7 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(List strings) {
             progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
+
             if(result.isEmpty()) {
                 //Display Message if no results are found
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
@@ -388,7 +401,6 @@ public class SearchActivity extends AppCompatActivity {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                
             } else {
                 intent.putExtra(EXTRA_MESSAGE, result);
                 startActivity(intent);
