@@ -3,7 +3,7 @@
     <string name="purchaseInitiateUrl">https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/initiate</string>
     <string name="sandboxKey"></string>
     <string name="search_message">Keyword</string>
-    <string name="search_school">School of Interest</string>
+    <string name="search_school">Enter Your School of Interest</string>
     <string name="search_button">Search</string>
     <string name="next_button">Next</string>
     <string name="buyButton">Buy It Now</string>

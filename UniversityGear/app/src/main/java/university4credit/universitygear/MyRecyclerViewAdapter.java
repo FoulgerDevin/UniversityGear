@@ -44,6 +44,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         //Setting text view title
         customViewHolder.textView.setText(Html.fromHtml(feedItem.title));
         customViewHolder.priceView.setText(feedItem.price);
+        customViewHolder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
 
         View.OnClickListener listener = new View.OnClickListener() {

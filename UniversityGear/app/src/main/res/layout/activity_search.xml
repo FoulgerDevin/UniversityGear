@@ -76,7 +76,8 @@
         android:text="Category"
         android:id="@+id/textView"
         android:layout_above="@+id/checkbox1"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,6 +85,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Condition"
         android:id="@+id/textView3"
+        android:textSize="18dp"
+        android:layout_marginTop="16dp"
         android:layout_below="@+id/checkbox4"
         android:layout_alignParentStart="true" />
     <RadioGroup
@@ -117,7 +120,9 @@
         android:id="@+id/editText"
         android:layout_above="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/button1" />
+        android:layout_toStartOf="@+id/progress_bar"
+        android:layout_alignEnd="@+id/checkbox3"
+        android:hint="From"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -126,7 +131,9 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_alignTop="@+id/editText"
-        android:layout_alignEnd="@+id/radiogroup" />
+        android:layout_alignEnd="@+id/radiogroup"
+        android:layout_toEndOf="@+id/checkbox2"
+        android:hint="To"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -135,7 +142,8 @@
         android:text="Price Range"
         android:id="@+id/textView4"
         android:layout_above="@+id/editText"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18dp"/>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
