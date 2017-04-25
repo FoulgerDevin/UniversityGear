@@ -37,6 +37,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
     public final static String ITEM_CURRENCY = "university4credit.universitygear.CURRENCY";
     public final static String ITEM_PRICE = "university4credit.universitygear.PRICE";
     Item item;
+
+    //This string is used for getting the description and passing to webview
+    String webData;
     //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
 
 
@@ -49,6 +52,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         final String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
         //Log.e("ITEM ID PASSED IN", "" + itemId);
 
+        Button descriptionButton = (Button) findViewById(R.id.description);
+        descriptionButton.setVisibility(descriptionButton.GONE);
+
         new DownloadItemTask().execute(itemId);
 
 
@@ -60,6 +66,14 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
                 //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
                 //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
                 startActivity(purchaseIntent);
+            }
+        });
+
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent webViewIntent = new Intent(DisplaySingleItemActivity.this, DescriptionActivity.class);
+                webViewIntent.putExtra("itemURL",webData);
+                startActivity(webViewIntent);
             }
         });
     }
@@ -148,9 +162,10 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             price.setText(item.sItem.price);
 
             //Description
-            TextView description = (TextView) findViewById(R.id.description);
-            description.setText(Html.fromHtml(item.sItem.shortDescription));
-            //description.setVisibility(description.GONE);
+            Button description = (Button) findViewById(R.id.description);
+            //description.setText(Html.fromHtml(item.sItem.shortDescription));
+            webData = item.sItem.shortDescription;
+            description.setVisibility(description.VISIBLE);
 
             //Condition
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
