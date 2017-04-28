@@ -147,11 +147,11 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //Log.e("ITEM IMAGE",""+item.sItem.imageURL);
             if (item.sItem.imageURL != null) {
                 Picasso.with(DisplaySingleItemActivity.this).load(item.sItem.imageURL)
-                        .fit()
                         .error(R.drawable.placeholder)
                         .placeholder(R.drawable.placeholder)
                         .into(imageView);
             }
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
 
             //Title
             TextView title = (TextView)findViewById(R.id.itemTitle);
@@ -171,13 +171,12 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
             condition.setText(item.sItem.condition);
 
+            //Quantity
             TextView quantity = (TextView)findViewById(R.id.quantityGiven);
             TextView quantity2 = (TextView)findViewById(R.id.quantityGiven2);
             if (item.sItem.availability.equals("Unspecified")) {
-                TextView quantityLabel = (TextView)findViewById(R.id.quantity);
-                quantity.setVisibility(quantity.GONE);
+                quantity.setText(item.sItem.availability);
                 quantity2.setVisibility(quantity2.GONE);
-                quantityLabel.setVisibility(quantityLabel.GONE);
             } else {
                 quantity.setText(item.sItem.availability);
                 quantity2.setText(item.sItem.quantitySold);
