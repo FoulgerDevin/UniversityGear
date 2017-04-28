@@ -39,15 +39,6 @@
         android:textColor="#FFFFFF" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Recommended Search"
-        android:id="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true" />
-
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,16 +72,6 @@
         android:layout_below="@+id/toggleButton2"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/nextbutton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:text="@string/next_button"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/toggleButton3"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,6 +79,38 @@
         android:text="Or use these instead"
         android:id="@+id/textView5"
         android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:layout_below="@+id/nextbutton2"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/nextbutton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:text="@string/next_button"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Recommended Search"
+        android:id="@+id/textView"
+        android:layout_marginTop="91dp"
+        android:layout_below="@+id/nextbutton"
+        android:layout_alignParentStart="true" />
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButton4"
+        android:layout_below="@+id/toggleButton3"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

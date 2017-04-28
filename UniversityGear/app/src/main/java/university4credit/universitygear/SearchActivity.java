@@ -205,6 +205,7 @@ public class SearchActivity extends AppCompatActivity {
         InputStream inputstream;
         String result = "";
         String oAuthtoken;
+        Integer resultnum = 0;
 
         @Override
         protected void onPreExecute() { super.onPreExecute(); }
@@ -343,17 +344,21 @@ public class SearchActivity extends AppCompatActivity {
             }
             Item items = null;
             Log.e("RESULT STRING", "" + result);
+
             try {
                 JSONObject temp = new JSONObject(result);
                 String total = temp.getString("total");
                 editor.putString("total", total);
                 editor.commit();
+                resultnum = temp.getInt("total");
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            if (result != null && result.length() > 0) {
+            Log.e("RESULT STRING", "" + resultnum);
+            if (result != null && resultnum > 0) {
+                editor.putString("lastsearch", params[4]);
+                editor.commit();
                 items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
@@ -370,7 +375,7 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(List strings) {
             progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
-            if(result.isEmpty()) {
+            if(resultnum == 0) {
                 //Display Message if no results are found
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setTitle("No Items Found");
