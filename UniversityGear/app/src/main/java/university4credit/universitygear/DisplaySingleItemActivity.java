@@ -37,6 +37,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
     public final static String ITEM_CURRENCY = "university4credit.universitygear.CURRENCY";
     public final static String ITEM_PRICE = "university4credit.universitygear.PRICE";
     Item item;
+
+    //This string is used for getting the description and passing to webview
+    String webData;
     //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
 
 
@@ -49,6 +52,9 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         final String itemId = singleItemIntent.getStringExtra(DisplaySearchResultsActivity.ITEM_ID);
         //Log.e("ITEM ID PASSED IN", "" + itemId);
 
+        Button descriptionButton = (Button) findViewById(R.id.description);
+        descriptionButton.setVisibility(descriptionButton.GONE);
+
         new DownloadItemTask().execute(itemId);
 
 
@@ -60,6 +66,14 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
                 //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
                 //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
                 startActivity(purchaseIntent);
+            }
+        });
+
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent webViewIntent = new Intent(DisplaySingleItemActivity.this, DescriptionActivity.class);
+                webViewIntent.putExtra("itemURL",webData);
+                startActivity(webViewIntent);
             }
         });
     }
@@ -85,8 +99,8 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            SharedPreferences sharedPreferences = getSharedPreferences("oauth",Context.MODE_PRIVATE);
-
+            SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
+            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
             connection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken",""));
             connection.setRequestProperty("Accept","application/json");
             connection.setRequestProperty("Content-Type","application/json");
@@ -133,11 +147,11 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             //Log.e("ITEM IMAGE",""+item.sItem.imageURL);
             if (item.sItem.imageURL != null) {
                 Picasso.with(DisplaySingleItemActivity.this).load(item.sItem.imageURL)
-                        .fit()
                         .error(R.drawable.placeholder)
                         .placeholder(R.drawable.placeholder)
                         .into(imageView);
             }
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
 
             //Title
             TextView title = (TextView)findViewById(R.id.itemTitle);
@@ -148,21 +162,21 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             price.setText(item.sItem.price);
 
             //Description
-            TextView description = (TextView) findViewById(R.id.description);
-            description.setText(Html.fromHtml(item.sItem.shortDescription));
-            description.setVisibility(description.GONE);
+            Button description = (Button) findViewById(R.id.description);
+            //description.setText(Html.fromHtml(item.sItem.shortDescription));
+            webData = item.sItem.shortDescription;
+            description.setVisibility(description.VISIBLE);
 
             //Condition
             TextView condition = (TextView)findViewById(R.id.conditionGiven);
             condition.setText(item.sItem.condition);
 
+            //Quantity
             TextView quantity = (TextView)findViewById(R.id.quantityGiven);
             TextView quantity2 = (TextView)findViewById(R.id.quantityGiven2);
             if (item.sItem.availability.equals("Unspecified")) {
-                TextView quantityLabel = (TextView)findViewById(R.id.quantity);
-                quantity.setVisibility(quantity.GONE);
+                quantity.setText(item.sItem.availability);
                 quantity2.setVisibility(quantity2.GONE);
-                quantityLabel.setVisibility(quantityLabel.GONE);
             } else {
                 quantity.setText(item.sItem.availability);
                 quantity2.setText(item.sItem.quantitySold);
