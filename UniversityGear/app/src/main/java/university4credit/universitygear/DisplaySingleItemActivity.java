@@ -87,7 +87,7 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         @Override
         protected Item doInBackground(String... params) {
             //this is the url that i passed in
-            String urlString = "https://api.sandbox.ebay.com/buy/browse/v1/item/"+params[0];
+            String urlString = "https://api.ebay.com/buy/browse/v1/item/"+params[0];
             try {
                 url = new URL(urlString);
             } catch (MalformedURLException e) {

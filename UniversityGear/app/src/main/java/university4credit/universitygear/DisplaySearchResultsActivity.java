@@ -78,7 +78,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     private class ScrollSearchTask extends AsyncTask<String, Void, List <Item>>{
         @Override
         protected List<Item> doInBackground(String... params) {
-            String itemLimit = "200";
+            String itemLimit = "50";
             URL url = null;
             HttpURLConnection conn = null;
             HttpURLConnection conn3 = null;
@@ -170,7 +170,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                     }
                 });
                 feedsList.addAll(result);
-                if(feedsList.size() > 200) {
+                if(feedsList.size() > 50) {
                     Log.e("DSRA - state, size:", " " + feedsList.size());
                     adapter.notifyItemRangeInserted(0, result.size());
                 }
@@ -194,7 +194,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
                     //parseResult(searchResults);
                     feed = new Item(searchResults, false);
                     feedsList = feed.itemFeed;
-                    itemCount += 200;
+                    itemCount += 50;
                     result = 1; // Successful
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());

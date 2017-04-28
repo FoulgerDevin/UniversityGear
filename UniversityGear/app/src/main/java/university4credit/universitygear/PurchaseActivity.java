@@ -438,7 +438,7 @@ public class PurchaseActivity extends AppCompatActivity{
 
         private void updatePayment(String checkoutSessionId, JSONObject billingInfo) {
             //set the URL to be used when changing payment method
-            String paymentUrlString = "https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/" + checkoutSessionId + "/update_payment_info";
+            String paymentUrlString = "https://api.ebay.com/buy/order/v1/guest_checkout_session/" + checkoutSessionId + "/update_payment_info";
             URL paymentUrl = null;
             HttpURLConnection apiConnection = null;
             InputStream sessionStream;
@@ -526,7 +526,7 @@ public class PurchaseActivity extends AppCompatActivity{
             String streamResult = null;
 
             //Set the place purchase order URL
-            String purchseOrderUrlString = "https://api.sandbox.ebay.com/buy/order/v1/guest_checkout_session/" + checkoutSessionId + "/place_order";
+            String purchseOrderUrlString = "https://api.ebay.com/buy/order/v1/guest_checkout_session/" + checkoutSessionId + "/place_order";
 
             try {
                 purchaseUrl = new URL(purchseOrderUrlString);

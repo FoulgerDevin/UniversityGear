@@ -211,7 +211,7 @@ public class SearchActivity extends AppCompatActivity {
     private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
         private String temp;
         private Context tempc;
-        private String itemLimit = "200";
+        private String itemLimit = "50";
         URL url, url2;
         HttpURLConnection conn,conn3;
         InputStream inputstream;
@@ -224,7 +224,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected List<Item> doInBackground(String... params) {
             //this is the url that i passed in
-            String id = "BryanLia-Universi-SBX-18adaa5fd-2dd2c2e3:SBX-8adaa5fd4c3c-8c04-4d13-9adb-8196";
+            String id = "NENyZWRpdC1Vbml2ZXJzaS1QUkQtY2NkNDA5YTFlLWI5NjQ3YzFlOlBSRC1jZDQwOWExZWUwNGEtYWQyZS00OWQ5LWEzNjYtMDVlMA==";
             byte[] data = new byte[0];
             try {
                 data = id.getBytes("UTF-8");
@@ -233,7 +233,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             String base64 = Base64.encodeToString(data, Base64.NO_WRAP);
             try {
-                url = new URL("https://api.sandbox.ebay.com/identity/v1/oauth2/token");
+                url = new URL("https://api.ebay.com/identity/v1/oauth2/token");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -243,7 +243,7 @@ public class SearchActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            conn3.setRequestProperty("Authorization","Basic "+base64);
+            conn3.setRequestProperty("Authorization","Basic "+id);
             conn3.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn3.setDoOutput(true);
             try {
@@ -253,7 +253,7 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String urlParameters  = "grant_type=client_credentials&redirect_uri=Bryan_Liauw-BryanLia-Univer-kheulrrfh&scope=https://api.ebay.com/oauth/api_scope";
+            String urlParameters  = "grant_type=client_credentials&redirect_uri=4Credit-4Credit-Univers-suehmh&scope=https://api.ebay.com/oauth/api_scope";
             byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
             conn3.setRequestProperty( "Content-Length", Integer.toString( postData.length ));
             try {
@@ -287,7 +287,7 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+            String urlString ="https://api.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
             SharedPreferences.Editor editor = sharedPreference.edit();
 
             editor.putString("query", urlString);
