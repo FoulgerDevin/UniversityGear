@@ -211,7 +211,7 @@ public class SearchActivity extends AppCompatActivity {
     private class SearchItemTask extends AsyncTask<String,Void,List<Item>> {
         private String temp;
         private Context tempc;
-        private String itemLimit = "200";
+        private String itemLimit = "50";
         URL url, url2;
         HttpURLConnection conn,conn2,conn3;
         InputStream inputstream;
