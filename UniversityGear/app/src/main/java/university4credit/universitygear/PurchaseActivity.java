@@ -70,8 +70,8 @@ public class PurchaseActivity extends AppCompatActivity{
         //Get item information without having to use another API call
         Intent itemIntent = getIntent();
         String itemId    = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_ID);
-        String itemTitle = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_TITLE);
-        String itemPrice = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_PRICE);
+        String itemTitle = itemIntent.getStringExtra("itemTitle");
+        String itemPrice = itemIntent.getStringExtra("itemPrice");
 
         Log.i("ITEM ID", "" + itemId);
 
@@ -315,6 +315,8 @@ public class PurchaseActivity extends AppCompatActivity{
             if (orderInfo.containsKey("purchaseStatus")) {
                 Log.i("ORDER API", "Screen will change to a new one");
                 Intent thanks = new Intent(PurchaseActivity.this, DisplayPurchaseInformation.class);
+                thanks.putExtra("purchaseId", orderInfo.get("purchaseId"));
+                thanks.putExtra("purchaseStatue", orderInfo.get("purchaseStatus"));
                 startActivity(thanks);
                 finish();
             } else {

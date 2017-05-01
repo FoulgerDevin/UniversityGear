@@ -45,6 +45,7 @@
     <string name="cardcvv">CVV NUmber</string>
     <string name="thanks">Thank you for your purchase.</string>
     <string name="descriptionButton">Click to view item description</string>
+    <string name="order">Your order number is:</string>
     <string-array name="cardTypes">
         <item>American Express</item>
         <item>Discover</item>
