@@ -248,7 +248,7 @@ public class SearchActivity extends AppCompatActivity {
             conn3.setRequestProperty("Authorization","Basic "+id);
             conn3.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn3.setDoOutput(true);
-            conn2.setRequestProperty("Authorization","Basic "+base64);
+            conn2.setRequestProperty("Authorization","Basic "+id);
             conn2.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn2.setDoOutput(true);
             try {
@@ -328,10 +328,10 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(params[4].isEmpty()==true){
+            /*if(params[4].isEmpty()){
                 params[4]= "University ";
-            }
-            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+            }*/
+            String urlString ="https://api.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
             SharedPreferences.Editor editor = sharedPreference.edit();
 
             editor.putString("query", urlString);
