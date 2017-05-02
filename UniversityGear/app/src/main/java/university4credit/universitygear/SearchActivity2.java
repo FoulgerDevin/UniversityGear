@@ -126,7 +126,7 @@ public class SearchActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),SearchActivity.class);
                 Log.d("schoolname2", edit.getText().toString());
-                intent.putExtra("asdf",edit.getText().toString());
+                intent.putExtra("asdf",edit.getText().toString() + " ");
                 startActivity(intent);
             }
         });
