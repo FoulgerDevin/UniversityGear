@@ -67,7 +67,7 @@ public class SearchActivity2 extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
         String schooltemp = sharedPreferences.getString("lastsearch","non");
         Log.d("last search:",schooltemp);
-        if(schooltemp.equalsIgnoreCase("non")==false){
+        if(schooltemp.equalsIgnoreCase("non")==false&&schooltemp.isEmpty()==false){
             if(schooltemp.equalsIgnoreCase(list.Schools[0])== false &&schooltemp.equalsIgnoreCase(list.Schools[1])== false &&schooltemp.equalsIgnoreCase(list.Schools[2])== false){
                 button4.setVisibility(View.VISIBLE);
                 button4.setTextOn(schooltemp);
