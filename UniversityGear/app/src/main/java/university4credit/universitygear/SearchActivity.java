@@ -260,7 +260,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             String urlParameters  = "grant_type=client_credentials&redirect_uri=4Credit-4Credit-Univers-suehmh&scope=https://api.ebay.com/oauth/api_scope";
-            String urlParameters2 = "grant_type=client_credentials&redirect_uri=Bryan_Liauw-BryanLia-Univer-kheulrrfh&scope=https://api.ebay.com/oauth/api_scope/buy.guest.order";
+            String urlParameters2 = "grant_type=client_credentials&redirect_uri=4Credit-4Credit-Univers-suehmh&scope=https://api.ebay.com/oauth/api_scope/buy.guest.order";
             byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
             byte[] postData2      = urlParameters2.getBytes(StandardCharsets.UTF_8);
             conn3.setRequestProperty( "Content-Length", Integer.toString( postData.length ));
@@ -295,7 +295,6 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String urlString ="https://api.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
 
             conn2.setRequestProperty( "Content-Length", Integer.toString( postData2.length ));
             try {
