@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E9E9E9">
 
     <TextView
         android:text="@string/thanks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textSize="18sp" />
-</LinearLayout>
+        android:id="@+id/purchaseThanks"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:text="@string/order"
+        android:id="@+id/orderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/purchaseThanks"
+        android:textSize="19sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderNum"
+        android:layout_below="@+id/purchaseThanks"
+        android:textColor="#0040AA"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        android:layout_toEndOf="@+id/orderText"/>
+</RelativeLayout>

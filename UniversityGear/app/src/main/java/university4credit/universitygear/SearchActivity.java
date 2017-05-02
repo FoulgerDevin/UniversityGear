@@ -213,10 +213,11 @@ public class SearchActivity extends AppCompatActivity {
         private Context tempc;
         private String itemLimit = "50";
         URL url, url2;
-        HttpURLConnection conn,conn3;
+        HttpURLConnection conn,conn2,conn3;
         InputStream inputstream;
         String result = "";
         String oAuthtoken;
+        Integer resultnum = 0;
 
         @Override
         protected void onPreExecute() { super.onPreExecute(); }
@@ -239,6 +240,7 @@ public class SearchActivity extends AppCompatActivity {
             }
             try {
                 conn3 = (HttpURLConnection)url.openConnection();
+                conn2 = (HttpURLConnection)url.openConnection();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -246,15 +248,21 @@ public class SearchActivity extends AppCompatActivity {
             conn3.setRequestProperty("Authorization","Basic "+id);
             conn3.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             conn3.setDoOutput(true);
+            conn2.setRequestProperty("Authorization","Basic "+base64);
+            conn2.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            conn2.setDoOutput(true);
             try {
                 conn3.setRequestMethod("POST");
+                conn2.setRequestMethod("POST");
                 //conn.setDoOutput(false);
             } catch (ProtocolException e) {
                 e.printStackTrace();
             }
 
             String urlParameters  = "grant_type=client_credentials&redirect_uri=4Credit-4Credit-Univers-suehmh&scope=https://api.ebay.com/oauth/api_scope";
+            String urlParameters2 = "grant_type=client_credentials&redirect_uri=Bryan_Liauw-BryanLia-Univer-kheulrrfh&scope=https://api.ebay.com/oauth/api_scope/buy.guest.order";
             byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+            byte[] postData2      = urlParameters2.getBytes(StandardCharsets.UTF_8);
             conn3.setRequestProperty( "Content-Length", Integer.toString( postData.length ));
             try {
                 conn3.getOutputStream().write(postData);
@@ -288,6 +296,41 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             String urlString ="https://api.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
+
+            conn2.setRequestProperty( "Content-Length", Integer.toString( postData2.length ));
+            try {
+                conn2.getOutputStream().write(postData2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line+"\n");
+                }
+                br.close();
+
+                json = new JSONObject(sb.toString());
+                String oAuthtoken2 = json.getString("access_token");
+                sharedPreference = getSharedPreferences("Authentication", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreference.edit();
+
+                editor.putString("oAuthToken2", oAuthtoken2);
+                editor.commit();
+                Log.d("hey2", oAuthtoken2);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("e","asdf");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String urlString ="https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
             SharedPreferences.Editor editor = sharedPreference.edit();
 
             editor.putString("query", urlString);
@@ -360,17 +403,21 @@ public class SearchActivity extends AppCompatActivity {
             }
             Item items = null;
             Log.e("RESULT STRING", "" + result);
+
             try {
                 JSONObject temp = new JSONObject(result);
                 String total = temp.getString("total");
                 editor.putString("total", total);
                 editor.commit();
+                resultnum = temp.getInt("total");
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            if (result != null && result.length() > 0) {
+            Log.e("RESULT STRING", "" + resultnum);
+            if (result != null && resultnum > 0) {
+                editor.putString("lastsearch", params[4]);
+                editor.commit();
                 items = new Item(result, false);
                 itemFeed = items.itemFeed;
             }
@@ -387,8 +434,7 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(List strings) {
             progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(SearchActivity.this, DisplaySearchResultsActivity.class);
-
-            if(result.isEmpty()) {
+            if(resultnum == 0) {
                 //Display Message if no results are found
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setTitle("No Items Found");

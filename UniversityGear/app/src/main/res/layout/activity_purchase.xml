@@ -75,21 +75,23 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/shippingInfo"
                 android:text="@string/firstName"
+                android:paddingRight="85dp"
                 android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/firstName"
-                android:layout_width="match_parent"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/firstNameText"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/lastNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/firstName"
                 android:text="@string/lastName"
+                android:layout_alignBaseline="@+id/firstNameText"
+                android:layout_toEndOf="@+id/firstNameText"
                 android:textSize="18sp"/>
 
             <EditText
@@ -97,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lastNameText"
+                android:layout_toEndOf="@+id/firstNameText"
                 android:textSize="18sp"/>
 
             <TextView
@@ -130,12 +133,12 @@
                 android:textSize="18sp"/>
 
             <TextView
-            android:id="@+id/cityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/streetAddress2"
-            android:text="@string/city"
-            android:textSize="18sp"/>
+                android:id="@+id/cityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetAddress2"
+                android:text="@string/city"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/city"
@@ -150,11 +153,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/city"
                 android:text="@string/state"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:paddingRight="100dp"/>
 
             <Spinner
                 android:id="@+id/state"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/stateText"
                 android:textSize="18sp"
@@ -164,7 +168,8 @@
                 android:id="@+id/zipCodeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/state"
+                android:layout_toRightOf="@+id/stateText"
+                android:layout_alignBaseline="@+id/stateText"
                 android:text="@string/zipCode"
                 android:textSize="18sp"/>
 
@@ -173,6 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/zipCodeText"
+                android:layout_toRightOf="@+id/stateText"
                 android:textSize="18sp"
                 android:inputType="number"
                 android:maxLength="10"/>
@@ -242,11 +248,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/paymentInfo"
                 android:text="@string/cardNum"
+                android:paddingRight="115dp"
                 android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/cardNumber"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardText"
                 android:textSize="18sp"
@@ -257,15 +264,17 @@
                 android:id="@+id/cardCVVText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cardNumber"
+                android:layout_alignBaseline="@+id/cardText"
+                android:layout_toEndOf="@+id/cardText"
                 android:text="@string/cardcvv"
                 android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/cardCVV"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardCVVText"
+                android:layout_toEndOf="@+id/cardText"
                 android:textSize="18sp"
                 android:inputType="number"
                 android:maxLength="4"/>
@@ -276,11 +285,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardCVV"
                 android:text="@string/expMonth"
+                android:paddingRight="50dp"
                 android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/expirationMonth"
-                android:layout_width="match_parent"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expirationMonthText"
                 android:textSize="18sp"
@@ -291,15 +301,17 @@
                 android:id="@+id/expirationYearText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expirationMonth"
+                android:layout_alignBaseline="@+id/expirationMonthText"
+                android:layout_toEndOf="@+id/expirationMonthText"
                 android:text="@string/expYear"
                 android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/expirationYear"
-                android:layout_width="match_parent"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expirationYearText"
+                android:layout_toEndOf="@+id/expirationMonthText"
                 android:textSize="18sp"
                 android:inputType="date"
                 android:maxLength="4"/>
@@ -314,7 +326,7 @@
 
             <Spinner
                 android:id="@+id/cardType"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardTypeText"
                 android:textSize="18sp"
@@ -442,11 +454,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cityBilling"
                 android:text="@string/state"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:paddingRight="100dp"/>
 
             <Spinner
                 android:id="@+id/stateBilling"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/stateTextBilling"
                 android:textSize="18sp"
@@ -456,7 +469,8 @@
                 android:id="@+id/zipCodeTextBilling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/stateBilling"
+                android:layout_alignBaseline="@+id/stateTextBilling"
+                android:layout_toEndOf="@+id/stateTextBilling"
                 android:text="@string/zipCode"
                 android:textSize="18sp" />
 
@@ -465,6 +479,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/zipCodeTextBilling"
+                android:layout_toEndOf="@id/stateTextBilling"
                 android:textSize="18sp"
                 android:inputType="number"
                 android:maxLength="10"/>

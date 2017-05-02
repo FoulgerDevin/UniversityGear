@@ -40,7 +40,8 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
 
     //This string is used for getting the description and passing to webview
     String webData;
-    //Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
+    String itemTitle;
+    String itemPrice;
 
 
     @Override
@@ -58,17 +59,19 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
         new DownloadItemTask().execute(itemId);
 
 
+        //Button for starting purchase activity
         Button buyButton = (Button)findViewById(R.id.buyButton);
         buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
                 purchaseIntent.putExtra(ITEM_ID, itemId);
-                //purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
-                //purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
+                purchaseIntent.putExtra("itemTitle", itemTitle);
+                purchaseIntent.putExtra("itemPrice", itemPrice);
                 startActivity(purchaseIntent);
             }
         });
 
+        //Intent for displaying the description in a webview
         descriptionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent webViewIntent = new Intent(DisplaySingleItemActivity.this, DescriptionActivity.class);
@@ -155,10 +158,12 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
 
             //Title
             TextView title = (TextView)findViewById(R.id.itemTitle);
+            itemTitle = item.sItem.title;
             title.setText(item.sItem.title);
 
             //Price
             TextView price = (TextView)findViewById(R.id.itemPrice);
+            itemPrice = item.sItem.price;
             price.setText(item.sItem.price);
 
             //Description
@@ -252,16 +257,6 @@ public class DisplaySingleItemActivity extends AppCompatActivity {
             } else {
                 gender.setText(item.sItem.gender);
             }
-
-            Intent purchaseIntent = new Intent(DisplaySingleItemActivity.this, PurchaseActivity.class);
-            //purchaseIntent.putExtra(ITEM_ID, item.sItem.itemID);
-            purchaseIntent.putExtra(ITEM_PRICE, item.sItem.price);
-            purchaseIntent.putExtra(ITEM_TITLE, item.sItem.title);
-            /*Bundle bundle = new Bundle();
-            bundle.putString("item_id", item.sItem.itemID);
-            bundle.putString("item_title", item.sItem.title);
-            bundle.putString("item_price", item.sItem.price);
-            purchaseIntent.putExtras(bundle);*/
         }
     }
 }

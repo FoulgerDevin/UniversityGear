@@ -70,8 +70,8 @@ public class PurchaseActivity extends AppCompatActivity{
         //Get item information without having to use another API call
         Intent itemIntent = getIntent();
         String itemId    = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_ID);
-        String itemTitle = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_TITLE);
-        String itemPrice = itemIntent.getStringExtra(DisplaySingleItemActivity.ITEM_PRICE);
+        String itemTitle = itemIntent.getStringExtra("itemTitle");
+        String itemPrice = itemIntent.getStringExtra("itemPrice");
 
         Log.i("ITEM ID", "" + itemId);
 
@@ -315,6 +315,8 @@ public class PurchaseActivity extends AppCompatActivity{
             if (orderInfo.containsKey("purchaseStatus")) {
                 Log.i("ORDER API", "Screen will change to a new one");
                 Intent thanks = new Intent(PurchaseActivity.this, DisplayPurchaseInformation.class);
+                thanks.putExtra("purchaseId", orderInfo.get("purchaseId"));
+                thanks.putExtra("purchaseStatue", orderInfo.get("purchaseStatus"));
                 startActivity(thanks);
                 finish();
             } else {
@@ -365,10 +367,10 @@ public class PurchaseActivity extends AppCompatActivity{
             }
 
             //Set the correct header information
+
             SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
-            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
-            apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
-            //apiConnection.setRequestProperty("Authorization", "Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTuttuSphb8gVJ8xHUQEyQze2d29jVlV7YtTZvQbmUX0mJImcedMnR2Zpx7t+2aKLWpNYJExRiJAVOVxIBCBIxQCIJR5AeJQRIiECU08EONCWpMCFGCd6ZL2VZCK6yGxPkzueece+53vvOYuaC/ovKJoaahy9WeGaXD/aC/1ONhq0BlRfnCmWWlD5SXgAIDz3D/Y/3egbIfFiExo1vCMogs00DQ15fRDSS4whiVtQ3BFJGGBEPMQCRgWUglWpYKHAMEyzaxKZs65WtuiFFhRRFZRQ0CTlYCksoTqXHdZ9qMUVAMwlBQCbEqkDnoqBHKwmYDYdHAMYoDbJgGPA2iaRAWABACPMMH+ZWUbwW0kWYaxIQBVNxFK7h77QKot0YqIgRtTJxQ8eZEYyqZaG5Y0ppe5C/wFc/TkMIizqKJq3pTgb4Vop6Ftz4GudZCKivLECHKHx87YaJTIXEdzG3Ad5mWoRKFIKJwXDBMmJSLQmWjaWdEfGscjkRTaNU1FaCBNZybilHChrQWyji/aiUumht8zuuprKhrqgbtGLWkLtGRaGuj4ny9DRUN08sNrcfBSqfq2mmJD6ohnucitAQjajgkBfPnjDnLszzpoHrTII5IsMjXauI6SEDDidSEhGABNcQoaSTthIodQIV20esUstxKJ6djScziNYaTVpghPPjc5dQJGN+Nsa1JWQzHPUxWuAzFKNGyNIWarHRLMV89fShGrcHYEvz+3t5epjfAmHaXnwOA9be3LE3Ja2BGpFxbp9cde23qDbTmhiJDshNpAs5ZBEsfKVUCwOii4lyIByyf530irPhk6d8EBTH7JzZE0RoEBCU5xAIuEIgAKVyUWRPP16jfwQElMUdnRLsbYksXZUjLpM6yGWhrihAIqlwgokJaCUVVmo+qKi2RsUezKoQAQkmSo5H/UZ9Mt9LrdY0o06TSilTuRSr1JhNhqEy31G8aWko2Ldhm6pqc+69ic3p9evEFbKVNtHGuLpsj6xTUdfK6o3BlN5OdRZtbRUrkP2uZ2wtdE/HdFTTLR9kwx3KBaQ/rm8dF/mbuqrhkM8M4Q5ixRQubNkOgWTpEjA2RmbXJ3xeTdD7JabMbGmTCYdvUdWivYO+IBeT08d3Fg7Pf+8J+RHyIljZGCeHGb4okekfU6YL2OXZTGfmlbI7pykKECRAF2v/C590/8aoRL3EfdsBzCAx4RshtBYQBzS4ECyrKlnvL7qGQhiHJraFIZh+jiSqDtC6D/ErbkOmGOUvU7NIKT8uFVzrWFVxyhleBmvFrTmUZW1Vw5wEP3dCUs7PmVLNhwIMoORYE+JVg3g2tl73fO/t8E3+0sepZ/Rt+/8gJb+6+dNv2maB63MjjKS/xDnhKNqV2vMScV7fM8rzhPX366I9P7l2n1a7+/outaqRh96ujezYvXrXhTF167uCB6s7t87+t/uXrs4OdDz735sfMo1d6vnyk9dripgu75n2mVb22+6M/KzfPEdEp2nprZ1uq4d4rgWN/HL7IZrct+nzu6ktXz9W+xx3cNrKlCm8afef1Hnx1xu/x6iO182n1RM0edf/TP1/7TlST60HLiwfRhUPtJ0/1LDu+Vele33W5Zu/LAWHtIPPp6Ibnh3rA7N/UjuC+7V+dXz5YRtfuHMnwLQvO4rff/en4kQ8zJz94fOMnZuO2dnZBza5fO55hHw4mZ+zbeNp6f8eBVaOXQsm9vo4znZmNQzuOXzzWfu7wWBr/AhKYMg9+DgAA");
+            Log.i("OAuth Token INITIATE", sharedPreferences.getString("oAuthToken2", ""));
+            apiConnection.setRequestProperty("Authorization", "Bearer " + sharedPreferences.getString("oAuthToken2",""));
             apiConnection.setRequestProperty("Accept", "application/json");
             apiConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
@@ -431,6 +433,10 @@ public class PurchaseActivity extends AppCompatActivity{
                 } else {
                     Log.i("CHECKOUT ID", "is null");
                 }
+
+                Log.i("INITIATE","SUCCESS");
+;            } else {
+                Log.e("INITIATE","FAILED");
             }
 
             return checkoutSessionId;
@@ -463,9 +469,9 @@ public class PurchaseActivity extends AppCompatActivity{
 
             //Set the correct header information
             SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
-            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
-            //apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
-            apiConnection.setRequestProperty("Authorization", "Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTuttuSphb8gVJ8xHUQEyQze2d29jVlV7YtTZvQbmUX0mJImcedMnR2Zpx7t+2aKLWpNYJExRiJAVOVxIBCBIxQCIJR5AeJQRIiECU08EONCWpMCFGCd6ZL2VZCK6yGxPkzueece+53vvOYuaC/ovKJoaahy9WeGaXD/aC/1ONhq0BlRfnCmWWlD5SXgAIDz3D/Y/3egbIfFiExo1vCMogs00DQ15fRDSS4whiVtQ3BFJGGBEPMQCRgWUglWpYKHAMEyzaxKZs65WtuiFFhRRFZRQ0CTlYCksoTqXHdZ9qMUVAMwlBQCbEqkDnoqBHKwmYDYdHAMYoDbJgGPA2iaRAWABACPMMH+ZWUbwW0kWYaxIQBVNxFK7h77QKot0YqIgRtTJxQ8eZEYyqZaG5Y0ppe5C/wFc/TkMIizqKJq3pTgb4Vop6Ftz4GudZCKivLECHKHx87YaJTIXEdzG3Ad5mWoRKFIKJwXDBMmJSLQmWjaWdEfGscjkRTaNU1FaCBNZybilHChrQWyji/aiUumht8zuuprKhrqgbtGLWkLtGRaGuj4ny9DRUN08sNrcfBSqfq2mmJD6ohnucitAQjajgkBfPnjDnLszzpoHrTII5IsMjXauI6SEDDidSEhGABNcQoaSTthIodQIV20esUstxKJ6djScziNYaTVpghPPjc5dQJGN+Nsa1JWQzHPUxWuAzFKNGyNIWarHRLMV89fShGrcHYEvz+3t5epjfAmHaXnwOA9be3LE3Ja2BGpFxbp9cde23qDbTmhiJDshNpAs5ZBEsfKVUCwOii4lyIByyf530irPhk6d8EBTH7JzZE0RoEBCU5xAIuEIgAKVyUWRPP16jfwQElMUdnRLsbYksXZUjLpM6yGWhrihAIqlwgokJaCUVVmo+qKi2RsUezKoQAQkmSo5H/UZ9Mt9LrdY0o06TSilTuRSr1JhNhqEy31G8aWko2Ldhm6pqc+69ic3p9evEFbKVNtHGuLpsj6xTUdfK6o3BlN5OdRZtbRUrkP2uZ2wtdE/HdFTTLR9kwx3KBaQ/rm8dF/mbuqrhkM8M4Q5ixRQubNkOgWTpEjA2RmbXJ3xeTdD7JabMbGmTCYdvUdWivYO+IBeT08d3Fg7Pf+8J+RHyIljZGCeHGb4okekfU6YL2OXZTGfmlbI7pykKECRAF2v/C590/8aoRL3EfdsBzCAx4RshtBYQBzS4ECyrKlnvL7qGQhiHJraFIZh+jiSqDtC6D/ErbkOmGOUvU7NIKT8uFVzrWFVxyhleBmvFrTmUZW1Vw5wEP3dCUs7PmVLNhwIMoORYE+JVg3g2tl73fO/t8E3+0sepZ/Rt+/8gJb+6+dNv2maB63MjjKS/xDnhKNqV2vMScV7fM8rzhPX366I9P7l2n1a7+/outaqRh96ujezYvXrXhTF167uCB6s7t87+t/uXrs4OdDz735sfMo1d6vnyk9dripgu75n2mVb22+6M/KzfPEdEp2nprZ1uq4d4rgWN/HL7IZrct+nzu6ktXz9W+xx3cNrKlCm8afef1Hnx1xu/x6iO182n1RM0edf/TP1/7TlST60HLiwfRhUPtJ0/1LDu+Vele33W5Zu/LAWHtIPPp6Ibnh3rA7N/UjuC+7V+dXz5YRtfuHMnwLQvO4rff/en4kQ8zJz94fOMnZuO2dnZBza5fO55hHw4mZ+zbeNp6f8eBVaOXQsm9vo4znZmNQzuOXzzWfu7wWBr/AhKYMg9+DgAA");
+            Log.i("OAuth Token UPDATE CARD", sharedPreferences.getString("oAuthToken2", ""));
+            apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken2",""));
+            //apiConnection.setRequestProperty("Authorization", "Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTuttuSphb8gVJ8xHUQEyQze2d29jVlV7YtTZvQbmUX0mJImcedMnR2Zpx7t+2aKLWpNYJExRiJAVOVxIBCBIxQCIJR5AeJQRIiECU08EONCWpMCFGCd6ZL2VZCK6yGxPkzueece+53vvOYuaC/ovKJoaahy9WeGaXD/aC/1ONhq0BlRfnCmWWlD5SXgAIDz3D/Y/3egbIfFiExo1vCMogs00DQ15fRDSS4whiVtQ3BFJGGBEPMQCRgWUglWpYKHAMEyzaxKZs65WtuiFFhRRFZRQ0CTlYCksoTqXHdZ9qMUVAMwlBQCbEqkDnoqBHKwmYDYdHAMYoDbJgGPA2iaRAWABACPMMH+ZWUbwW0kWYaxIQBVNxFK7h77QKot0YqIgRtTJxQ8eZEYyqZaG5Y0ppe5C/wFc/TkMIizqKJq3pTgb4Vop6Ftz4GudZCKivLECHKHx87YaJTIXEdzG3Ad5mWoRKFIKJwXDBMmJSLQmWjaWdEfGscjkRTaNU1FaCBNZybilHChrQWyji/aiUumht8zuuprKhrqgbtGLWkLtGRaGuj4ny9DRUN08sNrcfBSqfq2mmJD6ohnucitAQjajgkBfPnjDnLszzpoHrTII5IsMjXauI6SEDDidSEhGABNcQoaSTthIodQIV20esUstxKJ6djScziNYaTVpghPPjc5dQJGN+Nsa1JWQzHPUxWuAzFKNGyNIWarHRLMV89fShGrcHYEvz+3t5epjfAmHaXnwOA9be3LE3Ja2BGpFxbp9cde23qDbTmhiJDshNpAs5ZBEsfKVUCwOii4lyIByyf530irPhk6d8EBTH7JzZE0RoEBCU5xAIuEIgAKVyUWRPP16jfwQElMUdnRLsbYksXZUjLpM6yGWhrihAIqlwgokJaCUVVmo+qKi2RsUezKoQAQkmSo5H/UZ9Mt9LrdY0o06TSilTuRSr1JhNhqEy31G8aWko2Ldhm6pqc+69ic3p9evEFbKVNtHGuLpsj6xTUdfK6o3BlN5OdRZtbRUrkP2uZ2wtdE/HdFTTLR9kwx3KBaQ/rm8dF/mbuqrhkM8M4Q5ixRQubNkOgWTpEjA2RmbXJ3xeTdD7JabMbGmTCYdvUdWivYO+IBeT08d3Fg7Pf+8J+RHyIljZGCeHGb4okekfU6YL2OXZTGfmlbI7pykKECRAF2v/C590/8aoRL3EfdsBzCAx4RshtBYQBzS4ECyrKlnvL7qGQhiHJraFIZh+jiSqDtC6D/ErbkOmGOUvU7NIKT8uFVzrWFVxyhleBmvFrTmUZW1Vw5wEP3dCUs7PmVLNhwIMoORYE+JVg3g2tl73fO/t8E3+0sepZ/Rt+/8gJb+6+dNv2maB63MjjKS/xDnhKNqV2vMScV7fM8rzhPX366I9P7l2n1a7+/outaqRh96ujezYvXrXhTF167uCB6s7t87+t/uXrs4OdDz735sfMo1d6vnyk9dripgu75n2mVb22+6M/KzfPEdEp2nprZ1uq4d4rgWN/HL7IZrct+nzu6ktXz9W+xx3cNrKlCm8afef1Hnx1xu/x6iO182n1RM0edf/TP1/7TlST60HLiwfRhUPtJ0/1LDu+Vele33W5Zu/LAWHtIPPp6Ibnh3rA7N/UjuC+7V+dXz5YRtfuHMnwLQvO4rff/en4kQ8zJz94fOMnZuO2dnZBza5fO55hHw4mZ+zbeNp6f8eBVaOXQsm9vo4znZmNQzuOXzzWfu7wWBr/AhKYMg9+DgAA");
             apiConnection.setRequestProperty("Accept", "application/json");
             apiConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
@@ -545,9 +551,9 @@ public class PurchaseActivity extends AppCompatActivity{
 
             //Set the correct header information
             SharedPreferences sharedPreferences = getSharedPreferences("Authentication", Context.MODE_PRIVATE);
-            Log.i("OAuth Token", sharedPreferences.getString("oAuthToken", ""));
-            //apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken",""));
-            apiConnection.setRequestProperty("Authorization", "Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTuttuSphb8gVJ8xHUQEyQze2d29jVlV7YtTZvQbmUX0mJImcedMnR2Zpx7t+2aKLWpNYJExRiJAVOVxIBCBIxQCIJR5AeJQRIiECU08EONCWpMCFGCd6ZL2VZCK6yGxPkzueece+53vvOYuaC/ovKJoaahy9WeGaXD/aC/1ONhq0BlRfnCmWWlD5SXgAIDz3D/Y/3egbIfFiExo1vCMogs00DQ15fRDSS4whiVtQ3BFJGGBEPMQCRgWUglWpYKHAMEyzaxKZs65WtuiFFhRRFZRQ0CTlYCksoTqXHdZ9qMUVAMwlBQCbEqkDnoqBHKwmYDYdHAMYoDbJgGPA2iaRAWABACPMMH+ZWUbwW0kWYaxIQBVNxFK7h77QKot0YqIgRtTJxQ8eZEYyqZaG5Y0ppe5C/wFc/TkMIizqKJq3pTgb4Vop6Ftz4GudZCKivLECHKHx87YaJTIXEdzG3Ad5mWoRKFIKJwXDBMmJSLQmWjaWdEfGscjkRTaNU1FaCBNZybilHChrQWyji/aiUumht8zuuprKhrqgbtGLWkLtGRaGuj4ny9DRUN08sNrcfBSqfq2mmJD6ohnucitAQjajgkBfPnjDnLszzpoHrTII5IsMjXauI6SEDDidSEhGABNcQoaSTthIodQIV20esUstxKJ6djScziNYaTVpghPPjc5dQJGN+Nsa1JWQzHPUxWuAzFKNGyNIWarHRLMV89fShGrcHYEvz+3t5epjfAmHaXnwOA9be3LE3Ja2BGpFxbp9cde23qDbTmhiJDshNpAs5ZBEsfKVUCwOii4lyIByyf530irPhk6d8EBTH7JzZE0RoEBCU5xAIuEIgAKVyUWRPP16jfwQElMUdnRLsbYksXZUjLpM6yGWhrihAIqlwgokJaCUVVmo+qKi2RsUezKoQAQkmSo5H/UZ9Mt9LrdY0o06TSilTuRSr1JhNhqEy31G8aWko2Ldhm6pqc+69ic3p9evEFbKVNtHGuLpsj6xTUdfK6o3BlN5OdRZtbRUrkP2uZ2wtdE/HdFTTLR9kwx3KBaQ/rm8dF/mbuqrhkM8M4Q5ixRQubNkOgWTpEjA2RmbXJ3xeTdD7JabMbGmTCYdvUdWivYO+IBeT08d3Fg7Pf+8J+RHyIljZGCeHGb4okekfU6YL2OXZTGfmlbI7pykKECRAF2v/C590/8aoRL3EfdsBzCAx4RshtBYQBzS4ECyrKlnvL7qGQhiHJraFIZh+jiSqDtC6D/ErbkOmGOUvU7NIKT8uFVzrWFVxyhleBmvFrTmUZW1Vw5wEP3dCUs7PmVLNhwIMoORYE+JVg3g2tl73fO/t8E3+0sepZ/Rt+/8gJb+6+dNv2maB63MjjKS/xDnhKNqV2vMScV7fM8rzhPX366I9P7l2n1a7+/outaqRh96ujezYvXrXhTF167uCB6s7t87+t/uXrs4OdDz735sfMo1d6vnyk9dripgu75n2mVb22+6M/KzfPEdEp2nprZ1uq4d4rgWN/HL7IZrct+nzu6ktXz9W+xx3cNrKlCm8afef1Hnx1xu/x6iO182n1RM0edf/TP1/7TlST60HLiwfRhUPtJ0/1LDu+Vele33W5Zu/LAWHtIPPp6Ibnh3rA7N/UjuC+7V+dXz5YRtfuHMnwLQvO4rff/en4kQ8zJz94fOMnZuO2dnZBza5fO55hHw4mZ+zbeNp6f8eBVaOXQsm9vo4znZmNQzuOXzzWfu7wWBr/AhKYMg9+DgAA");
+            Log.i("OAuth Token PURCHASE", sharedPreferences.getString("oAuthToken2", ""));
+            apiConnection.setRequestProperty("Authorization", "Bearer " +  sharedPreferences.getString("oAuthToken2",""));
+            //apiConnection.setRequestProperty("Authorization", "Bearer v^1.1#i^1#r^0#p^1#I^3#f^0#t^H4sIAAAAAAAAAOVXa2wUVRTuttuSphb8gVJ8xHUQEyQze2d29jVlV7YtTZvQbmUX0mJImcedMnR2Zpx7t+2aKLWpNYJExRiJAVOVxIBCBIxQCIJR5AeJQRIiECU08EONCWpMCFGCd6ZL2VZCK6yGxPkzueece+53vvOYuaC/ovKJoaahy9WeGaXD/aC/1ONhq0BlRfnCmWWlD5SXgAIDz3D/Y/3egbIfFiExo1vCMogs00DQ15fRDSS4whiVtQ3BFJGGBEPMQCRgWUglWpYKHAMEyzaxKZs65WtuiFFhRRFZRQ0CTlYCksoTqXHdZ9qMUVAMwlBQCbEqkDnoqBHKwmYDYdHAMYoDbJgGPA2iaRAWABACPMMH+ZWUbwW0kWYaxIQBVNxFK7h77QKot0YqIgRtTJxQ8eZEYyqZaG5Y0ppe5C/wFc/TkMIizqKJq3pTgb4Vop6Ftz4GudZCKivLECHKHx87YaJTIXEdzG3Ad5mWoRKFIKJwXDBMmJSLQmWjaWdEfGscjkRTaNU1FaCBNZybilHChrQWyji/aiUumht8zuuprKhrqgbtGLWkLtGRaGuj4ny9DRUN08sNrcfBSqfq2mmJD6ohnucitAQjajgkBfPnjDnLszzpoHrTII5IsMjXauI6SEDDidSEhGABNcQoaSTthIodQIV20esUstxKJ6djScziNYaTVpghPPjc5dQJGN+Nsa1JWQzHPUxWuAzFKNGyNIWarHRLMV89fShGrcHYEvz+3t5epjfAmHaXnwOA9be3LE3Ja2BGpFxbp9cde23qDbTmhiJDshNpAs5ZBEsfKVUCwOii4lyIByyf530irPhk6d8EBTH7JzZE0RoEBCU5xAIuEIgAKVyUWRPP16jfwQElMUdnRLsbYksXZUjLpM6yGWhrihAIqlwgokJaCUVVmo+qKi2RsUezKoQAQkmSo5H/UZ9Mt9LrdY0o06TSilTuRSr1JhNhqEy31G8aWko2Ldhm6pqc+69ic3p9evEFbKVNtHGuLpsj6xTUdfK6o3BlN5OdRZtbRUrkP2uZ2wtdE/HdFTTLR9kwx3KBaQ/rm8dF/mbuqrhkM8M4Q5ixRQubNkOgWTpEjA2RmbXJ3xeTdD7JabMbGmTCYdvUdWivYO+IBeT08d3Fg7Pf+8J+RHyIljZGCeHGb4okekfU6YL2OXZTGfmlbI7pykKECRAF2v/C590/8aoRL3EfdsBzCAx4RshtBYQBzS4ECyrKlnvL7qGQhiHJraFIZh+jiSqDtC6D/ErbkOmGOUvU7NIKT8uFVzrWFVxyhleBmvFrTmUZW1Vw5wEP3dCUs7PmVLNhwIMoORYE+JVg3g2tl73fO/t8E3+0sepZ/Rt+/8gJb+6+dNv2maB63MjjKS/xDnhKNqV2vMScV7fM8rzhPX366I9P7l2n1a7+/outaqRh96ujezYvXrXhTF167uCB6s7t87+t/uXrs4OdDz735sfMo1d6vnyk9dripgu75n2mVb22+6M/KzfPEdEp2nprZ1uq4d4rgWN/HL7IZrct+nzu6ktXz9W+xx3cNrKlCm8afef1Hnx1xu/x6iO182n1RM0edf/TP1/7TlST60HLiwfRhUPtJ0/1LDu+Vele33W5Zu/LAWHtIPPp6Ibnh3rA7N/UjuC+7V+dXz5YRtfuHMnwLQvO4rff/en4kQ8zJz94fOMnZuO2dnZBza5fO55hHw4mZ+zbeNp6f8eBVaOXQsm9vo4znZmNQzuOXzzWfu7wWBr/AhKYMg9+DgAA");
             apiConnection.setRequestProperty("Accept", "application/json");
             apiConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 

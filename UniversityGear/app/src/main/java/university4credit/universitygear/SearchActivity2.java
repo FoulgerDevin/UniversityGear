@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 public class SearchActivity2 extends AppCompatActivity {
 
-    ToggleButton button1,button2,button3;
+    ToggleButton button1,button2,button3,button4;
     ArrayList<SchoolList> list = new ArrayList<SchoolList>();
     double mindistance = 99999999999.;
     int min;
@@ -62,6 +63,18 @@ public class SearchActivity2 extends AppCompatActivity {
         SchoolList list = gps.getSchoolList();
 
                 // Called when a new location is found by the network location provider.
+        button4 = (ToggleButton)findViewById(R.id.toggleButton4);
+        SharedPreferences sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
+        String schooltemp = sharedPreferences.getString("lastsearch","non");
+        Log.d("last search:",schooltemp);
+        if(schooltemp.equalsIgnoreCase("non")==false&&schooltemp.isEmpty()==false){
+            if(schooltemp.equalsIgnoreCase(list.Schools[0])== false &&schooltemp.equalsIgnoreCase(list.Schools[1])== false &&schooltemp.equalsIgnoreCase(list.Schools[2])== false){
+                button4.setVisibility(View.VISIBLE);
+                button4.setTextOn(schooltemp);
+                button4.setTextOff(schooltemp);
+                button4.setText(schooltemp);
+            }
+        }
 
 
         button1 = (ToggleButton)findViewById(R.id.toggleButton);
@@ -95,6 +108,10 @@ public class SearchActivity2 extends AppCompatActivity {
                 }
                 if(button3.isChecked()){
                     schoolname+=button3.getText().toString();
+                    schoolname+=" ";
+                }
+                if(button4.isChecked()){
+                    schoolname+=button4.getText().toString();
                     schoolname+=" ";
                 }
                 Intent intent = new Intent(v.getContext(),SearchActivity.class);
