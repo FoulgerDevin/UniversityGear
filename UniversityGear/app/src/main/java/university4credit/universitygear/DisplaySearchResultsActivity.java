@@ -34,7 +34,7 @@ public class DisplaySearchResultsActivity extends AppCompatActivity {
     public final static String ITEM_ID = "university4credit.universitygear.ID";
     private static final String TAG = "RecyclerViewExample";
     private String searchResults;
-    private int searchOffset = 10;
+    private int searchOffset = 0;
 
     private List<Item> feedsList;
     private RecyclerView mRecyclerView;
