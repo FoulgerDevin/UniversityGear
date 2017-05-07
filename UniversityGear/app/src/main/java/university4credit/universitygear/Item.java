@@ -102,13 +102,14 @@ public class Item {
                     jsonItems = new JSONObject(item);
                     //Log.e("JSON ITEM SUMMARIES", "" + jsonItems.getString("itemSummaries"));
                     itemSummaries = new JSONArray(jsonItems.getString("itemSummaries"));
+                    Log.e("ItemSummaries", String.valueOf(itemSummaries));
                 }
-            } catch(JSONException jsonE) {
+            } catch (JSONException jsonE) {
                 Log.e("JSONOBJECT", "Failed to create JSON item");
             }
-
-            for (int i = 0; i < itemSummaries.length(); i++) {
-                if (itemSummaries != null) {
+            if (itemSummaries != null) {
+                for (int i = 0; i < itemSummaries.length(); i++) {
+                    Log.e("Item#", String.valueOf(i));
                     try {
                         JSONObject singleItem = new JSONObject(itemSummaries.getString(i));
                         JSONObject singleItemPrice = new JSONObject(singleItem.getString("price"));
@@ -122,16 +123,16 @@ public class Item {
                             con = singleItem.getString("condition");
                         }
                         Item newItem = new Item(singleItem.getString("itemId"),
-                                singleItem.getString("title"), singleItemPrice.getString("value"),
-                                con, imageUrl, null, null, null, null, null, null, null, null,
-                                null, null, null, null, null, null, null);
+                            singleItem.getString("title"), singleItemPrice.getString("value"),
+                                    con, imageUrl, null, null, null, null, null, null, null, null,
+                                    null, null, null, null, null, null, null);
                         itemFeed.add(newItem);
 
                     } catch (JSONException jsonE) {
-                        Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
+                            Log.e("ITEMFEED ARRAY", "Failed to create item feed on iteration " + i);
                     }
                 }
-            }
+        }
         } else { //single item
             if (item != null) {
                 try {
