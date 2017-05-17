@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class SearchActivity2 extends AppCompatActivity {
 
-    ToggleButton button1,button2,button3,button4;
+    Button button1,button2,button3,button4;
     ArrayList<SchoolList> list = new ArrayList<SchoolList>();
     double mindistance = 99999999999.;
     int min;
@@ -63,63 +63,83 @@ public class SearchActivity2 extends AppCompatActivity {
         SchoolList list = gps.getSchoolList();
 
                 // Called when a new location is found by the network location provider.
-        button4 = (ToggleButton)findViewById(R.id.toggleButton4);
+        button4 = (Button)findViewById(R.id.toggleButton4);
         SharedPreferences sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
         String schooltemp = sharedPreferences.getString("lastsearch","non");
         Log.d("last search:",schooltemp);
-        if(schooltemp.equalsIgnoreCase("non")==false&&schooltemp.isEmpty()==false){
+        if(schooltemp.equalsIgnoreCase("non")==false&&schooltemp.trim().length()==0){
             if(schooltemp.equalsIgnoreCase(list.Schools[0])== false &&schooltemp.equalsIgnoreCase(list.Schools[1])== false &&schooltemp.equalsIgnoreCase(list.Schools[2])== false){
                 button4.setVisibility(View.VISIBLE);
-                button4.setTextOn(schooltemp);
-                button4.setTextOff(schooltemp);
                 button4.setText(schooltemp);
             }
         }
 
 
-        button1 = (ToggleButton)findViewById(R.id.toggleButton);
-        button2 = (ToggleButton)findViewById(R.id.toggleButton2);
-        button3 = (ToggleButton)findViewById(R.id.toggleButton3);
-        button1.setTextOn(list.Schools[0]);
-        button2.setTextOn(list.Schools[1]);
-        button3.setTextOn(list.Schools[2]);
+        button1 = (Button)findViewById(R.id.toggleButton);
+        button2 = (Button)findViewById(R.id.toggleButton2);
+        button3 = (Button)findViewById(R.id.toggleButton3);
         button1.setText(list.Schools[0]);
         button2.setText(list.Schools[1]);
         button3.setText(list.Schools[2]);
-        button1.setTextOff(list.Schools[0]);
-        button2.setTextOff(list.Schools[1]);
-        button3.setTextOff(list.Schools[2]);
         mbutton = (Button)findViewById(R.id.nextbutton);
-        mbutton2 = (Button)findViewById(R.id.nextbutton2);
         edit = (EditText)findViewById(R.id.editText1);
 
-        mbutton2.setOnClickListener(new View.OnClickListener(){
+        button1.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 schoolname = "";
-                if(button1.isChecked()){
-                    schoolname+=button1.getText().toString();
-                    schoolname+=" ";
-                }
-                if(button2.isChecked()){
-                    schoolname+=button2.getText().toString();
-                    schoolname+=" ";
-                }
-                if(button3.isChecked()){
-                    schoolname+=button3.getText().toString();
-                    schoolname+=" ";
-                }
-                if(button4.isChecked()){
-                    schoolname+=button4.getText().toString();
-                    schoolname+=" ";
-                }
+                schoolname+=button1.getText().toString();
+                schoolname+= " ";
                 Intent intent = new Intent(v.getContext(),SearchActivity.class);
                 Log.d("schoolname", schoolname);
                 intent.putExtra("asdf",schoolname);
                 startActivity(intent);
             }
         });
+
+        button2.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                schoolname = "";
+                schoolname+=button2.getText().toString();
+                schoolname+= " ";
+                Intent intent = new Intent(v.getContext(),SearchActivity.class);
+                Log.d("schoolname", schoolname);
+                intent.putExtra("asdf",schoolname);
+                startActivity(intent);
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                schoolname = "";
+                schoolname+=button3.getText().toString();
+                schoolname+= " ";
+                Intent intent = new Intent(v.getContext(),SearchActivity.class);
+                Log.d("schoolname", schoolname);
+                intent.putExtra("asdf",schoolname);
+                startActivity(intent);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                schoolname = "";
+                schoolname+=button4.getText().toString();
+                schoolname+= " ";
+                Intent intent = new Intent(v.getContext(),SearchActivity.class);
+                Log.d("schoolname", schoolname);
+                intent.putExtra("asdf",schoolname);
+                startActivity(intent);
+            }
+        });
+
         mbutton.setOnClickListener(new View.OnClickListener(){
 
             @Override
