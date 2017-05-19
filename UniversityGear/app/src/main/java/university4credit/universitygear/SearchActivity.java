@@ -122,6 +122,7 @@ public class SearchActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mEdit = (EditText)findViewById(R.id.editText1);
+                tempid = "";
                 if(mEdit.getText().toString().isEmpty()) {
                     //Display Message if no keyword is provided
                     AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
@@ -328,7 +329,8 @@ public class SearchActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(params[4].isEmpty()){
+            Log.d("e", ((Integer)params[4].trim().length()).toString());
+            if(params[4].trim().length()==0){
                 params[4]= "University ";
             }
             String urlString ="https://api.ebay.com/buy/browse/v1/item_summary/search?q="+params[4]+params[0]+params[1]+params[2]+params[3]+"&filter=deliveryCountry:US&filter=itemLocationCountry:US&\tfilter=buyingOptions:%7BFIXED_PRICE%7D&limit=" + itemLimit;
