@@ -92,7 +92,7 @@ public class Item {
         String categoriesGiven = "Unspecified";
         String genderGiven = "Unspecified";
         String shipAvailability = "Unspecified";
-        String quantity = "Unspecified";
+        String quantity = "Unspecified amount sold";
 
         //This if else statement determines if the object is either a list
         //of items or a single item. If so, create each one respectively.
@@ -182,18 +182,39 @@ public class Item {
                     if (item.contains("gender")) {
                         genderGiven = singleItem.getString("gender");
                     }
-                    if (item.contains("availabilityStatusForShipToHome")) {
-                        shipAvailability = singleItem.getString("availabilityStatusForShipToHome");
-                        if (shipAvailability.equals("IN_STOCK")) {
-                            shipAvailability = "In stock";
-                        } else if (shipAvailability.equals("LIMITED_STOCK")) {
-                            shipAvailability = "Limited stock";
-                        } else if (shipAvailability.equals("OUT_OF_STOCK")) {
-                            shipAvailability = "Out of stock";
+                    if (item.contains("estimatedAvailabilities")) {
+                        try {
+                            JSONArray availabilities = new JSONArray(singleItem.getString("estimatedAvailabilities"));
+                            Log.e("AVAILABILITIES", "" + availabilities);
+                            for (int i = 0; i < availabilities.length(); i++) {
+                                JSONObject availability = availabilities.getJSONObject(i);
+                                Log.e("JSON OBJECT", "" + availability);
+                                if (availability.get("estimatedAvailabilityStatus").equals("IN_STOCK")) {
+                                    shipAvailability = "In stock";
+                                } else if (availability.get("estimatedAvailabilityStatus").equals("LIMITED_STOCK")) {
+                                    shipAvailability = "Limited stock";
+                                } else if (availability.get("estimatedAvailabilityStatus").equals("OUT_OF_STOCK")) {
+                                    shipAvailability = "Out of stock";
+                                } else if (availability.getString("estimatedSoldQuantity") != null) {
+                                    Log.e("QUANTITY","FOUND A QUANTITY");
+                                    quantity = availability.getString("estimatedSoldQuantity") + " sold";
+                                }
+                            }
+                            /*shipAvailability = availabilities.getString();"estimatedAvailabilityStatus");
+                            Log.e("SHIP AVAILABILITY", "" + shipAvailability);
+                            if (availabilities.get("estimatedAvailabilityStatus").equals("IN_STOCK")) {
+                                shipAvailability = "In stock";
+                            } else if (shipAvailability.equals("LIMITED_STOCK")) {
+                                shipAvailability = "Limited stock";
+                            } else if (shipAvailability.equals("OUT_OF_STOCK")) {
+                                shipAvailability = "Out of stock";
+                            }*/
+                        } catch (JSONException j) {
+                            Log.e("AVAILABILITY","FAILED TO FIND STOCK STATUS");
                         }
                     }
                     if (item.contains("quantitySold")) {
-                        quantity = singleItem.getString("quantitySold") + " sold";
+                        //quantity = singleItem.getString("quantitySold") + " sold";
                     }
                     sItem = new Item(singleItem.getString("itemId"),
                             singleItem.getString("title"), singleItemPrice.getString("currency") +
@@ -229,13 +250,21 @@ public class Item {
         subtitle = sTitle;
         shortDescription = sDescription;
         returnsAccepted = rAccepted;
-        if (rMethod != null && rMethod.equals("MONEY_BACK")) {
-            refundMethod = "Money back guarantee";
+        if (rMethod != null) {
+            if (rMethod.equals("MONEY_BACK")) {
+                refundMethod = "Money back guarantee";
+            } else if (rMethod.equals("MERCHANDISE_CREDIT")) {
+                refundMethod = "Money back or item replacement";
+            }
         } else {
             refundMethod = rMethod;
         }
-        if (rPayer != null && rPayer.equals("BUYER")) {
-            returnPayer = "Buyer pays return shipping";
+        if (rPayer != null) {
+            if (rPayer.equals("BUYER")) {
+                returnPayer = "Buyer pays return shipping";
+            } else if (rPayer.equals("SELLER")) {
+                returnPayer = "Seller pays return shipping";
+            }
         } else {
             returnPayer = rPayer;
         }
